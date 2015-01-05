@@ -46,9 +46,13 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = ../QT/main.cpp \
-		../QT/mainwindow.cpp moc_mainwindow.cpp
+		../QT/mainwindow.cpp \
+		../QT/open.cpp \
+		../QT/save.cpp moc_mainwindow.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
+		open.o \
+		save.o \
 		moc_mainwindow.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/shell-unix.conf \
@@ -281,7 +285,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/QT1.0.0 || mkdir -p .tmp/QT1.0.0
-	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/QT1.0.0/ && $(COPY_FILE) --parents ../QT/mainwindow.h .tmp/QT1.0.0/ && $(COPY_FILE) --parents ../QT/main.cpp ../QT/mainwindow.cpp .tmp/QT1.0.0/ && $(COPY_FILE) --parents ../QT/mainwindow.ui .tmp/QT1.0.0/ && (cd `dirname .tmp/QT1.0.0` && $(TAR) QT1.0.0.tar QT1.0.0 && $(COMPRESS) QT1.0.0.tar) && $(MOVE) `dirname .tmp/QT1.0.0`/QT1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/QT1.0.0
+	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/QT1.0.0/ && $(COPY_FILE) --parents ../QT/mainwindow.h ../QT/open.h ../QT/save.h .tmp/QT1.0.0/ && $(COPY_FILE) --parents ../QT/main.cpp ../QT/mainwindow.cpp ../QT/open.cpp ../QT/save.cpp .tmp/QT1.0.0/ && $(COPY_FILE) --parents ../QT/mainwindow.ui .tmp/QT1.0.0/ && (cd `dirname .tmp/QT1.0.0` && $(TAR) QT1.0.0.tar QT1.0.0 && $(COMPRESS) QT1.0.0.tar) && $(MOVE) `dirname .tmp/QT1.0.0`/QT1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/QT1.0.0
 
 
 clean:compiler_clean 
@@ -557,7 +561,8 @@ main.o: ../QT/main.cpp ../QT/mainwindow.h \
 		/usr/include/qt5/QtCore/qeventloop.h \
 		/usr/include/qt5/QtWidgets/qdesktopwidget.h \
 		/usr/include/qt5/QtGui/qguiapplication.h \
-		/usr/include/qt5/QtGui/qinputmethod.h
+		/usr/include/qt5/QtGui/qinputmethod.h \
+		../QT/open.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../QT/main.cpp
 
 mainwindow.o: ../QT/mainwindow.cpp ../QT/mainwindow.h \
@@ -672,8 +677,52 @@ mainwindow.o: ../QT/mainwindow.cpp ../QT/mainwindow.h \
 		/usr/include/qt5/QtGui/qtouchdevice.h \
 		/usr/include/qt5/QtWidgets/qtabwidget.h \
 		/usr/include/qt5/QtGui/qicon.h \
-		ui_mainwindow.h
+		ui_mainwindow.h \
+		/usr/include/qt5/QtCore/QVariant \
+		/usr/include/qt5/QtWidgets/QAction \
+		/usr/include/qt5/QtWidgets/qaction.h \
+		/usr/include/qt5/QtWidgets/qactiongroup.h \
+		/usr/include/qt5/QtWidgets/QApplication \
+		/usr/include/qt5/QtWidgets/qapplication.h \
+		/usr/include/qt5/QtCore/qcoreapplication.h \
+		/usr/include/qt5/QtCore/qeventloop.h \
+		/usr/include/qt5/QtWidgets/qdesktopwidget.h \
+		/usr/include/qt5/QtGui/qguiapplication.h \
+		/usr/include/qt5/QtGui/qinputmethod.h \
+		/usr/include/qt5/QtWidgets/QButtonGroup \
+		/usr/include/qt5/QtWidgets/qbuttongroup.h \
+		/usr/include/qt5/QtWidgets/QHeaderView \
+		/usr/include/qt5/QtWidgets/qheaderview.h \
+		/usr/include/qt5/QtWidgets/qabstractitemview.h \
+		/usr/include/qt5/QtWidgets/qabstractscrollarea.h \
+		/usr/include/qt5/QtWidgets/qframe.h \
+		/usr/include/qt5/QtCore/qabstractitemmodel.h \
+		/usr/include/qt5/QtCore/qitemselectionmodel.h \
+		/usr/include/qt5/QtWidgets/qabstractitemdelegate.h \
+		/usr/include/qt5/QtWidgets/qstyleoption.h \
+		/usr/include/qt5/QtWidgets/qabstractspinbox.h \
+		/usr/include/qt5/QtGui/qvalidator.h \
+		/usr/include/qt5/QtCore/qregularexpression.h \
+		/usr/include/qt5/QtWidgets/qslider.h \
+		/usr/include/qt5/QtWidgets/qabstractslider.h \
+		/usr/include/qt5/QtWidgets/qstyle.h \
+		/usr/include/qt5/QtWidgets/qtabbar.h \
+		/usr/include/qt5/QtWidgets/qrubberband.h \
+		/usr/include/qt5/QtWidgets/QMenuBar \
+		/usr/include/qt5/QtWidgets/qmenubar.h \
+		/usr/include/qt5/QtWidgets/qmenu.h \
+		/usr/include/qt5/QtWidgets/QStatusBar \
+		/usr/include/qt5/QtWidgets/qstatusbar.h \
+		/usr/include/qt5/QtWidgets/QToolBar \
+		/usr/include/qt5/QtWidgets/qtoolbar.h \
+		/usr/include/qt5/QtWidgets/QWidget
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../QT/mainwindow.cpp
+
+open.o: ../QT/open.cpp ../QT/open.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o open.o ../QT/open.cpp
+
+save.o: ../QT/save.cpp ../QT/save.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o save.o ../QT/save.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
