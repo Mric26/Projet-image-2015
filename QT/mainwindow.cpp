@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 #include "open.h"
 #include "save.h"
-
+#include <QGraphicsPixmapItem>
 using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     matrice()
 {
     ui->setupUi(this);
+    scene = new QGraphicsScene();
     image = new QImage();
 
     ui->couper->setText("");
@@ -38,8 +39,14 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->enregistrer->setText("");
     ui->enregistrer->setIcon(QIcon("IMG/enregistrer.png"));
-    QObject::connect( ui->enregistrer, SIGNAL(clicked()), this, SLOT(save()) );
 
+    if (scene != NULL) {
+
+        ui->graphicsView->setScene(scene);
+    }
+
+
+    QObject::connect( ui->enregistrer, SIGNAL(clicked()), this, SLOT(save()) );
     QObject::connect( ui->actionEnregistrer_sous, SIGNAL(clicked()), this, SLOT(saveAs()) );
 
 }
@@ -50,28 +57,35 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::paintEvent(QPaintEvent *){
-    if( image != NULL ){
-        QPainter qp(ui->dessin);
-        int x = 0;
-        int y = 0;
-        if( image->width() < this->width() ){
-            x = this->width()/2 - image->width()/2;
-        }
-        if( image->height() < this->height() ){
-            y = this->height()/2 - image->height()/2;
-        }
-       qp.drawImage(x,y,*image);
-       qp.end();
-    }
+//    if( image != NULL ){
+//        QPainter qp(this);
+//        int x = 0;
+//        int y = 0;
+//        if( image->width() < this->width() ){
+//            x = this->width()/2 - image->width()/2;
+//        }
+//        if( image->height() < this->height() ){
+//            y = this->height()/2 - image->height()/2;
+//        }
+//       qp.drawImage(x,y,*image);
+//       qp.end();
+//    }
 }
 
 QImage * MainWindow::getImage(){
     return image;
 }
 
-void MainWindow::setImage(QImage * im, QString chem){
+void MainWindow::setImage(QImage *im, QString chem){
     image = im;
     cheminImage = chem;
+
+    QPixmap *imagePix = new QPixmap();
+    imagePix->convertFromImage(*image);
+
+    scene->addPixmap(*imagePix);
+    ui->graphicsView->show();
+
 }
 
 void MainWindow::ouv(){
@@ -88,6 +102,16 @@ void MainWindow::saveAs(){
      Save sv;
      sv.sauvSous(this);
 }
+QGraphicsScene* MainWindow::getScene()
+{
+    return scene;
+}
+
+void MainWindow::setScene(QGraphicsScene *value)
+{
+    scene = value;
+}
+
 
 std::vector<QRgb> MainWindow::getMatrice() const{
     return matrice;

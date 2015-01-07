@@ -6,7 +6,7 @@
 #include <QString>
 #include <QRgb>
 #include <vector>
-
+#include <QGraphicsScene>
 namespace Ui {
 class MainWindow;
 }
@@ -24,6 +24,8 @@ public:
     QString getCheminImage();
     std::vector<QRgb> getMatrice() const;
     void setMatrice(const std::vector<QRgb> &value);
+    QGraphicsScene * getScene() ;
+    void setScene(QGraphicsScene *value);
 
 public slots:
     void ouv();
@@ -35,6 +37,7 @@ private:
     QImage* image;
     QString cheminImage;
     std::vector<QRgb> matrice;
+    QGraphicsScene *scene;
 };
 
 #endif // MAINWINDOW_H

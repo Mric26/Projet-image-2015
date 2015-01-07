@@ -15,31 +15,6 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="1">
-     <widget class="QScrollArea" name="scrollArea">
-      <property name="widgetResizable">
-       <bool>true</bool>
-      </property>
-      <widget class="QWidget" name="aireDeDessin">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>585</width>
-         <height>394</height>
-        </rect>
-       </property>
-       <layout class="QGridLayout" name="gridLayout_3">
-        <property name="sizeConstraint">
-         <enum>QLayout::SetFixedSize</enum>
-        </property>
-        <item row="0" column="0">
-         <widget class="QWidget" name="dessin" native="true"/>
-        </item>
-       </layout>
-      </widget>
-     </widget>
-    </item>
     <item row="0" column="0">
      <layout class="QGridLayout" name="gridLayout_2">
       <property name="sizeConstraint">
@@ -237,6 +212,22 @@
       </item>
      </layout>
     </item>
+    <item row="0" column="1">
+     <widget class="QGraphicsView" name="graphicsView">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -245,7 +236,7 @@
      <x>0</x>
      <y>0</y>
      <width>688</width>
-     <height>19</height>
+     <height>29</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFichier">

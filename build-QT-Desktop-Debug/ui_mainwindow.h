@@ -13,13 +13,13 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QGraphicsView>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
-#include <QtWidgets/QScrollArea>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QWidget>
@@ -41,10 +41,6 @@ public:
     QAction *actionPipette;
     QWidget *centralWidget;
     QGridLayout *gridLayout;
-    QScrollArea *scrollArea;
-    QWidget *aireDeDessin;
-    QGridLayout *gridLayout_3;
-    QWidget *dessin;
     QGridLayout *gridLayout_2;
     QPushButton *histogramme;
     QPushButton *flou;
@@ -56,6 +52,7 @@ public:
     QPushButton *couper;
     QSpacerItem *verticalSpacer;
     QPushButton *gris;
+    QGraphicsView *graphicsView;
     QMenuBar *menuBar;
     QMenu *menuFichier;
     QMenu *menu_dition;
@@ -93,26 +90,6 @@ public:
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
-        scrollArea = new QScrollArea(centralWidget);
-        scrollArea->setObjectName(QStringLiteral("scrollArea"));
-        scrollArea->setWidgetResizable(true);
-        aireDeDessin = new QWidget();
-        aireDeDessin->setObjectName(QStringLiteral("aireDeDessin"));
-        aireDeDessin->setGeometry(QRect(0, 0, 585, 394));
-        gridLayout_3 = new QGridLayout(aireDeDessin);
-        gridLayout_3->setSpacing(6);
-        gridLayout_3->setContentsMargins(11, 11, 11, 11);
-        gridLayout_3->setObjectName(QStringLiteral("gridLayout_3"));
-        gridLayout_3->setSizeConstraint(QLayout::SetFixedSize);
-        dessin = new QWidget(aireDeDessin);
-        dessin->setObjectName(QStringLiteral("dessin"));
-
-        gridLayout_3->addWidget(dessin, 0, 0, 1, 1);
-
-        scrollArea->setWidget(aireDeDessin);
-
-        gridLayout->addWidget(scrollArea, 0, 1, 1, 1);
-
         gridLayout_2 = new QGridLayout();
         gridLayout_2->setSpacing(0);
         gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
@@ -201,10 +178,21 @@ public:
 
         gridLayout->addLayout(gridLayout_2, 0, 0, 1, 1);
 
+        graphicsView = new QGraphicsView(centralWidget);
+        graphicsView->setObjectName(QStringLiteral("graphicsView"));
+        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(graphicsView->sizePolicy().hasHeightForWidth());
+        graphicsView->setSizePolicy(sizePolicy);
+        graphicsView->setMinimumSize(QSize(0, 0));
+
+        gridLayout->addWidget(graphicsView, 0, 1, 1, 1);
+
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 688, 19));
+        menuBar->setGeometry(QRect(0, 0, 688, 29));
         menuFichier = new QMenu(menuBar);
         menuFichier->setObjectName(QStringLiteral("menuFichier"));
         menu_dition = new QMenu(menuBar);

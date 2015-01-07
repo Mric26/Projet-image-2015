@@ -13,8 +13,12 @@ void Open::ouvrir( MainWindow * w ) {
 
     //ouverture
     QImage * im = new QImage();
-    im->load(chemin);
-    w->setImage( im, chemin );
+    bool charge = im->load(chemin);
+
+    if (charge) {
+        w->setImage( im, chemin );
+    }
+
 
     //Génération de la matrice de l'image
 //  vector<QRgb> mat(im->width()*im->height());
@@ -27,5 +31,5 @@ void Open::ouvrir( MainWindow * w ) {
 //    w->setMatrice(mat);
 
     //repaint
-    w->repaint();
+//    w->repaint();
 }
