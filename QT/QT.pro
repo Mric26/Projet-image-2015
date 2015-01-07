@@ -15,10 +15,12 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     open.cpp \
-    save.cpp
+    save.cpp \
+    couper.cpp
 
 HEADERS  += mainwindow.h \
     open.h \
-    save.h
+    save.h \
+    couper.h
 
 FORMS    += mainwindow.ui

@@ -31,6 +31,7 @@ public slots:
     void ouv();
     void save();
     void saveAs();
+     void couper();
 
 private:
     Ui::MainWindow *ui;

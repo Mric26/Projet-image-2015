@@ -48,11 +48,13 @@ OBJECTS_DIR   = ./
 SOURCES       = ../QT/main.cpp \
 		../QT/mainwindow.cpp \
 		../QT/open.cpp \
-		../QT/save.cpp moc_mainwindow.cpp
+		../QT/save.cpp \
+		../QT/couper.cpp moc_mainwindow.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
 		open.o \
 		save.o \
+		couper.o \
 		moc_mainwindow.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/shell-unix.conf \
@@ -285,7 +287,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/QT1.0.0 || mkdir -p .tmp/QT1.0.0
-	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/QT1.0.0/ && $(COPY_FILE) --parents ../QT/mainwindow.h ../QT/open.h ../QT/save.h .tmp/QT1.0.0/ && $(COPY_FILE) --parents ../QT/main.cpp ../QT/mainwindow.cpp ../QT/open.cpp ../QT/save.cpp .tmp/QT1.0.0/ && $(COPY_FILE) --parents ../QT/mainwindow.ui .tmp/QT1.0.0/ && (cd `dirname .tmp/QT1.0.0` && $(TAR) QT1.0.0.tar QT1.0.0 && $(COMPRESS) QT1.0.0.tar) && $(MOVE) `dirname .tmp/QT1.0.0`/QT1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/QT1.0.0
+	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/QT1.0.0/ && $(COPY_FILE) --parents ../QT/mainwindow.h ../QT/open.h ../QT/save.h ../QT/couper.h .tmp/QT1.0.0/ && $(COPY_FILE) --parents ../QT/main.cpp ../QT/mainwindow.cpp ../QT/open.cpp ../QT/save.cpp ../QT/couper.cpp .tmp/QT1.0.0/ && $(COPY_FILE) --parents ../QT/mainwindow.ui .tmp/QT1.0.0/ && (cd `dirname .tmp/QT1.0.0` && $(TAR) QT1.0.0.tar QT1.0.0 && $(COMPRESS) QT1.0.0.tar) && $(MOVE) `dirname .tmp/QT1.0.0`/QT1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/QT1.0.0
 
 
 clean:compiler_clean 
@@ -765,6 +767,7 @@ mainwindow.o: ../QT/mainwindow.cpp ../QT/mainwindow.h \
 		/usr/include/qt5/QtCore/qfileinfo.h \
 		/usr/include/qt5/QtWidgets/qdialog.h \
 		../QT/save.h \
+		../QT/couper.h \
 		/usr/include/qt5/QtWidgets/QGraphicsPixmapItem \
 		/usr/include/qt5/QtWidgets/qgraphicsitem.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../QT/mainwindow.cpp
@@ -1025,6 +1028,9 @@ save.o: ../QT/save.cpp ../QT/save.h \
 		/usr/include/qt5/QtWidgets/QGraphicsScene \
 		/usr/include/qt5/QtWidgets/qgraphicsscene.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o save.o ../QT/save.cpp
+
+couper.o: ../QT/couper.cpp ../QT/couper.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o couper.o ../QT/couper.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp

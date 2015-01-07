@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "open.h"
 #include "save.h"
+#include "couper.h"
 #include <QGraphicsPixmapItem>
 using namespace std;
 
@@ -17,6 +18,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->couper->setText("");
     ui->couper->setIcon(QIcon("IMG/ciseaux.png"));
+    QObject::connect( ui->couper, SIGNAL(clicked()), this, SLOT(couper()) );
+    //QObject::connect( ui->, SIGNAL(triggered()), this, SLOT(couper()) );
 
     ui->pipette->setText("");
     ui->pipette->setIcon(QIcon("IMG/pipette.jpg"));
@@ -36,40 +39,27 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->ouvrir->setText("");
     ui->ouvrir->setIcon(QIcon("IMG/ouvrir.jpg"));
     QObject::connect( ui->ouvrir, SIGNAL(clicked()), this, SLOT(ouv()) );
+    QObject::connect( ui->actionOuvrir_2, SIGNAL(triggered()), this, SLOT(ouv()) );
 
     ui->enregistrer->setText("");
     ui->enregistrer->setIcon(QIcon("IMG/enregistrer.png"));
+    QObject::connect( ui->enregistrer, SIGNAL(clicked()), this, SLOT(save()) );
+    QObject::connect( ui->actionEnregistrer, SIGNAL(triggered()), this, SLOT(save()) );
 
     if (scene != NULL) {
-
         ui->graphicsView->setScene(scene);
     }
 
-
-    QObject::connect( ui->enregistrer, SIGNAL(clicked()), this, SLOT(save()) );
-    QObject::connect( ui->actionEnregistrer_sous, SIGNAL(clicked()), this, SLOT(saveAs()) );
+    QObject::connect( ui->actionEnregistrer_sous, SIGNAL(triggered()), this, SLOT(saveAs()) );
 
 }
 
-MainWindow::~MainWindow()
-{
+MainWindow::~MainWindow(){
     delete ui;
 }
 
 void MainWindow::paintEvent(QPaintEvent *){
-//    if( image != NULL ){
-//        QPainter qp(this);
-//        int x = 0;
-//        int y = 0;
-//        if( image->width() < this->width() ){
-//            x = this->width()/2 - image->width()/2;
-//        }
-//        if( image->height() < this->height() ){
-//            y = this->height()/2 - image->height()/2;
-//        }
-//       qp.drawImage(x,y,*image);
-//       qp.end();
-//    }
+
 }
 
 QImage * MainWindow::getImage(){
@@ -102,6 +92,12 @@ void MainWindow::saveAs(){
      Save sv;
      sv.sauvSous(this);
 }
+
+void MainWindow::couper(){
+    Couper cp;
+    cp.couper();
+}
+
 QGraphicsScene* MainWindow::getScene()
 {
     return scene;
