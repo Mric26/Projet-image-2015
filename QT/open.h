@@ -1,12 +1,14 @@
 #ifndef OPEN_H
 #define OPEN_H
-#include <string>
-
-using namespace std ;
+#include <QString>
+#include <QImage>
+#include <QFileDialog>
+#include <iostream>
+#include "mainwindow.h"
 
 class Open {
 public:
-    int ouvrir(string chemin);
+    void ouvrir(MainWindow *w);
 };
 
 #endif // OPEN_H

@@ -1,15 +1,16 @@
 #ifndef SAVE_H
 #define SAVE_H
-#include <opencv2/core/core.hpp>
-#include <opencv2/highgui/highgui.hpp>
 #include <string>
+#include <QFileDialog>
+#include "mainwindow.h"
 
 using namespace std;
 
 class Save
 {
 public:
-    int sauv( cv::Mat im, string chemin);
+    void sauv(MainWindow *w);
+    void sauvSous(MainWindow * w);
 };
 
 #endif // SAVE_H

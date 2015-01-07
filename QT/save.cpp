@@ -1,8 +1,10 @@
 #include "save.h"
 
-int Save::sauv( cv::Mat im, string chemin ){
+void Save::sauv(MainWindow * w){
+    w->getImage()->save(w->getCheminImage());
+}
 
-    imwrite( chemin, im );
-    return 1;
-
+void Save::sauvSous(MainWindow * w){
+    QString chemin = QFileDialog::getSaveFileName(w,"Enregistrer sous...");
+    w->getImage()->save(chemin);
 }
