@@ -3,7 +3,7 @@
 #include "open.h"
 #include "save.h"
 #include "couper.h"
-#include <QGraphicsPixmapItem>
+
 using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -15,10 +15,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     scene = new QGraphicsScene();
     image = new QImage();
+    imageaffichee = new QGraphicsPixmapItem();
 
     ui->couper->setText("");
     ui->couper->setIcon(QIcon("IMG/ciseaux.png"));
-    QObject::connect( ui->couper, SIGNAL(clicked(bool)), this, SLOT(couper()) );
+    QObject::connect( ui->couper, SIGNAL(toggled(bool)), this, SLOT(couper()) );
     //QObject::connect( ui->, SIGNAL(triggered()), this, SLOT(couper()) );
 
     ui->pipette->setText("");
@@ -71,6 +72,7 @@ QImage * MainWindow::getImage(){
     return image;
 }
 
+
 void MainWindow::setImage(QImage *im, QString chem){
     image = im;
     cheminImage = chem;
@@ -78,7 +80,12 @@ void MainWindow::setImage(QImage *im, QString chem){
     QPixmap *imagePix = new QPixmap();
     imagePix->convertFromImage(*image);
 
-    scene->addPixmap(*imagePix);
+    if (imageaffichee != NULL) {
+        scene->removeItem(imageaffichee);
+    }
+
+    imageaffichee = scene->addPixmap(*imagePix);
+    scene->setSceneRect(0,0,image->width(),image->height());
     ui->graphicsView->show();
 
 }
@@ -100,6 +107,7 @@ void MainWindow::saveAs(){
 
 void MainWindow::couper(){
     Couper cp;
+    ui->graphicsView->setChecked(ui->couper->isChecked());
     cp.couper( ui->graphicsView );
 }
 

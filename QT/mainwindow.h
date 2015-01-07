@@ -7,6 +7,7 @@
 #include <QRgb>
 #include <vector>
 #include <QGraphicsScene>
+#include <QGraphicsPixmapItem>
 namespace Ui {
 class MainWindow;
 }
@@ -40,6 +41,7 @@ private:
     QString cheminImage;
     std::vector<QRgb> matrice;
     QGraphicsScene *scene;
+    QGraphicsPixmapItem *imageaffichee;
 };
 
 #endif // MAINWINDOW_H
