@@ -156,6 +156,7 @@ public:
         couper = new QPushButton(centralWidget);
         couper->setObjectName(QStringLiteral("couper"));
         couper->setAutoFillBackground(false);
+        couper->setCheckable(true);
         couper->setAutoDefault(false);
         couper->setDefault(false);
         couper->setFlat(false);
@@ -192,7 +193,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 688, 29));
+        menuBar->setGeometry(QRect(0, 0, 688, 19));
         menuFichier = new QMenu(menuBar);
         menuFichier->setObjectName(QStringLiteral("menuFichier"));
         menu_dition = new QMenu(menuBar);

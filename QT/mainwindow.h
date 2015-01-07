@@ -18,6 +18,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     void paintEvent(QPaintEvent *);
+    void mousePressEvent(QMouseEvent *event);
     ~MainWindow();
     QImage * getImage();
     void setImage(QImage * im, QString chem);
