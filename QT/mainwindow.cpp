@@ -62,9 +62,9 @@ void MainWindow::paintEvent(QPaintEvent *){
 }
 
 void MainWindow::mousePressEvent(QMouseEvent *event) {
-   // ui->graphicsView->setDragMode(QGraphicsView::RubberBandDrag);
-    QPoint point = QWidget::mapFromGlobal(QCursor::pos());
-    cout << " x : " << point.x() << " y : " << point.y() << endl;
+   //ui->graphicsView->setDragMode(QGraphicsView::RubberBandDrag);
+    //QPoint point = QWidget::mapFromGlobal(QCursor::pos());
+    //cout << "MainW x : " << point.x() << " y : " << point.y() << endl;
 }
 
 QImage * MainWindow::getImage(){

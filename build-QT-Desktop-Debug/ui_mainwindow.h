@@ -13,7 +13,6 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
-#include <QtWidgets/QGraphicsView>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
@@ -23,6 +22,7 @@
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QWidget>
+#include "mygraphicsview.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -52,7 +52,7 @@ public:
     QPushButton *couper;
     QSpacerItem *verticalSpacer;
     QPushButton *gris;
-    QGraphicsView *graphicsView;
+    MyGraphicsView *graphicsView;
     QMenuBar *menuBar;
     QMenu *menuFichier;
     QMenu *menu_dition;
@@ -179,7 +179,7 @@ public:
 
         gridLayout->addLayout(gridLayout_2, 0, 0, 1, 1);
 
-        graphicsView = new QGraphicsView(centralWidget);
+        graphicsView = new MyGraphicsView(centralWidget);
         graphicsView->setObjectName(QStringLiteral("graphicsView"));
         QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         sizePolicy.setHorizontalStretch(0);

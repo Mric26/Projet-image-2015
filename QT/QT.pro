@@ -16,11 +16,13 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     open.cpp \
     save.cpp \
-    couper.cpp
+    couper.cpp \
+    mygraphicsview.cpp
 
 HEADERS  += mainwindow.h \
     open.h \
     save.h \
-    couper.h
+    couper.h \
+    mygraphicsview.h
 
 FORMS    += mainwindow.ui
