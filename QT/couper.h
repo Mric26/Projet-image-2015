@@ -1,14 +1,13 @@
 #ifndef COUPER_H
 #define COUPER_H
-#include <QGraphicsView>
+#include "mainwindow.h"
 #include <QMouseEvent>
 #include <iostream>
 
 class Couper{
 
 public:
-    void couper( QGraphicsView * g );
-    void mousePressEvent(QMouseEvent *event);
+    void couper(MainWindow *w , QPoint d, QPoint f);
 
 };
 

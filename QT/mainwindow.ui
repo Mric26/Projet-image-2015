@@ -168,7 +168,7 @@
          <string>PushButton</string>
         </property>
         <property name="checkable">
-         <bool>true</bool>
+         <bool>false</bool>
         </property>
         <property name="autoDefault">
          <bool>false</bool>

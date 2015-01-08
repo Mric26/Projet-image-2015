@@ -8,6 +8,7 @@
 #include <vector>
 #include <QGraphicsScene>
 #include <QGraphicsPixmapItem>
+
 namespace Ui {
 class MainWindow;
 }
@@ -21,11 +22,15 @@ public:
     void paintEvent(QPaintEvent *);
     void mousePressEvent(QMouseEvent *event);
     ~MainWindow();
-    QImage * getImage();
+
+    QImage * getImage();    
     void setImage(QImage * im, QString chem);
+
     QString getCheminImage();
+
     std::vector<QRgb> getMatrice() const;
     void setMatrice(const std::vector<QRgb> &value);
+
     QGraphicsScene * getScene() ;
     void setScene(QGraphicsScene *value);
 

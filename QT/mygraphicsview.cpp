@@ -1,31 +1,51 @@
 #include "mygraphicsview.h"
+#include "couper.h"
 
 using namespace std;
 
-MyGraphicsView::MyGraphicsView(QWidget *w):QGraphicsView(w){}
+MyGraphicsView::MyGraphicsView(QWidget *w):QGraphicsView(w){
+    //rb = new QRubberBand(QRubberBand::Rectangle, this);
+}
 
 void MyGraphicsView::mousePressEvent(QMouseEvent *event){
-    if (checked) {
-        this->setDragMode(QGraphicsView::RubberBandDrag);
-        QGraphicsView::mousePressEvent(event);
-        QPoint point = QWidget::mapFromGlobal(QCursor::pos());
-        cout << "MGV Init x : " << point.x() << " y : " << point.y() << endl;
-    }
-    else {
-        this->setDragMode(QGraphicsView::NoDrag);
-    }
+    setPointD(event->pos());
+    rb = new QRubberBand(QRubberBand::Rectangle, this);
+    rb->setGeometry(QRect(getPointD(),QSize()));
+    rb->show();
+}
 
+void MyGraphicsView::mouseMoveEvent(QMouseEvent *event) {
+    rb->setGeometry(QRect(getPointD(), event->pos()).normalized());
 }
 
 void MyGraphicsView::mouseReleaseEvent(QMouseEvent *event){
-    if (checked) {
-        QPoint point = QWidget::mapFromGlobal(QCursor::pos());
-        cout << "MGV End x : " << point.x() << " y : " << point.y() << endl;
-        this->setDragMode(QGraphicsView::NoDrag);
-    }
+    setPointF(event->pos());
+}
+
+QPoint MyGraphicsView::getPointD() const{
+    return pointD;
+}
+
+void MyGraphicsView::setPointD(const QPoint &value){
+    pointD = value;
+}
+
+QPoint MyGraphicsView::getPointF() const{
+    return pointF;
+}
+
+void MyGraphicsView::setPointF(const QPoint &value){
+    pointF = value;
+}
+QRubberBand *MyGraphicsView::getRb() const
+{
+    return rb;
+}
+
+void MyGraphicsView::setRb(QRubberBand *value)
+{
+    rb = value;
 }
 
 
-void MyGraphicsView::setChecked(bool c){
-    checked = c;
-}
+

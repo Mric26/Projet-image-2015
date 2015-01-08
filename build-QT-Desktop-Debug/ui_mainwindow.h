@@ -156,7 +156,7 @@ public:
         couper = new QPushButton(centralWidget);
         couper->setObjectName(QStringLiteral("couper"));
         couper->setAutoFillBackground(false);
-        couper->setCheckable(true);
+        couper->setCheckable(false);
         couper->setAutoDefault(false);
         couper->setDefault(false);
         couper->setFlat(false);

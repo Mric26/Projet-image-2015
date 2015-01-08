@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->couper->setText("");
     ui->couper->setIcon(QIcon("IMG/ciseaux.png"));
-    QObject::connect( ui->couper, SIGNAL(toggled(bool)), this, SLOT(couper()) );
+    QObject::connect( ui->couper, SIGNAL(clicked()), this, SLOT(couper()) );
     //QObject::connect( ui->, SIGNAL(triggered()), this, SLOT(couper()) );
 
     ui->pipette->setText("");
@@ -63,15 +63,12 @@ void MainWindow::paintEvent(QPaintEvent *){
 }
 
 void MainWindow::mousePressEvent(QMouseEvent *event) {
-   //ui->graphicsView->setDragMode(QGraphicsView::RubberBandDrag);
-    //QPoint point = QWidget::mapFromGlobal(QCursor::pos());
     //cout << "MainW x : " << point.x() << " y : " << point.y() << endl;
 }
 
 QImage * MainWindow::getImage(){
     return image;
 }
-
 
 void MainWindow::setImage(QImage *im, QString chem){
     image = im;
@@ -106,9 +103,9 @@ void MainWindow::saveAs(){
 }
 
 void MainWindow::couper(){
+    ui->graphicsView->getRb()->hide();
     Couper cp;
-    ui->graphicsView->setChecked(ui->couper->isChecked());
-    cp.couper( ui->graphicsView );
+    cp.couper(this, ui->graphicsView->getPointD(), ui->graphicsView->getPointF());
 }
 
 QGraphicsScene* MainWindow::getScene()
