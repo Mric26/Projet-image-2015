@@ -8,6 +8,7 @@
 #include <vector>
 #include <QGraphicsScene>
 #include <QGraphicsPixmapItem>
+#include "convolution.h"
 
 namespace Ui {
 class MainWindow;
@@ -38,7 +39,8 @@ public slots:
     void ouv();
     void save();
     void saveAs();
-     void couper();
+    void couper();
+    void flouLeger();
 
 private:
     Ui::MainWindow *ui;

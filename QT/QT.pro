@@ -17,12 +17,14 @@ SOURCES += main.cpp\
     open.cpp \
     save.cpp \
     couper.cpp \
-    mygraphicsview.cpp
+    mygraphicsview.cpp \
+    convolution.cpp
 
 HEADERS  += mainwindow.h \
     open.h \
     save.h \
     couper.h \
-    mygraphicsview.h
+    mygraphicsview.h \
+    convolution.h
 
 FORMS    += mainwindow.ui

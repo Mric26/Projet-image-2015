@@ -30,6 +30,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->flou->setText("");
     ui->flou->setIcon(QIcon("IMG/flou.png"));
+    QObject::connect( ui->flou, SIGNAL(clicked()), this, SLOT(flouLeger()) );
 
     ui->fusion->setText("");
     ui->fusion->setIcon(QIcon("IMG/fusion.png"));
@@ -106,6 +107,27 @@ void MainWindow::couper(){
     ui->graphicsView->getRb()->hide();
     Couper cp;
     cp.couper(this, ui->graphicsView->getPointD(), ui->graphicsView->getPointF());
+}
+
+void MainWindow::flouLeger()
+{
+    Convolution c;
+    int **matFlou;
+    matFlou = new int *[3];
+    matFlou[0] = new int[3];
+    matFlou[0][0] = 1;
+    matFlou[0][1] = 2;
+    matFlou[0][2] = 1;
+    matFlou[1] = new int[3];
+    matFlou[1][0] = 2;
+    matFlou[1][1] = 4;
+    matFlou[1][2] = 2;
+    matFlou[2] = new int[3];
+    matFlou[2][0] = 1;
+    matFlou[2][1] = 2;
+    matFlou[2][2] = 1;
+
+    setImage(c.conv(image,matFlou,3,3),cheminImage);
 }
 
 QGraphicsScene* MainWindow::getScene()
