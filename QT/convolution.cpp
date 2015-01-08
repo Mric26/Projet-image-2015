@@ -32,11 +32,15 @@ QImage *Convolution::conv(QImage *image, int ** matrice, int matWidth, int matHe
                     for (int n = -c; n < c+1; ++n) {
                         if (i-m > -1 && j-n > -1 && i-m < imWidth && j-n < imHeight) {
                             couleurPix = image->pixel(i-m,j-n);
-
-                             bleu = bleu + (float) matrice[m+c][n+l] * qBlue(couleurPix);
-                             rouge = rouge + (float) matrice[m+c][n+l] * qRed(couleurPix);
-                             vert = vert +  (float) matrice[m+c][n+l] * qGreen(couleurPix);
+                        }else {
+                            couleurPix = image->pixel(i,j);
                         }
+
+
+                         bleu = bleu + (float) matrice[m+c][n+l] * qBlue(couleurPix);
+                         rouge = rouge + (float) matrice[m+c][n+l] * qRed(couleurPix);
+                         vert = vert +  (float) matrice[m+c][n+l] * qGreen(couleurPix);
+
                     }
                 }
                 rouge = rouge/somme;
@@ -61,7 +65,7 @@ QImage *Convolution::conv(QImage *image, int ** matrice, int matWidth, int matHe
                       rouge = 0;
                  }
 //                 std::cout << "nouvelles couleurs" << qRgb(rouge, vert, bleu) << std::endl;
-                 nouvelleImage->setPixel(i,j,qRgb(rouge, vert, bleu));
+                 nouvelleImage->setPixel(i,j,qRgb(int(rouge + 0.5), int(vert + 0.5), int(bleu + 0.5)));
             }
     }
 //    std::cout << "Done" << std::endl;
