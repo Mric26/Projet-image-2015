@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Projet Image</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
@@ -239,7 +239,7 @@
      <x>0</x>
      <y>0</y>
      <width>688</width>
-     <height>19</height>
+     <height>29</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFichier">
@@ -256,9 +256,17 @@
     <property name="title">
      <string>édition</string>
     </property>
+    <widget class="QMenu" name="menuFlou">
+     <property name="title">
+      <string>flou</string>
+     </property>
+     <addaction name="actionFlouLeger"/>
+     <addaction name="actionFlouMoyen"/>
+     <addaction name="actionFlouFort"/>
+    </widget>
     <addaction name="actionHistogramme"/>
     <addaction name="actionNiveau_de_gris"/>
-    <addaction name="actionFlou"/>
+    <addaction name="menuFlou"/>
     <addaction name="actionFusion"/>
     <addaction name="actionPipette"/>
    </widget>
@@ -307,11 +315,6 @@
     <string>niveau de gris</string>
    </property>
   </action>
-  <action name="actionFlou">
-   <property name="text">
-    <string>flou</string>
-   </property>
-  </action>
   <action name="actionFusion">
    <property name="text">
     <string>fusion</string>
@@ -320,6 +323,21 @@
   <action name="actionPipette">
    <property name="text">
     <string>pipette</string>
+   </property>
+  </action>
+  <action name="actionFlouLeger">
+   <property name="text">
+    <string>léger</string>
+   </property>
+  </action>
+  <action name="actionFlouMoyen">
+   <property name="text">
+    <string>moyen</string>
+   </property>
+  </action>
+  <action name="actionFlouFort">
+   <property name="text">
+    <string>fort</string>
    </property>
   </action>
  </widget>

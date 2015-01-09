@@ -5,7 +5,6 @@
 #include <iostream>
 #include <QString>
 #include <QRgb>
-#include <vector>
 #include <QGraphicsScene>
 #include <QGraphicsPixmapItem>
 #include "convolution.h"
@@ -41,6 +40,8 @@ public slots:
     void saveAs();
     void couper();
     void flouLeger();
+    void flouMoyen();
+    void flouFort();
 
 private:
     Ui::MainWindow *ui;

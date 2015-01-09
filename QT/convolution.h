@@ -8,6 +8,7 @@ class Convolution
 {
 public:
     QImage *conv(QImage *image, int **matrice, int matWidth, int matHeight);
+    int **genererBinomial(int **matrice,  int tailleVoulue, int tailleActuelle);
 };
 
 #endif // CONVOLUTION_H

@@ -28,3 +28,6 @@ HEADERS  += mainwindow.h \
     convolution.h
 
 FORMS    += mainwindow.ui
+
+RESOURCES += \
+    resources.qrc
