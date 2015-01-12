@@ -36,9 +36,11 @@ public:
     QAction *actionOuvrir_2;
     QAction *actionHistogramme;
     QAction *actionNiveau_de_gris;
-    QAction *actionFlou;
     QAction *actionFusion;
     QAction *actionPipette;
+    QAction *actionFlouLeger;
+    QAction *actionFlouMoyen;
+    QAction *actionFlouFort;
     QWidget *centralWidget;
     QGridLayout *gridLayout;
     QGridLayout *gridLayout_2;
@@ -56,6 +58,7 @@ public:
     QMenuBar *menuBar;
     QMenu *menuFichier;
     QMenu *menu_dition;
+    QMenu *menuFlou;
     QMenu *menuAbout;
     QStatusBar *statusBar;
 
@@ -78,12 +81,16 @@ public:
         actionHistogramme->setObjectName(QStringLiteral("actionHistogramme"));
         actionNiveau_de_gris = new QAction(MainWindow);
         actionNiveau_de_gris->setObjectName(QStringLiteral("actionNiveau_de_gris"));
-        actionFlou = new QAction(MainWindow);
-        actionFlou->setObjectName(QStringLiteral("actionFlou"));
         actionFusion = new QAction(MainWindow);
         actionFusion->setObjectName(QStringLiteral("actionFusion"));
         actionPipette = new QAction(MainWindow);
         actionPipette->setObjectName(QStringLiteral("actionPipette"));
+        actionFlouLeger = new QAction(MainWindow);
+        actionFlouLeger->setObjectName(QStringLiteral("actionFlouLeger"));
+        actionFlouMoyen = new QAction(MainWindow);
+        actionFlouMoyen->setObjectName(QStringLiteral("actionFlouMoyen"));
+        actionFlouFort = new QAction(MainWindow);
+        actionFlouFort->setObjectName(QStringLiteral("actionFlouFort"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         gridLayout = new QGridLayout(centralWidget);
@@ -193,11 +200,13 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 688, 19));
+        menuBar->setGeometry(QRect(0, 0, 688, 29));
         menuFichier = new QMenu(menuBar);
         menuFichier->setObjectName(QStringLiteral("menuFichier"));
         menu_dition = new QMenu(menuBar);
         menu_dition->setObjectName(QStringLiteral("menu_dition"));
+        menuFlou = new QMenu(menu_dition);
+        menuFlou->setObjectName(QStringLiteral("menuFlou"));
         menuAbout = new QMenu(menuBar);
         menuAbout->setObjectName(QStringLiteral("menuAbout"));
         MainWindow->setMenuBar(menuBar);
@@ -215,9 +224,12 @@ public:
         menuFichier->addSeparator();
         menu_dition->addAction(actionHistogramme);
         menu_dition->addAction(actionNiveau_de_gris);
-        menu_dition->addAction(actionFlou);
+        menu_dition->addAction(menuFlou->menuAction());
         menu_dition->addAction(actionFusion);
         menu_dition->addAction(actionPipette);
+        menuFlou->addAction(actionFlouLeger);
+        menuFlou->addAction(actionFlouMoyen);
+        menuFlou->addAction(actionFlouFort);
 
         retranslateUi(MainWindow);
 
@@ -226,7 +238,7 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Projet Image", 0));
         actionEnregistrer->setText(QApplication::translate("MainWindow", "enregistrer", 0));
         actionFermer->setText(QApplication::translate("MainWindow", "fermer", 0));
         actionEnregistrer_sous->setText(QApplication::translate("MainWindow", "enregistrer sous", 0));
@@ -234,9 +246,11 @@ public:
         actionOuvrir_2->setText(QApplication::translate("MainWindow", "ouvrir", 0));
         actionHistogramme->setText(QApplication::translate("MainWindow", "histogramme", 0));
         actionNiveau_de_gris->setText(QApplication::translate("MainWindow", "niveau de gris", 0));
-        actionFlou->setText(QApplication::translate("MainWindow", "flou", 0));
         actionFusion->setText(QApplication::translate("MainWindow", "fusion", 0));
         actionPipette->setText(QApplication::translate("MainWindow", "pipette", 0));
+        actionFlouLeger->setText(QApplication::translate("MainWindow", "l\303\251ger", 0));
+        actionFlouMoyen->setText(QApplication::translate("MainWindow", "moyen", 0));
+        actionFlouFort->setText(QApplication::translate("MainWindow", "fort", 0));
         histogramme->setText(QApplication::translate("MainWindow", "PushButton", 0));
         flou->setText(QApplication::translate("MainWindow", "PushButton", 0));
         fusion->setText(QApplication::translate("MainWindow", "PushButton", 0));
@@ -247,6 +261,7 @@ public:
         gris->setText(QApplication::translate("MainWindow", "PushButton", 0));
         menuFichier->setTitle(QApplication::translate("MainWindow", "fichier", 0));
         menu_dition->setTitle(QApplication::translate("MainWindow", "\303\251dition", 0));
+        menuFlou->setTitle(QApplication::translate("MainWindow", "flou", 0));
         menuAbout->setTitle(QApplication::translate("MainWindow", "about", 0));
     } // retranslateUi
 

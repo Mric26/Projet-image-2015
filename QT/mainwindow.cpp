@@ -30,9 +30,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->flou->setText("");
     ui->flou->setIcon(QIcon("IMG/flou.png"));
     QObject::connect( ui->flou, SIGNAL(clicked()), this, SLOT(flouLeger()) );
-//    QObject::connect( ui->actionFlouLeger, SIGNAL(clicked()), this, SLOT(flouLeger()) );
-//    QObject::connect( ui->actionFlouMoyen, SIGNAL(clicked()), this, SLOT(flouMoyen()) );
-//    QObject::connect( ui->actionFlouFort, SIGNAL(clicked()), this, SLOT(flouFort()) );
+    QObject::connect( ui->actionFlouLeger, SIGNAL(triggered()), this, SLOT(flouLeger()) );
+    QObject::connect( ui->actionFlouMoyen, SIGNAL(triggered()), this, SLOT(flouMoyen()) );
+    QObject::connect( ui->actionFlouFort, SIGNAL(triggered()), this, SLOT(flouFort()) );
 
     ui->fusion->setText("");
     ui->fusion->setIcon(QIcon("IMG/fusion.png"));
@@ -115,62 +115,17 @@ void MainWindow::showHisto(){
 
 void MainWindow::flouLeger(){
     Convolution c;
-//    int **matFlou;
-//    matFlou = new int *[3];
-//    matFlou[0] = new int[3];
-//    matFlou[0][0] = 1;
-//    matFlou[0][1] = 2;
-//    matFlou[0][2] = 1;
-//    matFlou[1] = new int[3];
-//    matFlou[1][0] = 2;
-//    matFlou[1][1] = 4;
-//    matFlou[1][2] = 2;
-//    matFlou[2] = new int[3];
-//    matFlou[2][0] = 1;
-//    matFlou[2][1] = 2;
-//    matFlou[2][2] = 1;
-
-//    setImage(c.conv(image,matFlou,3,3),cheminImage);
-    int **base;
-    base = new int *[2];
-    base[0] = new int[2];
-    base [0][0] = 1;
-    base [0][1] = 1;
-    base[1] = new int[2];
-    base [1][0] = 1;
-    base [1][1] = 1;
-    setImage(c.conv(image,c.genererBinomial(base,3,2),3,3),cheminImage);
+    setImage(c.conv(image,c.genererBinomial(3),3),cheminImage);
 }
 
 void MainWindow::flouMoyen(){
-//    Convolution c;
-//    int **matFlou;
-//    matFlou = new int *[5];
-//    matFlou[0] = new int[5];
-//    matFlou[0] = {1,4,6,4,1};
-//    matFlou[1] = new int[5];
-//    matFlou[1][0] = 2;
-//    matFlou[1][1] = 4;
-//    matFlou[1][2] = 2;
-//    matFlou[2] = new int[5];
-//    matFlou[2][0] = 1;
-//    matFlou[2][1] = 2;
-//    matFlou[2][2] = 1;
-
-//    setImage(c.conv(image,matFlou,3,3),cheminImage);
+    Convolution c;
+    setImage(c.conv(image,c.genererBinomial(5),5),cheminImage);
 }
 
 void MainWindow::flouFort(){
     Convolution c;
-    int **base;
-    base = new int *[2];
-    base[0] = new int[2];
-    base [0][0] = 1;
-    base [0][1] = 1;
-    base[1] = new int[2];
-    base [1][0] = 1;
-    base [1][1] = 1;
-    setImage(c.conv(image,c.genererBinomial(base,3,2),3,3),cheminImage);
+    setImage(c.conv(image,c.genererBinomial(7),7),cheminImage);
 }
 
 void MainWindow::gris(){

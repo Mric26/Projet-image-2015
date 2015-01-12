@@ -1,16 +1,16 @@
 #include "convolution.h"
 
-QImage *Convolution::conv(QImage *image, int ** matrice, int matWidth, int matHeight){
+QImage *Convolution::conv(QImage *image, int ** matrice, int tailleMatrice){
 
     int imWidth = image->width();
     int imHeight = image->height();
-    int l = (matWidth -1)/2;
-    int c = (matHeight -1)/2;
+    int l = (tailleMatrice -1)/2;
+    int c = (tailleMatrice -1)/2;
 
     //Calcul du coeff du noyau
     int somme = 0;
-    for (int var = 0; var < matWidth; ++var) {
-        for (int var2 = 0; var2 < matHeight; ++var2) {
+    for (int var = 0; var < tailleMatrice; ++var) {
+        for (int var2 = 0; var2 < tailleMatrice; ++var2) {
             somme = somme + matrice[var][var2];
         }
     }
@@ -72,45 +72,24 @@ QImage *Convolution::conv(QImage *image, int ** matrice, int matWidth, int matHe
 
 int **Convolution::genererBinomial(int **matrice,  int tailleVoulue, int tailleActuelle){
     if (tailleVoulue == tailleActuelle) {
-        std::cout << "matrice générée : "<< std::endl;
-        for (int i = 0; i < tailleVoulue; ++i) {
-            for (int j = 0; j < tailleVoulue; ++j) {
-                std::cout << matrice[i][j] << ' ';
-            }
-            std::cout << std::endl;
-        }
         return matrice;
     }
     else {
-        std::cout << "matrice input : "<< std::endl;
-        for (int i = 0; i < tailleActuelle; ++i) {
-            for (int j = 0; j < tailleActuelle; ++j) {
-                std::cout << matrice[i][j] << ' ';
-            }
-            std::cout << std::endl;
-        }
         int base[2][2] = {{1,1},{1,1}};
-        std::cout << "matrice base : "<< std::endl;
-        for (int i = 0; i < tailleActuelle; ++i) {
-            for (int j = 0; j < tailleActuelle; ++j) {
-                std::cout << base[i][j] << ' ';
-            }
-            std::cout << std::endl;
-        }
         //Choix arbitraire du centre aux coordonnées 1,1
-        int l = 1, c = 1;
+
         //Initialisation de la nouvelle matrice, plus grande d'une colonne et d'une ligne.
         int nouvTaille = tailleActuelle + 1 ;
         int **nouvMat;
         nouvMat = new int *[nouvTaille];
-        //Remplissage de la matrice. Elle est égale à l'ancienne, avec la colonne nouveTaille-1 et la ligne nouvTaille-1 à 0
+        //Remplissage de la matrice résultat avec des 0
         for (int i = 0; i < nouvTaille; ++i) {
             nouvMat[i] = new int[nouvTaille];
             for (int j = 0; j < nouvTaille; ++j) {
                 nouvMat[i][j] = 0;
             }
         }
-        //Agrandissement de la matrice
+        //Agrandissement de la matrice en input
         int **matricePlusGrande;
         matricePlusGrande = new int *[nouvTaille];
         for (int i = 0; i < nouvTaille; ++i) {
@@ -124,28 +103,37 @@ int **Convolution::genererBinomial(int **matrice,  int tailleVoulue, int tailleA
             }
         }
 
-        //Convolution -> ne marche pas :(
+        //Convolution
         for (int i = 0; i < nouvTaille; ++i) {
             for (int j = 0; j < nouvTaille; ++j) {
+                    for (int m = 0; m < 2; ++m) {
+                        for (int n = 0; n < 2; ++n) {
+                            int i2 = i+m-1;
+                            int j2 = j+n-1;
 
-                    for (int m = -l; m < l+1; ++m) {
-                        for (int n = -c; n < c+1; ++n) {
-                            if (i-m > -1 && j-n > -1 && i-m < nouvTaille && j-n < nouvTaille && l> -1 && c > -1 && l< 2 && c < 2) {
-                                std::cout << "--nouvMat["<<i<<"]["<<j<<"] = " << nouvMat[i][j] << std::endl;
-                                std::cout << "--matricePlusGrande["<<i-m<<"]["<<j-n<<"] = " << matricePlusGrande[i-m][j-n] << std::endl;
-                                std::cout << "--base["<<m+l<<"]["<<n+c<<"] = " << base[m+l][n+c] << std::endl;
-                                nouvMat[i][j] = nouvMat[i][j] + matricePlusGrande[i-m][j-n] * base[m+l][n+c];
-                                std::cout << "--nouvMat["<<i<<"]["<<j<<"] final = " << nouvMat[i][j] << std::endl;
-                               std::cout << "---------------------"<< std::endl;
-                            } else if (i-m <= -1 && j-n <= -1 && i-m >= nouvTaille && j-n >= nouvTaille && l> -1 && c > -1 && l< 2 && c < 2) {
-                                nouvMat[i][j] = nouvMat[i][j] + matricePlusGrande[i-m][j-n] * base[m+l][n+c];
+                            if (i2 > -1 && j2 > -1 && i2 < nouvTaille && j2 < nouvTaille) {
+                                nouvMat[i][j] = nouvMat[i][j] + matricePlusGrande[i2][j2] * base[2-1-m][2-1-n];
                             }
                         }
                     }
-                    nouvMat[i][j] = nouvMat[i][j];
                 }
         }
 
         return genererBinomial(nouvMat,tailleVoulue,nouvTaille);
     }
+}
+
+int **Convolution::genererBinomial(int tailleVoulue)
+{
+    int **base;
+    base = new int *[2];
+    //Création d'une matrice de base
+    for (int i = 0; i < 2; ++i) {
+        base[i] = new int[2];
+        for (int j = 0; j < 2; ++j) {
+            base[i][j] = 1;
+        }
+    }
+
+    return genererBinomial(base,tailleVoulue,2);
 }

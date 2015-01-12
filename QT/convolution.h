@@ -7,8 +7,9 @@
 class Convolution
 {
 public:
-    QImage *conv(QImage *image, int **matrice, int matWidth, int matHeight);
+    QImage *conv(QImage *image, int **matrice, int tailleMatrice);
     int **genererBinomial(int **matrice,  int tailleVoulue, int tailleActuelle);
+    int **genererBinomial(int tailleVoulue);
 };
 
 #endif // CONVOLUTION_H
