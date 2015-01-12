@@ -284,6 +284,7 @@
       <addaction name="menuMoyenneur"/>
      </widget>
      <addaction name="actionPasse_haut"/>
+     <addaction name="actionRehaussement"/>
      <addaction name="menuFlou_2"/>
     </widget>
     <addaction name="actionHistogramme"/>
@@ -390,6 +391,11 @@
   <action name="actionFlouMoyFort">
    <property name="text">
     <string>fort</string>
+   </property>
+  </action>
+  <action name="actionRehaussement">
+   <property name="text">
+    <string>réhaussement</string>
    </property>
   </action>
  </widget>

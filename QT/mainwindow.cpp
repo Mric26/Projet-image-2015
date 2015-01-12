@@ -165,6 +165,12 @@ void MainWindow::passeHaut()
     setImage(c.filtrePasseHaut(image),cheminImage);
 }
 
+void MainWindow::rehaussement()
+{
+    Convolution c;
+    setImage(c.filtreRehaussement(image),cheminImage);
+}
+
 void MainWindow::gris(){
     GrisConvers gc;
     this->setImage( gc.versGris(this), this->getCheminImage() );
