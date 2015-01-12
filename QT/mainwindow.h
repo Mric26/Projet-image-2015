@@ -40,9 +40,12 @@ public slots:
     void gris();
     void showHisto();
     //Filtres
-    void flouLeger();
-    void flouMoyen();
-    void flouFort();
+    void flouGaussLeger();
+    void flouGaussMoyen();
+    void flouGaussFort();
+    void flouMoyLeger();
+    void flouMoyMoyen();
+    void flouMoyFort();
     void passeHaut();
 
 private:

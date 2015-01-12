@@ -31,9 +31,13 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->flou->setText("");
     ui->flou->setIcon(QIcon("IMG/flou.png"));
     QObject::connect( ui->flou, SIGNAL(clicked()), this, SLOT(flouLeger()) );
-    QObject::connect( ui->actionFlouLeger, SIGNAL(triggered()), this, SLOT(flouLeger()) );
-    QObject::connect( ui->actionFlouMoyen, SIGNAL(triggered()), this, SLOT(flouMoyen()) );
-    QObject::connect( ui->actionFlouFort, SIGNAL(triggered()), this, SLOT(flouFort()) );
+    QObject::connect( ui->actionFlouGaussLeger, SIGNAL(triggered()), this, SLOT(flouGaussLeger()) );
+    QObject::connect( ui->actionFlouGaussMoyen, SIGNAL(triggered()), this, SLOT(flouGaussMoyen()) );
+    QObject::connect( ui->actionFlouGaussFort, SIGNAL(triggered()), this, SLOT(flouGaussFort()) );
+
+    QObject::connect( ui->actionFlouMoyLeger, SIGNAL(triggered()), this, SLOT(flouMoyLeger()) );
+    QObject::connect( ui->actionFlouMoyMoyen, SIGNAL(triggered()), this, SLOT(flouMoyMoyen()) );
+    QObject::connect( ui->actionFlouMoyFort, SIGNAL(triggered()), this, SLOT(flouMoyFort()) );
 
     ui->fusion->setText("");
     ui->fusion->setIcon(QIcon("IMG/fusion.png"));
@@ -117,17 +121,35 @@ void MainWindow::showHisto(){
     //h.afficher();
 }
 
-void MainWindow::flouLeger(){
+void MainWindow::flouMoyLeger()
+{
+    Convolution c;
+    setImage(c.flouMoy(image,3),cheminImage);
+}
+
+void MainWindow::flouMoyMoyen()
+{
+    Convolution c;
+    setImage(c.flouMoy(image,5),cheminImage);
+}
+
+void MainWindow::flouMoyFort()
+{
+    Convolution c;
+    setImage(c.flouMoy(image,7),cheminImage);
+}
+
+void MainWindow::flouGaussLeger(){
     Convolution c;
     setImage(c.flouGaussien(image,3),cheminImage);
 }
 
-void MainWindow::flouMoyen(){
+void MainWindow::flouGaussMoyen(){
     Convolution c;
     setImage(c.flouGaussien(image,5),cheminImage);
 }
 
-void MainWindow::flouFort(){
+void MainWindow::flouGaussFort(){
     Convolution c;
     setImage(c.flouGaussien(image,7),cheminImage);
 }

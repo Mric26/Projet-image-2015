@@ -75,6 +75,11 @@ QImage *Convolution::flouGaussien(QImage *image, int tailleMatriceBinomiale)
     return conv(image,genererBinomial(tailleMatriceBinomiale),tailleMatriceBinomiale);
 }
 
+QImage *Convolution::flouMoy(QImage *image, int tailleMatriceBinomiale)
+{
+    return NULL;
+}
+
 QImage *Convolution::filtrePasseHaut(QImage *image)
 {
     int **matPasseHaut;

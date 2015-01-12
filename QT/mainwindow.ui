@@ -256,26 +256,41 @@
     <property name="title">
      <string>édition</string>
     </property>
-    <widget class="QMenu" name="menuFlou">
-     <property name="title">
-      <string>flou</string>
-     </property>
-     <addaction name="actionFlouLeger"/>
-     <addaction name="actionFlouMoyen"/>
-     <addaction name="actionFlouFort"/>
-    </widget>
     <widget class="QMenu" name="menuFiltres">
      <property name="title">
       <string>filtres</string>
      </property>
+     <widget class="QMenu" name="menuFlou_2">
+      <property name="title">
+       <string>flou</string>
+      </property>
+      <widget class="QMenu" name="menuGaussien">
+       <property name="title">
+        <string>gaussien</string>
+       </property>
+       <addaction name="actionFlouGaussLeger"/>
+       <addaction name="actionFlouGaussMoyen"/>
+       <addaction name="actionFlouGaussFort"/>
+      </widget>
+      <widget class="QMenu" name="menuMoyenneur">
+       <property name="title">
+        <string>moyenneur</string>
+       </property>
+       <addaction name="actionFlouMoyLeger"/>
+       <addaction name="actionFlouMoyMoyen"/>
+       <addaction name="actionFlouMoyFort"/>
+      </widget>
+      <addaction name="menuGaussien"/>
+      <addaction name="menuMoyenneur"/>
+     </widget>
      <addaction name="actionPasse_haut"/>
+     <addaction name="menuFlou_2"/>
     </widget>
     <addaction name="actionHistogramme"/>
     <addaction name="actionNiveau_de_gris"/>
     <addaction name="actionFusion"/>
     <addaction name="actionPipette"/>
     <addaction name="menuFiltres"/>
-    <addaction name="menuFlou"/>
    </widget>
    <widget class="QMenu" name="menuAbout">
     <property name="title">
@@ -332,17 +347,17 @@
     <string>pipette</string>
    </property>
   </action>
-  <action name="actionFlouLeger">
+  <action name="actionFlouGaussLeger">
    <property name="text">
     <string>léger</string>
    </property>
   </action>
-  <action name="actionFlouMoyen">
+  <action name="actionFlouGaussMoyen">
    <property name="text">
     <string>moyen</string>
    </property>
   </action>
-  <action name="actionFlouFort">
+  <action name="actionFlouGaussFort">
    <property name="text">
     <string>fort</string>
    </property>
@@ -350,6 +365,31 @@
   <action name="actionPasse_haut">
    <property name="text">
     <string>passe haut</string>
+   </property>
+  </action>
+  <action name="actionLeger">
+   <property name="text">
+    <string>leger</string>
+   </property>
+  </action>
+  <action name="actionL">
+   <property name="text">
+    <string>l</string>
+   </property>
+  </action>
+  <action name="actionFlouMoyLeger">
+   <property name="text">
+    <string>leger</string>
+   </property>
+  </action>
+  <action name="actionFlouMoyMoyen">
+   <property name="text">
+    <string>moyen</string>
+   </property>
+  </action>
+  <action name="actionFlouMoyFort">
+   <property name="text">
+    <string>fort</string>
    </property>
   </action>
  </widget>
