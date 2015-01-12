@@ -48,6 +48,7 @@ public slots:
     void flouMoyMoyen();
     void flouMoyFort();
     void passeHaut();
+    void rehaussement();
 
 private:
     Ui::MainWindow *ui;

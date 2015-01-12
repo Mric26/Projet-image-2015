@@ -102,6 +102,11 @@ QImage *Convolution::filtrePasseHaut(QImage *image)
     return conv(image,matPasseHaut,3);
 }
 
+QImage *Convolution::filtreRehaussement(QImage *image)
+{
+    return NULL;
+}
+
 int **Convolution::genererBinomial(int **matrice,  int tailleVoulue, int tailleActuelle){
     if (tailleVoulue == tailleActuelle) {
         return matrice;
