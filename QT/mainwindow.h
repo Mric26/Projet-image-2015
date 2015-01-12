@@ -9,6 +9,7 @@
 #include <QGraphicsPixmapItem>
 #include <QColor>
 #include <string>
+#include <QShortcut>
 #include "convolution.h"
 
 namespace Ui {

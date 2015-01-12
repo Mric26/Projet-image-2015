@@ -8,7 +8,7 @@ class Histogrammes : QWidget
 {
 public:
     Histogrammes();
-    void afficher();
+    void afficher(MainWindow *w);
 };
 
 #endif // HISTOGRAMMES_H
