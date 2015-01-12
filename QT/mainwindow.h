@@ -7,6 +7,8 @@
 #include <QRgb>
 #include <QGraphicsScene>
 #include <QGraphicsPixmapItem>
+#include <QColor>
+#include <string>
 #include "convolution.h"
 
 namespace Ui {
@@ -20,16 +22,12 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     void paintEvent(QPaintEvent *);
-    void mousePressEvent(QMouseEvent *event);
     ~MainWindow();
 
     QImage * getImage();    
     void setImage(QImage * im, QString chem);
 
     QString getCheminImage();
-
-    std::vector<QRgb> getMatrice() const;
-    void setMatrice(const std::vector<QRgb> &value);
 
     QGraphicsScene * getScene() ;
     void setScene(QGraphicsScene *value);
@@ -42,12 +40,13 @@ public slots:
     void flouLeger();
     void flouMoyen();
     void flouFort();
+    void gris();
+    void showHisto();
 
 private:
     Ui::MainWindow *ui;
     QImage* image;
     QString cheminImage;
-    std::vector<QRgb> matrice;
     QGraphicsScene *scene;
     QGraphicsPixmapItem *imageaffichee;
 };

@@ -1,21 +1,35 @@
 #include "mygraphicsview.h"
 #include "couper.h"
 
-using namespace std;
-
 MyGraphicsView::MyGraphicsView(QWidget *w):QGraphicsView(w){
-    //rb = new QRubberBand(QRubberBand::Rectangle, this);
+    rb = NULL;
 }
 
 void MyGraphicsView::mousePressEvent(QMouseEvent *event){
-    setPointD(event->pos());
-    rb = new QRubberBand(QRubberBand::Rectangle, this);
-    rb->setGeometry(QRect(getPointD(),QSize()));
-    rb->show();
+    if( event->button() == Qt::LeftButton ){
+        setPointD(event->pos());
+        if( rb == NULL ){
+            rb = new QRubberBand(QRubberBand::Rectangle, this);
+        }
+        else{
+            delete rb;
+            rb = new QRubberBand(QRubberBand::Rectangle, this);
+        }
+        rb->setGeometry(QRect(getPointD(),QSize()));
+        rb->show();
+    }
+    if( event->button() == Qt::RightButton ){
+        if( rb != NULL){
+            delete rb;
+            rb = NULL;
+        }
+    }
 }
 
 void MyGraphicsView::mouseMoveEvent(QMouseEvent *event) {
-    rb->setGeometry(QRect(getPointD(), event->pos()).normalized());
+    if( rb != NULL){
+        rb->setGeometry(QRect(getPointD(), event->pos()).normalized());
+    }
 }
 
 void MyGraphicsView::mouseReleaseEvent(QMouseEvent *event){
@@ -37,13 +51,12 @@ QPoint MyGraphicsView::getPointF() const{
 void MyGraphicsView::setPointF(const QPoint &value){
     pointF = value;
 }
-QRubberBand *MyGraphicsView::getRb() const
-{
+
+QRubberBand *MyGraphicsView::getRb() const{
     return rb;
 }
 
-void MyGraphicsView::setRb(QRubberBand *value)
-{
+void MyGraphicsView::setRb(QRubberBand *value){
     rb = value;
 }
 

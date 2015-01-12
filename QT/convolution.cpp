@@ -1,7 +1,6 @@
 #include "convolution.h"
 
-QImage *Convolution::conv(QImage *image, int ** matrice, int matWidth, int matHeight)
-{
+QImage *Convolution::conv(QImage *image, int ** matrice, int matWidth, int matHeight){
 
     int imWidth = image->width();
     int imHeight = image->height();
@@ -71,8 +70,7 @@ QImage *Convolution::conv(QImage *image, int ** matrice, int matWidth, int matHe
     return nouvelleImage;
 }
 
-int **Convolution::genererBinomial(int **matrice,  int tailleVoulue, int tailleActuelle)
-{
+int **Convolution::genererBinomial(int **matrice,  int tailleVoulue, int tailleActuelle){
     if (tailleVoulue == tailleActuelle) {
         std::cout << "matrice générée : "<< std::endl;
         for (int i = 0; i < tailleVoulue; ++i) {

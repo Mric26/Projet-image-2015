@@ -18,14 +18,18 @@ SOURCES += main.cpp\
     save.cpp \
     couper.cpp \
     mygraphicsview.cpp \
-    convolution.cpp
+    convolution.cpp \
+    grisconvers.cpp \
+    histogrammes.cpp
 
 HEADERS  += mainwindow.h \
     open.h \
     save.h \
     couper.h \
     mygraphicsview.h \
-    convolution.h
+    convolution.h \
+    grisconvers.h \
+    histogrammes.h
 
 FORMS    += mainwindow.ui
 

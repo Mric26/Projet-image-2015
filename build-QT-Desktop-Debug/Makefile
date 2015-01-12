@@ -51,7 +51,10 @@ SOURCES       = ../QT/main.cpp \
 		../QT/save.cpp \
 		../QT/couper.cpp \
 		../QT/mygraphicsview.cpp \
-		../QT/convolution.cpp moc_mainwindow.cpp
+		../QT/convolution.cpp \
+		../QT/grisconvers.cpp \
+		../QT/histogrammes.cpp qrc_resources.cpp \
+		moc_mainwindow.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
 		open.o \
@@ -59,6 +62,9 @@ OBJECTS       = main.o \
 		couper.o \
 		mygraphicsview.o \
 		convolution.o \
+		grisconvers.o \
+		histogrammes.o \
+		qrc_resources.o \
 		moc_mainwindow.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/shell-unix.conf \
@@ -121,6 +127,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
 		../QT/QT.pro \
+		../QT/resources.qrc \
 		../QT/QT.pro
 QMAKE_TARGET  = QT
 DESTDIR       = #avoid trailing-slash linebreak
@@ -216,6 +223,7 @@ Makefile: ../QT/QT.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/qmake.
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
 		../QT/QT.pro \
+		../QT/resources.qrc \
 		/usr/lib/x86_64-linux-gnu/libQt5Widgets.prl \
 		/usr/lib/x86_64-linux-gnu/libQt5Gui.prl \
 		/usr/lib/x86_64-linux-gnu/libQt5Core.prl
@@ -281,6 +289,7 @@ Makefile: ../QT/QT.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/qmake.
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf:
 ../QT/QT.pro:
+../QT/resources.qrc:
 /usr/lib/x86_64-linux-gnu/libQt5Widgets.prl:
 /usr/lib/x86_64-linux-gnu/libQt5Gui.prl:
 /usr/lib/x86_64-linux-gnu/libQt5Core.prl:
@@ -291,7 +300,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/QT1.0.0 || mkdir -p .tmp/QT1.0.0
-	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/QT1.0.0/ && $(COPY_FILE) --parents ../QT/mainwindow.h ../QT/open.h ../QT/save.h ../QT/couper.h ../QT/mygraphicsview.h ../QT/convolution.h .tmp/QT1.0.0/ && $(COPY_FILE) --parents ../QT/main.cpp ../QT/mainwindow.cpp ../QT/open.cpp ../QT/save.cpp ../QT/couper.cpp ../QT/mygraphicsview.cpp ../QT/convolution.cpp .tmp/QT1.0.0/ && $(COPY_FILE) --parents ../QT/mainwindow.ui .tmp/QT1.0.0/ && (cd `dirname .tmp/QT1.0.0` && $(TAR) QT1.0.0.tar QT1.0.0 && $(COMPRESS) QT1.0.0.tar) && $(MOVE) `dirname .tmp/QT1.0.0`/QT1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/QT1.0.0
+	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/QT1.0.0/ && $(COPY_FILE) --parents ../QT/resources.qrc .tmp/QT1.0.0/ && $(COPY_FILE) --parents ../QT/mainwindow.h ../QT/open.h ../QT/save.h ../QT/couper.h ../QT/mygraphicsview.h ../QT/convolution.h ../QT/grisconvers.h ../QT/histogrammes.h .tmp/QT1.0.0/ && $(COPY_FILE) --parents ../QT/main.cpp ../QT/mainwindow.cpp ../QT/open.cpp ../QT/save.cpp ../QT/couper.cpp ../QT/mygraphicsview.cpp ../QT/convolution.cpp ../QT/grisconvers.cpp ../QT/histogrammes.cpp .tmp/QT1.0.0/ && $(COPY_FILE) --parents ../QT/mainwindow.ui .tmp/QT1.0.0/ && (cd `dirname .tmp/QT1.0.0` && $(TAR) QT1.0.0.tar QT1.0.0 && $(COMPRESS) QT1.0.0.tar) && $(MOVE) `dirname .tmp/QT1.0.0`/QT1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/QT1.0.0
 
 
 clean:compiler_clean 
@@ -312,8 +321,13 @@ mocables: compiler_moc_header_make_all compiler_moc_source_make_all
 
 check: first
 
-compiler_rcc_make_all:
+compiler_rcc_make_all: qrc_resources.cpp
 compiler_rcc_clean:
+	-$(DEL_FILE) qrc_resources.cpp
+qrc_resources.cpp: ../QT/resources.qrc \
+		../QT/res/ouvrir.jpg
+	/usr/lib/x86_64-linux-gnu/qt5/bin/rcc -name resources ../QT/resources.qrc -o qrc_resources.cpp
+
 compiler_moc_header_make_all: moc_mainwindow.cpp
 compiler_moc_header_clean:
 	-$(DEL_FILE) moc_mainwindow.cpp
@@ -438,6 +452,9 @@ moc_mainwindow.cpp: /usr/include/qt5/QtWidgets/QMainWindow \
 		/usr/include/qt5/QtWidgets/qgraphicsscene.h \
 		/usr/include/qt5/QtWidgets/QGraphicsPixmapItem \
 		/usr/include/qt5/QtWidgets/qgraphicsitem.h \
+		/usr/include/qt5/QtGui/QColor \
+		../QT/convolution.h \
+		/usr/include/qt5/QtGui/QImage \
 		../QT/mainwindow.h
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../QT/mainwindow.h -o moc_mainwindow.cpp
 
@@ -575,7 +592,7 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_header_clean compiler_uic_clean 
+compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean 
 
 ####### Compile
 
@@ -701,8 +718,10 @@ main.o: ../QT/main.cpp ../QT/mainwindow.h \
 		/usr/include/qt5/QtWidgets/qgraphicsscene.h \
 		/usr/include/qt5/QtWidgets/QGraphicsPixmapItem \
 		/usr/include/qt5/QtWidgets/qgraphicsitem.h \
-		../QT/open.h \
+		/usr/include/qt5/QtGui/QColor \
+		../QT/convolution.h \
 		/usr/include/qt5/QtGui/QImage \
+		../QT/open.h \
 		/usr/include/qt5/QtWidgets/QFileDialog \
 		/usr/include/qt5/QtWidgets/qfiledialog.h \
 		/usr/include/qt5/QtCore/qdir.h \
@@ -839,6 +858,9 @@ mainwindow.o: ../QT/mainwindow.cpp ../QT/mainwindow.h \
 		/usr/include/qt5/QtWidgets/qgraphicsscene.h \
 		/usr/include/qt5/QtWidgets/QGraphicsPixmapItem \
 		/usr/include/qt5/QtWidgets/qgraphicsitem.h \
+		/usr/include/qt5/QtGui/QColor \
+		../QT/convolution.h \
+		/usr/include/qt5/QtGui/QImage \
 		ui_mainwindow.h \
 		/usr/include/qt5/QtCore/QVariant \
 		/usr/include/qt5/QtWidgets/QAction \
@@ -893,14 +915,14 @@ mainwindow.o: ../QT/mainwindow.cpp ../QT/mainwindow.h \
 		/usr/include/qt5/QtGui/QMouseEvent \
 		/usr/include/qt5/QtWidgets/QRubberBand \
 		../QT/open.h \
-		/usr/include/qt5/QtGui/QImage \
 		/usr/include/qt5/QtWidgets/QFileDialog \
 		/usr/include/qt5/QtWidgets/qfiledialog.h \
 		/usr/include/qt5/QtCore/qdir.h \
 		/usr/include/qt5/QtCore/qfileinfo.h \
 		/usr/include/qt5/QtWidgets/qdialog.h \
 		../QT/save.h \
-		../QT/couper.h
+		../QT/couper.h \
+		../QT/grisconvers.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../QT/mainwindow.cpp
 
 open.o: ../QT/open.cpp ../QT/open.h \
@@ -1031,7 +1053,9 @@ open.o: ../QT/open.cpp ../QT/open.h \
 		/usr/include/qt5/QtWidgets/QGraphicsScene \
 		/usr/include/qt5/QtWidgets/qgraphicsscene.h \
 		/usr/include/qt5/QtWidgets/QGraphicsPixmapItem \
-		/usr/include/qt5/QtWidgets/qgraphicsitem.h
+		/usr/include/qt5/QtWidgets/qgraphicsitem.h \
+		/usr/include/qt5/QtGui/QColor \
+		../QT/convolution.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o open.o ../QT/open.cpp
 
 save.o: ../QT/save.cpp ../QT/save.h \
@@ -1161,7 +1185,10 @@ save.o: ../QT/save.cpp ../QT/save.h \
 		/usr/include/qt5/QtWidgets/QGraphicsScene \
 		/usr/include/qt5/QtWidgets/qgraphicsscene.h \
 		/usr/include/qt5/QtWidgets/QGraphicsPixmapItem \
-		/usr/include/qt5/QtWidgets/qgraphicsitem.h
+		/usr/include/qt5/QtWidgets/qgraphicsitem.h \
+		/usr/include/qt5/QtGui/QColor \
+		../QT/convolution.h \
+		/usr/include/qt5/QtGui/QImage
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o save.o ../QT/save.cpp
 
 couper.o: ../QT/couper.cpp ../QT/couper.h \
@@ -1287,7 +1314,18 @@ couper.o: ../QT/couper.cpp ../QT/couper.h \
 		/usr/include/qt5/QtWidgets/qgraphicsscene.h \
 		/usr/include/qt5/QtWidgets/QGraphicsPixmapItem \
 		/usr/include/qt5/QtWidgets/qgraphicsitem.h \
-		/usr/include/qt5/QtGui/QMouseEvent
+		/usr/include/qt5/QtGui/QColor \
+		../QT/convolution.h \
+		/usr/include/qt5/QtGui/QImage \
+		/usr/include/qt5/QtGui/QMouseEvent \
+		../QT/mygraphicsview.h \
+		/usr/include/qt5/QtWidgets/QGraphicsView \
+		/usr/include/qt5/QtWidgets/qgraphicsview.h \
+		/usr/include/qt5/QtWidgets/qscrollarea.h \
+		/usr/include/qt5/QtWidgets/qabstractscrollarea.h \
+		/usr/include/qt5/QtWidgets/qframe.h \
+		/usr/include/qt5/QtWidgets/QRubberBand \
+		/usr/include/qt5/QtWidgets/qrubberband.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o couper.o ../QT/couper.cpp
 
 mygraphicsview.o: ../QT/mygraphicsview.cpp ../QT/mygraphicsview.h \
@@ -1421,7 +1459,10 @@ mygraphicsview.o: ../QT/mygraphicsview.cpp ../QT/mygraphicsview.h \
 		/usr/include/qt5/QtGui/QRgb \
 		/usr/include/qt5/QtWidgets/QGraphicsScene \
 		/usr/include/qt5/QtWidgets/QGraphicsPixmapItem \
-		/usr/include/qt5/QtWidgets/qgraphicsitem.h
+		/usr/include/qt5/QtWidgets/qgraphicsitem.h \
+		/usr/include/qt5/QtGui/QColor \
+		../QT/convolution.h \
+		/usr/include/qt5/QtGui/QImage
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mygraphicsview.o ../QT/mygraphicsview.cpp
 
 convolution.o: ../QT/convolution.cpp ../QT/convolution.h \
@@ -1502,8 +1543,144 @@ convolution.o: ../QT/convolution.cpp ../QT/convolution.h \
 		/usr/include/qt5/QtGui/qrgb.h \
 		/usr/include/qt5/QtCore/qstringlist.h \
 		/usr/include/qt5/QtCore/qregexp.h \
-		/usr/include/qt5/QtCore/qstringmatcher.h
+		/usr/include/qt5/QtCore/qstringmatcher.h \
+		/usr/include/qt5/QtGui/QColor \
+		/usr/include/qt5/QtGui/qcolor.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o convolution.o ../QT/convolution.cpp
+
+grisconvers.o: ../QT/grisconvers.cpp ../QT/grisconvers.h \
+		../QT/mainwindow.h \
+		/usr/include/qt5/QtWidgets/QMainWindow \
+		/usr/include/qt5/QtWidgets/qmainwindow.h \
+		/usr/include/qt5/QtWidgets/qwidget.h \
+		/usr/include/qt5/QtGui/qwindowdefs.h \
+		/usr/include/qt5/QtCore/qglobal.h \
+		/usr/include/qt5/QtCore/qconfig.h \
+		/usr/include/qt5/QtCore/qfeatures.h \
+		/usr/include/qt5/QtCore/qsystemdetection.h \
+		/usr/include/qt5/QtCore/qprocessordetection.h \
+		/usr/include/qt5/QtCore/qcompilerdetection.h \
+		/usr/include/qt5/QtCore/qglobalstatic.h \
+		/usr/include/qt5/QtCore/qatomic.h \
+		/usr/include/qt5/QtCore/qbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_bootstrap.h \
+		/usr/include/qt5/QtCore/qgenericatomic.h \
+		/usr/include/qt5/QtCore/qatomic_msvc.h \
+		/usr/include/qt5/QtCore/qatomic_integrity.h \
+		/usr/include/qt5/QtCore/qoldbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_vxworks.h \
+		/usr/include/qt5/QtCore/qatomic_power.h \
+		/usr/include/qt5/QtCore/qatomic_alpha.h \
+		/usr/include/qt5/QtCore/qatomic_armv7.h \
+		/usr/include/qt5/QtCore/qatomic_armv6.h \
+		/usr/include/qt5/QtCore/qatomic_armv5.h \
+		/usr/include/qt5/QtCore/qatomic_bfin.h \
+		/usr/include/qt5/QtCore/qatomic_ia64.h \
+		/usr/include/qt5/QtCore/qatomic_mips.h \
+		/usr/include/qt5/QtCore/qatomic_s390.h \
+		/usr/include/qt5/QtCore/qatomic_sh4a.h \
+		/usr/include/qt5/QtCore/qatomic_sparc.h \
+		/usr/include/qt5/QtCore/qatomic_gcc.h \
+		/usr/include/qt5/QtCore/qatomic_x86.h \
+		/usr/include/qt5/QtCore/qatomic_cxx11.h \
+		/usr/include/qt5/QtCore/qatomic_unix.h \
+		/usr/include/qt5/QtCore/qmutex.h \
+		/usr/include/qt5/QtCore/qlogging.h \
+		/usr/include/qt5/QtCore/qflags.h \
+		/usr/include/qt5/QtCore/qtypeinfo.h \
+		/usr/include/qt5/QtCore/qtypetraits.h \
+		/usr/include/qt5/QtCore/qsysinfo.h \
+		/usr/include/qt5/QtCore/qobjectdefs.h \
+		/usr/include/qt5/QtCore/qnamespace.h \
+		/usr/include/qt5/QtCore/qobjectdefs_impl.h \
+		/usr/include/qt5/QtGui/qwindowdefs_win.h \
+		/usr/include/qt5/QtCore/qobject.h \
+		/usr/include/qt5/QtCore/qstring.h \
+		/usr/include/qt5/QtCore/qchar.h \
+		/usr/include/qt5/QtCore/qbytearray.h \
+		/usr/include/qt5/QtCore/qrefcount.h \
+		/usr/include/qt5/QtCore/qarraydata.h \
+		/usr/include/qt5/QtCore/qstringbuilder.h \
+		/usr/include/qt5/QtCore/qlist.h \
+		/usr/include/qt5/QtCore/qalgorithms.h \
+		/usr/include/qt5/QtCore/qiterator.h \
+		/usr/include/qt5/QtCore/qcoreevent.h \
+		/usr/include/qt5/QtCore/qscopedpointer.h \
+		/usr/include/qt5/QtCore/qmetatype.h \
+		/usr/include/qt5/QtCore/qvarlengtharray.h \
+		/usr/include/qt5/QtCore/qcontainerfwd.h \
+		/usr/include/qt5/QtCore/qisenum.h \
+		/usr/include/qt5/QtCore/qobject_impl.h \
+		/usr/include/qt5/QtCore/qmargins.h \
+		/usr/include/qt5/QtCore/qrect.h \
+		/usr/include/qt5/QtCore/qsize.h \
+		/usr/include/qt5/QtCore/qpoint.h \
+		/usr/include/qt5/QtGui/qpaintdevice.h \
+		/usr/include/qt5/QtGui/qpalette.h \
+		/usr/include/qt5/QtGui/qcolor.h \
+		/usr/include/qt5/QtGui/qrgb.h \
+		/usr/include/qt5/QtCore/qstringlist.h \
+		/usr/include/qt5/QtCore/qdatastream.h \
+		/usr/include/qt5/QtCore/qiodevice.h \
+		/usr/include/qt5/QtCore/qpair.h \
+		/usr/include/qt5/QtCore/qregexp.h \
+		/usr/include/qt5/QtCore/qstringmatcher.h \
+		/usr/include/qt5/QtGui/qbrush.h \
+		/usr/include/qt5/QtCore/qvector.h \
+		/usr/include/qt5/QtGui/qmatrix.h \
+		/usr/include/qt5/QtGui/qpolygon.h \
+		/usr/include/qt5/QtGui/qregion.h \
+		/usr/include/qt5/QtCore/qline.h \
+		/usr/include/qt5/QtGui/qtransform.h \
+		/usr/include/qt5/QtGui/qpainterpath.h \
+		/usr/include/qt5/QtGui/qimage.h \
+		/usr/include/qt5/QtGui/qpixmap.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qshareddata.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
+		/usr/include/qt5/QtCore/qhash.h \
+		/usr/include/qt5/QtGui/qfont.h \
+		/usr/include/qt5/QtGui/qfontmetrics.h \
+		/usr/include/qt5/QtGui/qfontinfo.h \
+		/usr/include/qt5/QtWidgets/qsizepolicy.h \
+		/usr/include/qt5/QtGui/qcursor.h \
+		/usr/include/qt5/QtGui/qkeysequence.h \
+		/usr/include/qt5/QtGui/qevent.h \
+		/usr/include/qt5/QtCore/qvariant.h \
+		/usr/include/qt5/QtCore/qmap.h \
+		/usr/include/qt5/QtCore/qdebug.h \
+		/usr/include/qt5/QtCore/qtextstream.h \
+		/usr/include/qt5/QtCore/qlocale.h \
+		/usr/include/qt5/QtCore/qset.h \
+		/usr/include/qt5/QtCore/qcontiguouscache.h \
+		/usr/include/qt5/QtCore/qurl.h \
+		/usr/include/qt5/QtCore/qurlquery.h \
+		/usr/include/qt5/QtCore/qfile.h \
+		/usr/include/qt5/QtCore/qfiledevice.h \
+		/usr/include/qt5/QtGui/qvector2d.h \
+		/usr/include/qt5/QtGui/qtouchdevice.h \
+		/usr/include/qt5/QtWidgets/qtabwidget.h \
+		/usr/include/qt5/QtGui/qicon.h \
+		/usr/include/qt5/QtGui/QPainter \
+		/usr/include/qt5/QtGui/qpainter.h \
+		/usr/include/qt5/QtGui/qtextoption.h \
+		/usr/include/qt5/QtGui/qpen.h \
+		/usr/include/qt5/QtCore/QString \
+		/usr/include/qt5/QtGui/QRgb \
+		/usr/include/qt5/QtWidgets/QGraphicsScene \
+		/usr/include/qt5/QtWidgets/qgraphicsscene.h \
+		/usr/include/qt5/QtWidgets/QGraphicsPixmapItem \
+		/usr/include/qt5/QtWidgets/qgraphicsitem.h \
+		/usr/include/qt5/QtGui/QColor \
+		../QT/convolution.h \
+		/usr/include/qt5/QtGui/QImage
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o grisconvers.o ../QT/grisconvers.cpp
+
+histogrammes.o: ../QT/histogrammes.cpp ../QT/histogrammes.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o histogrammes.o ../QT/histogrammes.cpp
+
+qrc_resources.o: qrc_resources.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_resources.o qrc_resources.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
