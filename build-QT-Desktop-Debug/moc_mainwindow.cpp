@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[15];
-    char stringdata[143];
+    QByteArrayData data[16];
+    char stringdata[156];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -43,12 +43,14 @@ QT_MOC_LITERAL(10, 80, 13),
 QT_MOC_LITERAL(11, 94, 12),
 QT_MOC_LITERAL(12, 107, 12),
 QT_MOC_LITERAL(13, 120, 11),
-QT_MOC_LITERAL(14, 132, 9)
+QT_MOC_LITERAL(14, 132, 9),
+QT_MOC_LITERAL(15, 142, 12)
     },
     "MainWindow\0ouv\0\0save\0saveAs\0couper\0"
     "gris\0showHisto\0flouGaussLeger\0"
     "flouGaussMoyen\0flouGaussFort\0flouMoyLeger\0"
     "flouMoyMoyen\0flouMoyFort\0passeHaut\0"
+    "rehaussement\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -58,7 +60,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      13,   14, // methods
+      14,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -66,21 +68,23 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   79,    2, 0x0a,
-       3,    0,   80,    2, 0x0a,
-       4,    0,   81,    2, 0x0a,
-       5,    0,   82,    2, 0x0a,
-       6,    0,   83,    2, 0x0a,
-       7,    0,   84,    2, 0x0a,
-       8,    0,   85,    2, 0x0a,
-       9,    0,   86,    2, 0x0a,
-      10,    0,   87,    2, 0x0a,
-      11,    0,   88,    2, 0x0a,
-      12,    0,   89,    2, 0x0a,
-      13,    0,   90,    2, 0x0a,
-      14,    0,   91,    2, 0x0a,
+       1,    0,   84,    2, 0x0a,
+       3,    0,   85,    2, 0x0a,
+       4,    0,   86,    2, 0x0a,
+       5,    0,   87,    2, 0x0a,
+       6,    0,   88,    2, 0x0a,
+       7,    0,   89,    2, 0x0a,
+       8,    0,   90,    2, 0x0a,
+       9,    0,   91,    2, 0x0a,
+      10,    0,   92,    2, 0x0a,
+      11,    0,   93,    2, 0x0a,
+      12,    0,   94,    2, 0x0a,
+      13,    0,   95,    2, 0x0a,
+      14,    0,   96,    2, 0x0a,
+      15,    0,   97,    2, 0x0a,
 
  // slots: parameters
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -116,6 +120,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 10: _t->flouMoyMoyen(); break;
         case 11: _t->flouMoyFort(); break;
         case 12: _t->passeHaut(); break;
+        case 13: _t->rehaussement(); break;
         default: ;
         }
     }
@@ -147,13 +152,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 13)
+        if (_id < 14)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 13;
+        _id -= 14;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 13)
+        if (_id < 14)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 13;
+        _id -= 14;
     }
     return _id;
 }

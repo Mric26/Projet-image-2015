@@ -47,6 +47,7 @@ public:
     QAction *actionFlouMoyLeger;
     QAction *actionFlouMoyMoyen;
     QAction *actionFlouMoyFort;
+    QAction *actionRehaussement;
     QWidget *centralWidget;
     QGridLayout *gridLayout;
     QGridLayout *gridLayout_2;
@@ -112,6 +113,8 @@ public:
         actionFlouMoyMoyen->setObjectName(QStringLiteral("actionFlouMoyMoyen"));
         actionFlouMoyFort = new QAction(MainWindow);
         actionFlouMoyFort->setObjectName(QStringLiteral("actionFlouMoyFort"));
+        actionRehaussement = new QAction(MainWindow);
+        actionRehaussement->setObjectName(QStringLiteral("actionRehaussement"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         gridLayout = new QGridLayout(centralWidget);
@@ -255,6 +258,7 @@ public:
         menu_dition->addAction(actionPipette);
         menu_dition->addAction(menuFiltres->menuAction());
         menuFiltres->addAction(actionPasse_haut);
+        menuFiltres->addAction(actionRehaussement);
         menuFiltres->addAction(menuFlou_2->menuAction());
         menuFlou_2->addAction(menuGaussien->menuAction());
         menuFlou_2->addAction(menuMoyenneur->menuAction());
@@ -291,6 +295,7 @@ public:
         actionFlouMoyLeger->setText(QApplication::translate("MainWindow", "leger", 0));
         actionFlouMoyMoyen->setText(QApplication::translate("MainWindow", "moyen", 0));
         actionFlouMoyFort->setText(QApplication::translate("MainWindow", "fort", 0));
+        actionRehaussement->setText(QApplication::translate("MainWindow", "r\303\251haussement", 0));
         histogramme->setText(QApplication::translate("MainWindow", "PushButton", 0));
         flou->setText(QApplication::translate("MainWindow", "PushButton", 0));
         fusion->setText(QApplication::translate("MainWindow", "PushButton", 0));

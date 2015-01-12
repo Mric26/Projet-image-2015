@@ -1,6 +1,6 @@
 #include "convolution.h"
 
-QImage *Convolution::conv(QImage *image, int ** matrice, int tailleMatrice){
+QImage *Convolution::conv(QImage *image, float ** matrice, int tailleMatrice){
 
     int imWidth = image->width();
     int imHeight = image->height();
@@ -35,9 +35,9 @@ QImage *Convolution::conv(QImage *image, int ** matrice, int tailleMatrice){
                         }
 
 
-                         bleu = bleu + (float) matrice[m+c][n+l] * qBlue(couleurPix);
-                         rouge = rouge + (float) matrice[m+c][n+l] * qRed(couleurPix);
-                         vert = vert +  (float) matrice[m+c][n+l] * qGreen(couleurPix);
+                         bleu = bleu + matrice[m+c][n+l] * qBlue(couleurPix);
+                         rouge = rouge + matrice[m+c][n+l] * qRed(couleurPix);
+                         vert = vert + matrice[m+c][n+l] * qGreen(couleurPix);
 
                     }
                 }
@@ -82,11 +82,11 @@ QImage *Convolution::flouMoy(QImage *image, int tailleMatriceMoy)
 
 QImage *Convolution::filtrePasseHaut(QImage *image)
 {
-    int **matPasseHaut;
-    matPasseHaut = new int *[3];
+    float **matPasseHaut;
+    matPasseHaut = new float *[3];
 
     for (int i = 0; i < 3; ++i) {
-        matPasseHaut[i] = new int[3];
+        matPasseHaut[i] = new float[3];
     }
 
     matPasseHaut[0][0] = 0;
@@ -98,39 +98,77 @@ QImage *Convolution::filtrePasseHaut(QImage *image)
     matPasseHaut[2][0] = 0;
     matPasseHaut[2][1] = -1;
     matPasseHaut[2][2] = 0;
-    std::cout << "boop" << std::endl;
+
     return conv(image,matPasseHaut,3);
 }
 
 QImage *Convolution::filtreRehaussement(QImage *image)
 {
-    return NULL;
+    std::cout << "test" << std::endl;
+    //Calcul de (1-alpha)*d
+    float **d;
+    d = new float *[3];
+
+    for (int i = 0; i < 3; ++i) {
+        d[i] = new float[3];
+        for (int j = 0; j < 3; ++j) {
+            d[i][j] = 0;
+        }
+    }
+    int alpha = 16;
+    d[1][1] = 1+alpha;
+
+    //Calcul de alpha*KPB
+    float **passeBas = genererBinomial(3);
+    int somme = 16;
+
+    for (int i = 0; i < 3; ++i) {
+        for (int j = 0; j < 3; ++j) {
+            passeBas[i][j] = alpha * passeBas[i][j]/somme;
+        }
+    }
+
+    //Calcul de KR
+    float **rehauss;
+    rehauss = new float *[3];
+
+    for (int i = 0; i < 3; ++i) {
+        rehauss[i] = new float[3];
+        for (int j = 0; j < 3; ++j) {
+           rehauss[i][j] = d[i][j]-passeBas[i][j];
+//            rehauss[i][j] = -1;
+        }
+    }
+
+
+
+    return conv(image,rehauss,3);
 }
 
-int **Convolution::genererBinomial(int **matrice,  int tailleVoulue, int tailleActuelle){
+float **Convolution::genererBinomial(float **matrice,  int tailleVoulue, int tailleActuelle){
     if (tailleVoulue == tailleActuelle) {
         return matrice;
     }
     else {
-        int base[2][2] = {{1,1},{1,1}};
+        float base[2][2] = {{1,1},{1,1}};
         //Choix arbitraire du centre aux coordonnées 1,1
 
         //Initialisation de la nouvelle matrice, plus grande d'une colonne et d'une ligne.
         int nouvTaille = tailleActuelle + 1 ;
-        int **nouvMat;
-        nouvMat = new int *[nouvTaille];
+        float **nouvMat;
+        nouvMat = new float *[nouvTaille];
         //Remplissage de la matrice résultat avec des 0
         for (int i = 0; i < nouvTaille; ++i) {
-            nouvMat[i] = new int[nouvTaille];
+            nouvMat[i] = new float[nouvTaille];
             for (int j = 0; j < nouvTaille; ++j) {
                 nouvMat[i][j] = 0;
             }
         }
         //Agrandissement de la matrice en input
-        int **matricePlusGrande;
-        matricePlusGrande = new int *[nouvTaille];
+        float **matricePlusGrande;
+        matricePlusGrande = new float *[nouvTaille];
         for (int i = 0; i < nouvTaille; ++i) {
-             matricePlusGrande[i] = new int[nouvTaille];
+             matricePlusGrande[i] = new float[nouvTaille];
             for (int j = 0; j < nouvTaille; ++j) {
                 if (i == nouvTaille-1 || j == nouvTaille-1) {
                     matricePlusGrande[i][j] = 0;
@@ -160,13 +198,13 @@ int **Convolution::genererBinomial(int **matrice,  int tailleVoulue, int tailleA
     }
 }
 
-int **Convolution::genererBinomial(int tailleVoulue)
+float **Convolution::genererBinomial(int tailleVoulue)
 {
-    int **base;
-    base = new int *[2];
+    float **base;
+    base = new float *[2];
     //Création d'une matrice de base
     for (int i = 0; i < 2; ++i) {
-        base[i] = new int[2];
+        base[i] = new float[2];
         for (int j = 0; j < 2; ++j) {
             base[i][j] = 1;
         }
@@ -175,12 +213,12 @@ int **Convolution::genererBinomial(int tailleVoulue)
     return genererBinomial(base,tailleVoulue,2);
 }
 
-int **Convolution::genererMoy(int tailleVoulue)
+float **Convolution::genererMoy(int tailleVoulue)
 {
-    int **mat;
-    mat = new int *[tailleVoulue];
+    float **mat;
+    mat = new float *[tailleVoulue];
     for (int i = 0; i < tailleVoulue; ++i) {
-        mat[i] = new int[tailleVoulue];
+        mat[i] = new float[tailleVoulue];
         for (int j = 0; j < tailleVoulue; ++j) {
             mat[i][j] = 1;
         }
