@@ -115,17 +115,17 @@ void MainWindow::showHisto(){
 
 void MainWindow::flouLeger(){
     Convolution c;
-    setImage(c.conv(image,c.genererBinomial(3),3),cheminImage);
+    setImage(c.flouGaussien(image,3),cheminImage);
 }
 
 void MainWindow::flouMoyen(){
     Convolution c;
-    setImage(c.conv(image,c.genererBinomial(5),5),cheminImage);
+    setImage(c.flouGaussien(image,5),cheminImage);
 }
 
 void MainWindow::flouFort(){
     Convolution c;
-    setImage(c.conv(image,c.genererBinomial(7),7),cheminImage);
+    setImage(c.flouGaussien(image,7),cheminImage);
 }
 
 void MainWindow::gris(){

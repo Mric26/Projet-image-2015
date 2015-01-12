@@ -8,6 +8,8 @@ class Convolution
 {
 public:
     QImage *conv(QImage *image, int **matrice, int tailleMatrice);
+    QImage *flouGaussien(QImage *image, int tailleMatriceBinomiale);
+private:
     int **genererBinomial(int **matrice,  int tailleVoulue, int tailleActuelle);
     int **genererBinomial(int tailleVoulue);
 };

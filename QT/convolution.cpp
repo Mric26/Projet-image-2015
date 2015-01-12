@@ -70,6 +70,11 @@ QImage *Convolution::conv(QImage *image, int ** matrice, int tailleMatrice){
     return nouvelleImage;
 }
 
+QImage *Convolution::flouGaussien(QImage *image, int tailleMatriceBinomiale)
+{
+    return conv(image,genererBinomial(tailleMatriceBinomiale),tailleMatriceBinomiale);
+}
+
 int **Convolution::genererBinomial(int **matrice,  int tailleVoulue, int tailleActuelle){
     if (tailleVoulue == tailleActuelle) {
         return matrice;
