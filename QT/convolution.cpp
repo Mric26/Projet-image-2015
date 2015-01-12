@@ -75,9 +75,9 @@ QImage *Convolution::flouGaussien(QImage *image, int tailleMatriceBinomiale)
     return conv(image,genererBinomial(tailleMatriceBinomiale),tailleMatriceBinomiale);
 }
 
-QImage *Convolution::flouMoy(QImage *image, int tailleMatriceBinomiale)
+QImage *Convolution::flouMoy(QImage *image, int tailleMatriceMoy)
 {
-    return NULL;
+    return conv(image,genererMoy(tailleMatriceMoy),tailleMatriceMoy);
 }
 
 QImage *Convolution::filtrePasseHaut(QImage *image)
@@ -168,4 +168,18 @@ int **Convolution::genererBinomial(int tailleVoulue)
     }
 
     return genererBinomial(base,tailleVoulue,2);
+}
+
+int **Convolution::genererMoy(int tailleVoulue)
+{
+    int **mat;
+    mat = new int *[tailleVoulue];
+    for (int i = 0; i < tailleVoulue; ++i) {
+        mat[i] = new int[tailleVoulue];
+        for (int j = 0; j < tailleVoulue; ++j) {
+            mat[i][j] = 1;
+        }
+    }
+
+    return mat;
 }
