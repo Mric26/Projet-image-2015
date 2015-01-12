@@ -4,6 +4,7 @@
 #include "save.h"
 #include "couper.h"
 #include "grisconvers.h"
+#include "histogrammes.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -112,6 +113,8 @@ void MainWindow::couper(){
 }
 
 void MainWindow::showHisto(){
+    Histogrammes h();
+    //h.afficher();
 }
 
 void MainWindow::flouLeger(){

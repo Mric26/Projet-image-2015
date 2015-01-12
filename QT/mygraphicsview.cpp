@@ -1,5 +1,4 @@
 #include "mygraphicsview.h"
-#include "couper.h"
 
 MyGraphicsView::MyGraphicsView(QWidget *w):QGraphicsView(w){
     rb = NULL;
@@ -33,7 +32,8 @@ void MyGraphicsView::mouseMoveEvent(QMouseEvent *event) {
 }
 
 void MyGraphicsView::mouseReleaseEvent(QMouseEvent *event){
-    setPointF(event->pos());
+    setPointD( this->mapToScene( getPointD() ).toPoint() );
+    setPointF( this->mapToScene( event->pos() ).toPoint() );
 }
 
 QPoint MyGraphicsView::getPointD() const{
