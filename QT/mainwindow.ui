@@ -264,11 +264,18 @@
      <addaction name="actionFlouMoyen"/>
      <addaction name="actionFlouFort"/>
     </widget>
+    <widget class="QMenu" name="menuFiltres">
+     <property name="title">
+      <string>filtres</string>
+     </property>
+     <addaction name="actionPasse_haut"/>
+    </widget>
     <addaction name="actionHistogramme"/>
     <addaction name="actionNiveau_de_gris"/>
-    <addaction name="menuFlou"/>
     <addaction name="actionFusion"/>
     <addaction name="actionPipette"/>
+    <addaction name="menuFiltres"/>
+    <addaction name="menuFlou"/>
    </widget>
    <widget class="QMenu" name="menuAbout">
     <property name="title">
@@ -338,6 +345,11 @@
   <action name="actionFlouFort">
    <property name="text">
     <string>fort</string>
+   </property>
+  </action>
+  <action name="actionPasse_haut">
+   <property name="text">
+    <string>passe haut</string>
    </property>
   </action>
  </widget>

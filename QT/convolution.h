@@ -9,6 +9,7 @@ class Convolution
 public:
     QImage *conv(QImage *image, int **matrice, int tailleMatrice);
     QImage *flouGaussien(QImage *image, int tailleMatriceBinomiale);
+    QImage *filtrePasseHaut(QImage *image);
 private:
     int **genererBinomial(int **matrice,  int tailleVoulue, int tailleActuelle);
     int **genererBinomial(int tailleVoulue);

@@ -56,6 +56,7 @@ MainWindow::MainWindow(QWidget *parent) :
     }
 
     QObject::connect( ui->actionEnregistrer_sous, SIGNAL(triggered()), this, SLOT(saveAs()) );
+    QObject::connect( ui->actionPasse_haut, SIGNAL(triggered()), this, SLOT(passeHaut()) );
 
 }
 
@@ -126,6 +127,12 @@ void MainWindow::flouMoyen(){
 void MainWindow::flouFort(){
     Convolution c;
     setImage(c.flouGaussien(image,7),cheminImage);
+}
+
+void MainWindow::passeHaut()
+{
+    Convolution c;
+    setImage(c.filtrePasseHaut(image),cheminImage);
 }
 
 void MainWindow::gris(){

@@ -37,11 +37,13 @@ public slots:
     void save();
     void saveAs();
     void couper();
+    void gris();
+    void showHisto();
+    //Filtres
     void flouLeger();
     void flouMoyen();
     void flouFort();
-    void gris();
-    void showHisto();
+    void passeHaut();
 
 private:
     Ui::MainWindow *ui;

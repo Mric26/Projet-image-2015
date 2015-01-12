@@ -41,6 +41,7 @@ public:
     QAction *actionFlouLeger;
     QAction *actionFlouMoyen;
     QAction *actionFlouFort;
+    QAction *actionPasse_haut;
     QWidget *centralWidget;
     QGridLayout *gridLayout;
     QGridLayout *gridLayout_2;
@@ -59,6 +60,7 @@ public:
     QMenu *menuFichier;
     QMenu *menu_dition;
     QMenu *menuFlou;
+    QMenu *menuFiltres;
     QMenu *menuAbout;
     QStatusBar *statusBar;
 
@@ -91,6 +93,8 @@ public:
         actionFlouMoyen->setObjectName(QStringLiteral("actionFlouMoyen"));
         actionFlouFort = new QAction(MainWindow);
         actionFlouFort->setObjectName(QStringLiteral("actionFlouFort"));
+        actionPasse_haut = new QAction(MainWindow);
+        actionPasse_haut->setObjectName(QStringLiteral("actionPasse_haut"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         gridLayout = new QGridLayout(centralWidget);
@@ -207,6 +211,8 @@ public:
         menu_dition->setObjectName(QStringLiteral("menu_dition"));
         menuFlou = new QMenu(menu_dition);
         menuFlou->setObjectName(QStringLiteral("menuFlou"));
+        menuFiltres = new QMenu(menu_dition);
+        menuFiltres->setObjectName(QStringLiteral("menuFiltres"));
         menuAbout = new QMenu(menuBar);
         menuAbout->setObjectName(QStringLiteral("menuAbout"));
         MainWindow->setMenuBar(menuBar);
@@ -224,12 +230,14 @@ public:
         menuFichier->addSeparator();
         menu_dition->addAction(actionHistogramme);
         menu_dition->addAction(actionNiveau_de_gris);
-        menu_dition->addAction(menuFlou->menuAction());
         menu_dition->addAction(actionFusion);
         menu_dition->addAction(actionPipette);
+        menu_dition->addAction(menuFiltres->menuAction());
+        menu_dition->addAction(menuFlou->menuAction());
         menuFlou->addAction(actionFlouLeger);
         menuFlou->addAction(actionFlouMoyen);
         menuFlou->addAction(actionFlouFort);
+        menuFiltres->addAction(actionPasse_haut);
 
         retranslateUi(MainWindow);
 
@@ -251,6 +259,7 @@ public:
         actionFlouLeger->setText(QApplication::translate("MainWindow", "l\303\251ger", 0));
         actionFlouMoyen->setText(QApplication::translate("MainWindow", "moyen", 0));
         actionFlouFort->setText(QApplication::translate("MainWindow", "fort", 0));
+        actionPasse_haut->setText(QApplication::translate("MainWindow", "passe haut", 0));
         histogramme->setText(QApplication::translate("MainWindow", "PushButton", 0));
         flou->setText(QApplication::translate("MainWindow", "PushButton", 0));
         fusion->setText(QApplication::translate("MainWindow", "PushButton", 0));
@@ -262,6 +271,7 @@ public:
         menuFichier->setTitle(QApplication::translate("MainWindow", "fichier", 0));
         menu_dition->setTitle(QApplication::translate("MainWindow", "\303\251dition", 0));
         menuFlou->setTitle(QApplication::translate("MainWindow", "flou", 0));
+        menuFiltres->setTitle(QApplication::translate("MainWindow", "filtres", 0));
         menuAbout->setTitle(QApplication::translate("MainWindow", "about", 0));
     } // retranslateUi
 
