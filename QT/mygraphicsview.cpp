@@ -1,26 +1,49 @@
 #include "mygraphicsview.h"
 
+using namespace std;
+
 MyGraphicsView::MyGraphicsView(QWidget *w):QGraphicsView(w){
     rb = NULL;
 }
 
 void MyGraphicsView::mousePressEvent(QMouseEvent *event){
-    if( event->button() == Qt::LeftButton ){
-        setPointD(event->pos());
-        if( rb == NULL ){
-            rb = new QRubberBand(QRubberBand::Rectangle, this);
+    if(getDopipe()) {
+        if(event->button() == Qt::LeftButton){
+            if( (event->pos().x() >= (this->width()*0.5 - getWin()->getImage()->width()*0.5)) && (event->pos().x() <= (this->width()*0.5 + getWin()->getImage()->width()*0.5)) && (event->pos().y() >= (this->height()*0.5 - getWin()->getImage()->height()*0.5)) && (event->pos().y() <= (this->height()*0.5 + getWin()->getImage()->height()*0.5))){
+                int xCorrectif(this->width()*0.5 - getWin()->getImage()->width()*0.5);
+                int yCorrectif(this->height()*0.5 - getWin()->getImage()->height()*0.5);
+                setPos(QPoint(event->pos().x() - xCorrectif , event->pos().y() - yCorrectif ));
+                setReadRGB(true);
+                setDopipe(false); //on a fini d'écouter les actions de la souris
+                cout << "" << endl; //il faut vider le buffer de l'application sous peine de ne jamais avoir de rafraichissement
+                getWin()->refresh();
+            }
+            else{
+                getWin()->setEmptylabel(true);
+                cout << "" << endl; //il faut vider le buffer de l'application sous peine de ne jamais avoir de rafraichissement
+                getWin()->refresh();
+            }
         }
-        else{
-            delete rb;
-            rb = new QRubberBand(QRubberBand::Rectangle, this);
+     }
+    else{
+        //sinon on autorise la selection
+        if( event->button() == Qt::LeftButton ){
+            setPointD(event->pos());
+            if( rb == NULL ){
+                rb = new QRubberBand(QRubberBand::Rectangle, this);
+            }
+            else{
+                delete rb;
+                rb = new QRubberBand(QRubberBand::Rectangle, this);
+            }
+            rb->setGeometry(QRect(getPointD(),QSize()));
+            rb->show();
         }
-        rb->setGeometry(QRect(getPointD(),QSize()));
-        rb->show();
-    }
-    if( event->button() == Qt::RightButton ){
-        if( rb != NULL){
-            delete rb;
-            rb = NULL;
+        if( event->button() == Qt::RightButton ){
+            if( rb != NULL){
+                delete rb;
+                rb = NULL;
+            }
         }
     }
 }
@@ -60,5 +83,39 @@ void MyGraphicsView::setRb(QRubberBand *value){
     rb = value;
 }
 
+void MyGraphicsView::setChecked(bool c){
+    checked = c;
+}
 
+bool MyGraphicsView::getDopipe() const{
+    return dopipe;
+}
+
+void MyGraphicsView::setDopipe(bool value){
+    dopipe = value;
+}
+
+bool MyGraphicsView::getReadRGB() const{
+    return readRGB;
+}
+
+void MyGraphicsView::setReadRGB(bool value){
+    readRGB = value;
+}
+
+QPoint MyGraphicsView::getPos() const{
+    return pos;
+}
+
+void MyGraphicsView::setPos(const QPoint &value){
+    pos = value;
+}
+
+MainWindow *MyGraphicsView::getWin() const{
+    return win;
+}
+
+void MyGraphicsView::setWin(MainWindow *value){
+    win = value;
+}
 

@@ -25,6 +25,7 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
+    void refresh();
     void paintEvent(QPaintEvent *);
     ~MainWindow();
 
@@ -39,13 +40,27 @@ public:
     DiagramColorWindow *getHist() const;
     void setHist(DiagramColorWindow *value);
 
+    bool getEmptylabel() const;
+    void setEmptylabel(bool value);
+
+    bool getRgbORyuv() const;
+    void setRgbORyuv(bool value);
+
 public slots:
+    // ouv / fermeture / enregistrement
     void ouv();
     void save();
     void saveAs();
+    //decoupe
     void couper();
+    //niveau de gris
     void gris();
+    //histogramme
     void showHisto();
+    //pipette
+    void pipeit();
+    void changeRGBtoYUVfalse();
+    void changeRGBtoYUVtrue();
     //Filtres
     void flouGaussLeger();
     void flouGaussMoyen();
@@ -66,6 +81,8 @@ private:
     QGraphicsScene *scene;
     QGraphicsPixmapItem *imageaffichee;
     DiagramColorWindow * hist;
+    bool emptylabel;
+    bool rgbORyuv;
 };
 
 #endif // MAINWINDOW_H

@@ -5,7 +5,9 @@
 #include <QGraphicsView>
 #include <QMouseEvent>
 #include <QRubberBand>
+#include <iostream>
 
+#include "mainwindow.h"
 
 class MyGraphicsView : public QGraphicsView
 {
@@ -24,10 +26,29 @@ public:
     QRubberBand *getRb() const;
     void setRb(QRubberBand *value);
 
+    void setChecked(bool c);
+
+    bool getDopipe() const;
+    void setDopipe(bool value);
+
+    bool getReadRGB() const;
+    void setReadRGB(bool value);
+
+    QPoint getPos() const;
+    void setPos(const QPoint &value);
+
+    MainWindow *getWin() const;
+    void setWin(MainWindow *value);
+
 private:
     QPoint pointD;
     QPoint pointF;
     QRubberBand *rb;
+    bool checked;
+    bool dopipe;
+    bool readRGB;
+    QPoint pos;
+    MainWindow *win;
 };
 
 #endif // MYGRAPHICSVIEW_H

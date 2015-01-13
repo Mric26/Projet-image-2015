@@ -8,5 +8,6 @@
         <file>res/histogramme.jpg</file>
         <file>res/niv_gris.png</file>
         <file>res/pipette.jpg</file>
+        <file>res/curseurpipette.png</file>
     </qresource>
 </RCC>

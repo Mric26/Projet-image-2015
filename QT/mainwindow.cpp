@@ -21,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
     new QShortcut(QKeySequence("Ctrl+X"), this, SLOT(couper()) );
 
     ui->pipette->setIcon(QIcon(":res/pipette.jpg"));
+    QObject::connect( ui->pipette, SIGNAL(clicked()), this, SLOT(pipeit()));
 
     ui->histogramme->setIcon(QIcon(":res/histogramme.jpg"));
     QObject::connect( ui->histogramme, SIGNAL(clicked()), this, SLOT(showHisto()) );
@@ -200,4 +201,69 @@ void MainWindow::setScene(QGraphicsScene *value){
 
 QString MainWindow::getCheminImage(){
     return cheminImage;
+}
+
+void MainWindow::pipeit(){
+    ui->graphicsView->setWin(this);
+    ui->graphicsView->setDopipe(true);
+    QPixmap pix(":res/curseurpipette.png");
+    QApplication::setOverrideCursor(QCursor(pix));
+}
+
+bool MainWindow::getRgbORyuv() const{
+    return rgbORyuv;
+}
+
+void MainWindow::setRgbORyuv(bool value){
+    rgbORyuv = value;
+}
+
+bool MainWindow::getEmptylabel() const{
+    return emptylabel;
+}
+
+void MainWindow::setEmptylabel(bool value){
+    emptylabel = value;
+}
+
+void MainWindow::changeRGBtoYUVtrue(){
+    setRgbORyuv(true);
+}
+
+void MainWindow::changeRGBtoYUVfalse(){
+    setRgbORyuv(false);
+}
+
+void MainWindow::refresh(){
+    if(getEmptylabel()){
+        ui->label->setText(" ");
+        setEmptylabel(false);
+    }else if(!ui->graphicsView->getDopipe()) //s'il ne faut plus regarder les composantes d'un pixel
+    {
+        cout << "restauration du curseur" << endl;
+        QApplication::restoreOverrideCursor();
+        if(ui->graphicsView->getReadRGB()){
+            if(getRgbORyuv()){ //espace RGB
+                QRgb* component = new QRgb(getImage()->pixel(ui->graphicsView->getPos()));
+                QColor couleur(*component);
+                QString txt;
+                txt =       "alpha:"   + QString::number(couleur.alpha());
+                txt = txt + " rouge: " + QString::number(couleur.red());
+                txt = txt + " vert: "  + QString::number(couleur.green());
+                txt = txt + " bleu: "  + QString::number(couleur.blue());
+                ui->label->setText(txt);
+            }else{ //espace YUV
+                QRgb* component = new QRgb(getImage()->pixel(ui->graphicsView->getPos()));
+                QColor couleur(*component);
+                QString txt;
+                int R(couleur.red());
+                int G(couleur.green());
+                int B(couleur.blue());
+                txt =  " Y: " + QString::number(R *  .299000 + G *  .587000 + B *  .114000);
+                txt = txt + " U: "  + QString::number(R * -.168736 + G * -.331264 + B *  .500000 + 128);
+                txt = txt + " V: "  + QString::number(R *  .500000 + G * -.418688 + B * -.081312 + 128);
+                ui->label->setText(txt);
+            }
+        }
+    }
 }
