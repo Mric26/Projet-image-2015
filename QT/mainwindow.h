@@ -77,6 +77,7 @@ public slots:
     void gradientY();
     void detectionContours();
     void createFusion();
+    void median();
 
 private:
     Ui::MainWindow *ui;

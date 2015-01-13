@@ -40,7 +40,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect( ui->actionGradientX, SIGNAL(triggered()), this, SLOT(gradientX()) );
     QObject::connect( ui->actionGradientY, SIGNAL(triggered()), this, SLOT(gradientY()) );
     QObject::connect( ui->actionDetectionContours, SIGNAL(triggered()), this, SLOT(detectionContours()) );
-    new QShortcut(QKeySequence("Ctrl+F"), this, SLOT(flouGaussLeger()) );
+    QObject::connect( ui->actionMedian, SIGNAL(triggered()), this, SLOT(median()) );
+    new QShortcut(QKeySequence("Ctrl+F"), this, SLOT(median()) );
 
     ui->fusion->setIcon(QIcon(":res/fusion.png"));
     QObject::connect( ui->fusion, SIGNAL(clicked()), this, SLOT(createFusion()) );
@@ -80,7 +81,12 @@ QImage * MainWindow::getImage(){
 }
 
 void MainWindow::setImage(QImage *im, QString chem){
+
+    if (im->format() == QImage::Format_Indexed8) {
+        *im = im->convertToFormat(QImage::Format_RGB32);
+    }
     image = im;
+
     cheminImage = chem;
 
     QPixmap *imagePix = new QPixmap();
@@ -179,6 +185,12 @@ void MainWindow::detectionContours()
 {
     Convolution c;
     setImage(c.detectionContours(image),cheminImage);
+}
+
+void MainWindow::median()
+{
+    Convolution c;
+    setImage(c.filtreMedian(image,1),cheminImage);
 }
 DiagramColorWindow *MainWindow::getHist() const{
     return hist;
