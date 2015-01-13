@@ -1,2 +1,3 @@
 build-QT-Desktop-Debug/*
 QT/QT.pro.user*
+toto.cpp
