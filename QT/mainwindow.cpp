@@ -16,48 +16,39 @@ MainWindow::MainWindow(QWidget *parent) :
     image = new QImage();
     imageaffichee = new QGraphicsPixmapItem();
 
-    ui->couper->setText("");
-    ui->couper->setIcon(QIcon("IMG/ciseaux.png"));
+    ui->couper->setIcon(QIcon(":res/ciseaux.png"));
     QObject::connect( ui->couper, SIGNAL(clicked()), this, SLOT(couper()) );
     new QShortcut(QKeySequence("Ctrl+X"), this, SLOT(couper()) );
 
-    ui->pipette->setText("");
-    ui->pipette->setIcon(QIcon("IMG/pipette.jpg"));
+    ui->pipette->setIcon(QIcon(":res/pipette.jpg"));
 
-    ui->histogramme->setText("");
-    ui->histogramme->setIcon(QIcon("IMG/histogramme.jpg"));
+    ui->histogramme->setIcon(QIcon(":res/histogramme.jpg"));
     QObject::connect( ui->histogramme, SIGNAL(clicked()), this, SLOT(showHisto()) );
     new QShortcut(QKeySequence("Ctrl+H"), this, SLOT(showHisto()) );
 
-    ui->flou->setText("");
-    ui->flou->setIcon(QIcon("IMG/flou.png"));
+    ui->flou->setIcon(QIcon(":res/flou.png"));
     QObject::connect( ui->flou, SIGNAL(clicked()), this, SLOT(flouGaussLeger()) );
-    new QShortcut(QKeySequence("Ctrl+F"), this, SLOT(flouGaussLeger()) );
     QObject::connect( ui->actionFlouGaussLeger, SIGNAL(triggered()), this, SLOT(flouGaussLeger()) );
     QObject::connect( ui->actionFlouGaussMoyen, SIGNAL(triggered()), this, SLOT(flouGaussMoyen()) );
     QObject::connect( ui->actionFlouGaussFort, SIGNAL(triggered()), this, SLOT(flouGaussFort()) );
-
     QObject::connect( ui->actionFlouMoyLeger, SIGNAL(triggered()), this, SLOT(flouMoyLeger()) );
     QObject::connect( ui->actionFlouMoyMoyen, SIGNAL(triggered()), this, SLOT(flouMoyMoyen()) );
     QObject::connect( ui->actionFlouMoyFort, SIGNAL(triggered()), this, SLOT(flouMoyFort()) );
     QObject::connect( ui->actionRehaussement, SIGNAL(triggered()), this, SLOT(rehaussement()) );
+    new QShortcut(QKeySequence("Ctrl+F"), this, SLOT(flouGaussLeger()) );
 
-    ui->fusion->setText("");
-    ui->fusion->setIcon(QIcon("IMG/fusion.png"));
+    ui->fusion->setIcon(QIcon(":res/fusion.png"));
 
-    ui->gris->setText("");
-    ui->gris->setIcon(QIcon("IMG/niv_gris.png"));
+    ui->gris->setIcon(QIcon(":res/niv_gris.png"));
     QObject::connect( ui->gris, SIGNAL(clicked()), this, SLOT(gris()) );
     new QShortcut(QKeySequence("Ctrl+G"), this, SLOT(gris()) );
 
-    ui->ouvrir->setText("");
     ui->ouvrir->setIcon(QIcon(":res/ouvrir.jpg"));
     QObject::connect( ui->ouvrir, SIGNAL(clicked()), this, SLOT(ouv()) );
     QObject::connect( ui->actionOuvrir_2, SIGNAL(triggered()), this, SLOT(ouv()) );
     new QShortcut(QKeySequence("Ctrl+O"), this, SLOT(ouv()) );
 
-    ui->enregistrer->setText("");
-    ui->enregistrer->setIcon(QIcon("IMG/enregistrer.png"));
+    ui->enregistrer->setIcon(QIcon(":res/enregistrer.png"));
     QObject::connect( ui->enregistrer, SIGNAL(clicked()), this, SLOT(save()) );
     new QShortcut(QKeySequence("Ctrl+S"), this, SLOT(save()) );
     QObject::connect( ui->actionEnregistrer, SIGNAL(triggered()), this, SLOT(save()) );

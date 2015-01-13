@@ -327,7 +327,14 @@ compiler_rcc_make_all: qrc_resources.cpp
 compiler_rcc_clean:
 	-$(DEL_FILE) qrc_resources.cpp
 qrc_resources.cpp: ../QT/resources.qrc \
-		../QT/res/ouvrir.jpg
+		../QT/res/enregistrer.png \
+		../QT/res/histogramme.jpg \
+		../QT/res/ouvrir.jpg \
+		../QT/res/pipette.jpg \
+		../QT/res/niv_gris.png \
+		../QT/res/ciseaux.png \
+		../QT/res/flou.png \
+		../QT/res/fusion.png
 	/usr/lib/x86_64-linux-gnu/qt5/bin/rcc -name resources ../QT/resources.qrc -o qrc_resources.cpp
 
 compiler_moc_header_make_all: moc_mainwindow.cpp moc_diagramcolorwindow.cpp

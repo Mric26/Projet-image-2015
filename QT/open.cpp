@@ -1,7 +1,5 @@
 #include "open.h"
 
-using namespace std;
-
 void Open::ouvrir( MainWindow * w ) {
 
     //chemin

@@ -1,7 +1,5 @@
 #include "couper.h"
 
-using namespace std;
-
 void Couper::couper(MainWindow * w, QPoint d, QPoint f){
 
     //calcul des bons points

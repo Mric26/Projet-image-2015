@@ -38,7 +38,7 @@
          <bool>false</bool>
         </property>
         <property name="text">
-         <string>PushButton</string>
+         <string/>
         </property>
         <property name="autoDefault">
          <bool>false</bool>
@@ -57,7 +57,7 @@
          <bool>false</bool>
         </property>
         <property name="text">
-         <string>PushButton</string>
+         <string/>
         </property>
         <property name="autoDefault">
          <bool>false</bool>
@@ -89,7 +89,7 @@
          <bool>false</bool>
         </property>
         <property name="text">
-         <string>PushButton</string>
+         <string/>
         </property>
         <property name="autoDefault">
          <bool>false</bool>
@@ -108,7 +108,7 @@
          <bool>false</bool>
         </property>
         <property name="text">
-         <string>PushButton</string>
+         <string/>
         </property>
         <property name="autoDefault">
          <bool>false</bool>
@@ -127,7 +127,7 @@
          <bool>false</bool>
         </property>
         <property name="text">
-         <string>PushButton</string>
+         <string/>
         </property>
         <property name="autoDefault">
          <bool>false</bool>
@@ -146,7 +146,7 @@
          <bool>false</bool>
         </property>
         <property name="text">
-         <string>PushButton</string>
+         <string/>
         </property>
         <property name="autoDefault">
          <bool>false</bool>
@@ -165,7 +165,7 @@
          <bool>false</bool>
         </property>
         <property name="text">
-         <string>PushButton</string>
+         <string/>
         </property>
         <property name="checkable">
          <bool>false</bool>
@@ -200,7 +200,7 @@
          <bool>false</bool>
         </property>
         <property name="text">
-         <string>PushButton</string>
+         <string/>
         </property>
         <property name="autoDefault">
          <bool>false</bool>
@@ -239,7 +239,7 @@
      <x>0</x>
      <y>0</y>
      <width>688</width>
-     <height>29</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFichier">
