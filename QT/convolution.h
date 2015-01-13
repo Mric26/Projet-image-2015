@@ -7,15 +7,15 @@
 class Convolution
 {
 public:
-    QImage *conv(QImage *image, int **matrice, int tailleMatrice);
+    QImage *conv(QImage *image, float **matrice, int tailleMatrice);
     QImage *flouGaussien(QImage *image, int tailleMatriceBinomiale);
     QImage *flouMoy(QImage *image, int tailleMatriceMoy);
     QImage *filtrePasseHaut(QImage *image);
     QImage *filtreRehaussement(QImage *image);
 private:
-    int **genererBinomial(int **matrice,  int tailleVoulue, int tailleActuelle);
-    int **genererBinomial(int tailleVoulue);
-    int **genererMoy(int tailleVoulue);
+    float **genererBinomial(float **matrice,  int tailleVoulue, int tailleActuelle);
+    float **genererBinomial(int tailleVoulue);
+    float **genererMoy(int tailleVoulue);
 };
 
 #endif // CONVOLUTION_H

@@ -41,6 +41,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect( ui->actionFlouMoyLeger, SIGNAL(triggered()), this, SLOT(flouMoyLeger()) );
     QObject::connect( ui->actionFlouMoyMoyen, SIGNAL(triggered()), this, SLOT(flouMoyMoyen()) );
     QObject::connect( ui->actionFlouMoyFort, SIGNAL(triggered()), this, SLOT(flouMoyFort()) );
+    QObject::connect( ui->actionRehaussement, SIGNAL(triggered()), this, SLOT(rehaussement()) );
 
     ui->fusion->setText("");
     ui->fusion->setIcon(QIcon("IMG/fusion.png"));
