@@ -4,6 +4,7 @@
 #include "save.h"
 #include "couper.h"
 #include "grisconvers.h"
+#include "fusion.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -42,6 +43,7 @@ MainWindow::MainWindow(QWidget *parent) :
     new QShortcut(QKeySequence("Ctrl+F"), this, SLOT(flouGaussLeger()) );
 
     ui->fusion->setIcon(QIcon(":res/fusion.png"));
+    QObject::connect( ui->fusion, SIGNAL(clicked()), this, SLOT(createFusion()) );
 
     ui->gris->setIcon(QIcon(":res/niv_gris.png"));
     QObject::connect( ui->gris, SIGNAL(clicked()), this, SLOT(gris()) );
@@ -203,13 +205,6 @@ QString MainWindow::getCheminImage(){
     return cheminImage;
 }
 
-void MainWindow::pipeit(){
-    ui->graphicsView->setWin(this);
-    ui->graphicsView->setDopipe(true);
-    QPixmap pix(":res/curseurpipette.png");
-    QApplication::setOverrideCursor(QCursor(pix));
-}
-
 bool MainWindow::getRgbORyuv() const{
     return rgbORyuv;
 }
@@ -234,14 +229,35 @@ void MainWindow::changeRGBtoYUVfalse(){
     setRgbORyuv(false);
 }
 
+void MainWindow::createFusion(){
+    Fusion fus;
+    fus.fusionner(this);
+}
+QGraphicsPixmapItem *MainWindow::getImageaffichee() const
+{
+    return imageaffichee;
+}
+
+void MainWindow::setImageaffichee(QGraphicsPixmapItem *value)
+{
+    imageaffichee = value;
+}
+
+void MainWindow::pipeit(){
+    ui->graphicsView->setWin(this);
+    ui->graphicsView->setDopipe(true);
+    QPixmap pix(":res/curseurpipette.png");
+    QApplication::setOverrideCursor(QCursor(pix));
+}
+
 void MainWindow::refresh(){
     if(getEmptylabel()){
         ui->label->setText(" ");
         setEmptylabel(false);
     }else if(!ui->graphicsView->getDopipe()) //s'il ne faut plus regarder les composantes d'un pixel
     {
-        cout << "restauration du curseur" << endl;
-        QApplication::restoreOverrideCursor();
+        QApplication::setOverrideCursor(Qt::ArrowCursor);
+
         if(ui->graphicsView->getReadRGB()){
             if(getRgbORyuv()){ //espace RGB
                 QRgb* component = new QRgb(getImage()->pixel(ui->graphicsView->getPos()));

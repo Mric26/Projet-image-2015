@@ -20,7 +20,9 @@ SOURCES += main.cpp\
     mygraphicsview.cpp \
     convolution.cpp \
     grisconvers.cpp \
-    diagramcolorwindow.cpp
+    diagramcolorwindow.cpp \
+    fusion.cpp \
+    contraste.cpp
 
 HEADERS  += mainwindow.h \
     open.h \
@@ -29,10 +31,13 @@ HEADERS  += mainwindow.h \
     mygraphicsview.h \
     convolution.h \
     grisconvers.h \
-    diagramcolorwindow.h
+    diagramcolorwindow.h \
+    fusion.h \
+    contraste.h
 
 FORMS    += mainwindow.ui \
-    diagramcolorwindow.ui
+    diagramcolorwindow.ui \
+    contraste.ui
 
 RESOURCES += \
     resources.qrc
