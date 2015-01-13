@@ -55,6 +55,9 @@ public slots:
     void flouMoyFort();
     void passeHaut();
     void rehaussement();
+    void gradientX();
+    void gradientY();
+    void detectionContours();
 
 private:
     Ui::MainWindow *ui;

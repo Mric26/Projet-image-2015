@@ -239,7 +239,7 @@
      <x>0</x>
      <y>0</y>
      <width>688</width>
-     <height>19</height>
+     <height>29</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFichier">
@@ -283,9 +283,18 @@
       <addaction name="menuGaussien"/>
       <addaction name="menuMoyenneur"/>
      </widget>
+     <widget class="QMenu" name="menuGradients">
+      <property name="title">
+       <string>gradients</string>
+      </property>
+      <addaction name="actionGradientX"/>
+      <addaction name="actionGradientY"/>
+      <addaction name="actionDetectionContours"/>
+     </widget>
      <addaction name="actionPasse_haut"/>
      <addaction name="actionRehaussement"/>
      <addaction name="menuFlou_2"/>
+     <addaction name="menuGradients"/>
     </widget>
     <addaction name="actionHistogramme"/>
     <addaction name="actionNiveau_de_gris"/>
@@ -396,6 +405,21 @@
   <action name="actionRehaussement">
    <property name="text">
     <string>réhaussement</string>
+   </property>
+  </action>
+  <action name="actionGradientX">
+   <property name="text">
+    <string>X</string>
+   </property>
+  </action>
+  <action name="actionGradientY">
+   <property name="text">
+    <string>Y</string>
+   </property>
+  </action>
+  <action name="actionDetectionContours">
+   <property name="text">
+    <string>Détection de contours</string>
    </property>
   </action>
  </widget>

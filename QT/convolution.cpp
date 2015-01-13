@@ -126,6 +126,11 @@ QImage *Convolution::filtreRehaussement(QImage *image){
     return conv(image,rehauss,3);
 }
 
+QImage *Convolution::detectionContours(QImage *image)
+{
+    return NULL;
+}
+
 float **Convolution::genererBinomial(float **matrice,  int tailleVoulue, int tailleActuelle){
     if (tailleVoulue == tailleActuelle) {
         return appliquerFacteur(matrice,tailleVoulue);

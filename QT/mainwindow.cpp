@@ -35,6 +35,9 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect( ui->actionFlouMoyMoyen, SIGNAL(triggered()), this, SLOT(flouMoyMoyen()) );
     QObject::connect( ui->actionFlouMoyFort, SIGNAL(triggered()), this, SLOT(flouMoyFort()) );
     QObject::connect( ui->actionRehaussement, SIGNAL(triggered()), this, SLOT(rehaussement()) );
+    QObject::connect( ui->actionGradientX, SIGNAL(triggered()), this, SLOT(gradientX()) );
+    QObject::connect( ui->actionGradientY, SIGNAL(triggered()), this, SLOT(gradientY()) );
+    QObject::connect( ui->actionDetectionContours, SIGNAL(triggered()), this, SLOT(detectionContours()) );
     new QShortcut(QKeySequence("Ctrl+F"), this, SLOT(flouGaussLeger()) );
 
     ui->fusion->setIcon(QIcon(":res/fusion.png"));
@@ -155,6 +158,24 @@ void MainWindow::passeHaut(){
 void MainWindow::rehaussement(){
     Convolution c;
     setImage(c.filtreRehaussement(image),cheminImage);
+}
+
+void MainWindow::gradientX()
+{
+    Convolution c;
+    setImage(c.gradientX(image),cheminImage);
+}
+
+void MainWindow::gradientY()
+{
+    Convolution c;
+    setImage(c.gradientY(image),cheminImage);
+}
+
+void MainWindow::detectionContours()
+{
+    Convolution c;
+    setImage(c.detectionContours(image),cheminImage);
 }
 DiagramColorWindow *MainWindow::getHist() const{
     return hist;

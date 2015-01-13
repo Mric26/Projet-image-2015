@@ -11,6 +11,9 @@ public:
     QImage *flouMoy(QImage *image, int tailleMatriceMoy);
     QImage *filtrePasseHaut(QImage *image);
     QImage *filtreRehaussement(QImage *image);
+    QImage *detectionContours(QImage *image);
+    QImage *gradientX(QImage *image);
+    QImage *gradientY(QImage *image);
 private:
     float **genererBinomial(float **matrice,  int tailleVoulue, int tailleActuelle);
     float **genererBinomial(int tailleVoulue);
