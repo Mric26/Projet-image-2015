@@ -1,8 +1,9 @@
 #ifndef GRISCONVERS_H
 #define GRISCONVERS_H
+
 #include "mainwindow.h"
+
 #include <QImage>
-#include <iostream>
 #include <QRgb>
 #include <QColor>
 

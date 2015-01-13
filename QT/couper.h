@@ -2,13 +2,12 @@
 #define COUPER_H
 #include "mainwindow.h"
 #include <QMouseEvent>
-#include <iostream>
 #include "mygraphicsview.h"
 
 class Couper{
 
 public:
-    void couper(MainWindow *w, MyGraphicsView *q, QPoint d, QPoint f);
+    void couper(MainWindow *w, QPoint d, QPoint f);
 
 };
 

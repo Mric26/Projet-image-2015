@@ -4,7 +4,6 @@
 #include "save.h"
 #include "couper.h"
 #include "grisconvers.h"
-#include "histogrammes.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -117,7 +116,7 @@ void MainWindow::saveAs(){
 void MainWindow::couper(){
     if( ui->graphicsView->getRb() != NULL ){
         Couper cp;
-        cp.couper(this, ui->graphicsView, ui->graphicsView->getPointD(), ui->graphicsView->getPointF());
+        cp.couper(this, ui->graphicsView->getPointD(), ui->graphicsView->getPointF());
     }
     delete ui->graphicsView->getRb();
     ui->graphicsView->setRb(NULL);
@@ -127,8 +126,7 @@ void MainWindow::showHisto(){
     hist = new DiagramColorWindow( this->getImage() );
 }
 
-void MainWindow::flouMoyLeger()
-{
+void MainWindow::flouMoyLeger(){
     Convolution c;
     setImage(c.flouMoy(image,3),cheminImage);
 }

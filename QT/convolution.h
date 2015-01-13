@@ -1,7 +1,6 @@
 #ifndef CONVOLUTION_H
 #define CONVOLUTION_H
 #include <QImage>
-#include <iostream>
 #include <QColor>
 
 class Convolution

@@ -2,7 +2,7 @@
 
 using namespace std;
 
-void Couper::couper(MainWindow * w, MyGraphicsView * g, QPoint d, QPoint f){
+void Couper::couper(MainWindow * w, QPoint d, QPoint f){
 
     //calcul des bons points
     QPoint *a = new QPoint( qMin(d.x(),f.x()), qMin(d.y(),f.y()) );

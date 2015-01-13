@@ -1,5 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
+
 #include <QMainWindow>
 #include <QPainter>
 #include <iostream>
@@ -10,6 +11,7 @@
 #include <QColor>
 #include <string>
 #include <QShortcut>
+
 #include "convolution.h"
 #include "diagramcolorwindow.h"
 

@@ -38,12 +38,8 @@ QImage *Convolution::conv(QImage *image, float ** matrice, int tailleMatrice){
                          bleu = bleu + matrice[m+c][n+l] * qBlue(couleurPix);
                          rouge = rouge + matrice[m+c][n+l] * qRed(couleurPix);
                          vert = vert + matrice[m+c][n+l] * qGreen(couleurPix);
-//                        std::cout << matrice[m+c][n+l] << std::endl;
                     }
                 }
-//                rouge = rouge/somme;
-//                bleu = bleu/somme;
-//                vert = vert/somme;
                 if (bleu >255) {
                      bleu = 255;
                  }
@@ -62,26 +58,21 @@ QImage *Convolution::conv(QImage *image, float ** matrice, int tailleMatrice){
                  else if (rouge < 0) {
                       rouge = 0;
                  }
-//                 std::cout << "nouvelles couleurs" << qRgb(rouge, vert, bleu) << std::endl;
                  nouvelleImage->setPixel(i,j,qRgb(int(rouge + 0.5), int(vert + 0.5), int(bleu + 0.5)));
             }
     }
-//    std::cout << "Done" << std::endl;
     return nouvelleImage;
 }
 
-QImage *Convolution::flouGaussien(QImage *image, int tailleMatriceBinomiale)
-{
+QImage *Convolution::flouGaussien(QImage *image, int tailleMatriceBinomiale){
     return conv(image,genererBinomial(tailleMatriceBinomiale),tailleMatriceBinomiale);
 }
 
-QImage *Convolution::flouMoy(QImage *image, int tailleMatriceMoy)
-{
+QImage *Convolution::flouMoy(QImage *image, int tailleMatriceMoy){
     return conv(image,genererMoy(tailleMatriceMoy),tailleMatriceMoy);
 }
 
-QImage *Convolution::filtrePasseHaut(QImage *image)
-{
+QImage *Convolution::filtrePasseHaut(QImage *image){
     float **matPasseHaut;
     matPasseHaut = new float *[3];
 
@@ -101,16 +92,13 @@ QImage *Convolution::filtrePasseHaut(QImage *image)
 
     for (int i = 0; i < 3; ++i) {
         for (int j = 0; j < 3; ++j) {
-            std::cout << matPasseHaut[i][j]<<std::endl;
         }
     }
 
     return conv(image,matPasseHaut,3);
 }
 
-QImage *Convolution::filtreRehaussement(QImage *image)
-{
-    std::cout << "test" << std::endl;
+QImage *Convolution::filtreRehaussement(QImage *image){
     //Calcul de (1-alpha)*d
     float **d;
     d = new float *[3];

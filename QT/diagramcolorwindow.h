@@ -5,10 +5,7 @@
 #include <QtGui>
 #include <QDialog>
 #include <QGraphicsView>
-#include <opencv2/core/core.hpp>
-#include <opencv2/highgui/highgui.hpp>
 #include <vector>
-#include <QGraphicsTextItem>
 #include <QImage>
 
 namespace Ui {
@@ -38,7 +35,6 @@ private:
     std::vector<int> rCourbe;
     std::vector<int> gCourbe;
     std::vector<int> bCourbe;
-
     std::vector<int> yCourbe;
     std::vector<int> cbCourbe;
     std::vector<int> crCourbe;

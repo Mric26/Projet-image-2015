@@ -1,7 +1,9 @@
 #ifndef SAVE_H
 #define SAVE_H
+
 #include <string>
 #include <QFileDialog>
+
 #include "mainwindow.h"
 
 using namespace std;
