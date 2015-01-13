@@ -128,17 +128,62 @@ QImage *Convolution::filtreRehaussement(QImage *image){
 
 QImage *Convolution::detectionContours(QImage *image)
 {
-    return NULL;
+    QImage *sobelX = gradientX(image);
+    QImage *sobelY = gradientY(image);
+
+    QImage *res = new QImage(image->width(),image->height(),image->format());
+
+    for (int i = 0; i < image->width(); ++i) {
+        for (int j = 0; j < image->height(); ++j) {
+            res->setPixel(i,j,sobelX->pixel(i,j)+sobelY->pixel(i,j));
+        }
+    }
+
+    return res;
 }
 
 QImage *Convolution::gradientX(QImage *image)
 {
-    return NULL;
+    float **sobelX;
+    sobelX = new float *[3];
+
+    for (int i = 0; i < 3; ++i) {
+        sobelX[i] = new float[3];
+    }
+
+    sobelX[0][0] = 1.0/4.0;
+    sobelX[0][1] = 0.0/4.0;
+    sobelX[0][2] = -1.0/4.0;
+    sobelX[1][0] = 2.0/4.0;
+    sobelX[1][1] = 0.0/4.0;
+    sobelX[1][2] = -2.0/4.0;
+    sobelX[2][0] = 1.0/4.0;
+    sobelX[2][1] = 0.0/4.0;
+    sobelX[2][2] = -1.0/4.0;
+
+    return conv(image,sobelX,3);
 }
 
 QImage *Convolution::gradientY(QImage *image)
 {
-    return NULL;
+    float **sobelY;
+    sobelY = new float *[3];
+
+    for (int i = 0; i < 3; ++i) {
+        sobelY[i] = new float[3];
+    }
+
+    sobelY[0][0] = 1.0/4.0;
+    sobelY[0][1] = 2.0/4.0;
+    sobelY[0][2] = 1.0/4.0;
+    sobelY[1][0] = 0.0/4.0;
+    sobelY[1][1] = 0.0/4.0;
+    sobelY[1][2] = 0.0/4.0;
+    sobelY[2][0] = -1.0/4.0;
+    sobelY[2][1] = -2.0/4.0;
+    sobelY[2][2] = -1.0/4.0;
+
+    return conv(image,sobelY,3);
 }
 
 float **Convolution::genererBinomial(float **matrice,  int tailleVoulue, int tailleActuelle){
