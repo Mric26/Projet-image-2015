@@ -7,14 +7,6 @@ QImage *Convolution::conv(QImage *image, float ** matrice, int tailleMatrice){
     int l = (tailleMatrice -1)/2;
     int c = (tailleMatrice -1)/2;
 
-    //Calcul du coeff du noyau
-    int somme = 0;
-    for (int var = 0; var < tailleMatrice; ++var) {
-        for (int var2 = 0; var2 < tailleMatrice; ++var2) {
-            somme = somme + matrice[var][var2];
-        }
-    }
-
     float bleu = 0;
     float rouge = 0;
     float vert = 0;
@@ -33,8 +25,6 @@ QImage *Convolution::conv(QImage *image, float ** matrice, int tailleMatrice){
                         }else {
                             couleurPix = image->pixel(i,j);
                         }
-
-
                          bleu = bleu + matrice[m+c][n+l] * qBlue(couleurPix);
                          rouge = rouge + matrice[m+c][n+l] * qRed(couleurPix);
                          vert = vert + matrice[m+c][n+l] * qGreen(couleurPix);
@@ -138,20 +128,7 @@ QImage *Convolution::filtreRehaussement(QImage *image){
 
 float **Convolution::genererBinomial(float **matrice,  int tailleVoulue, int tailleActuelle){
     if (tailleVoulue == tailleActuelle) {
-        //application du facteur (division par la somme des coeff) au noyau
-        float somme = 0;
-        for (int i = 0; i < tailleActuelle; ++i) {
-            for (int j = 0; j < tailleActuelle; ++j) {
-                somme = somme + matrice[i][j];
-            }
-        }
-
-        for (int i = 0; i < tailleActuelle; ++i) {
-            for (int j = 0; j < tailleActuelle; ++j) {
-                matrice[i][j] = matrice[i][j]/somme;
-            }
-        }
-        return matrice;
+        return appliquerFacteur(matrice,tailleVoulue);
     }
     else {
         float base[2][2] = {{1.0,1.0},{1.0,1.0}};
@@ -219,23 +196,31 @@ float **Convolution::genererBinomial(int tailleVoulue)
 
 float **Convolution::genererMoy(int tailleVoulue)
 {
-    //application du facteur (division par la somme des coeff) au noyau
-    float somme = 0.0;
     float **mat;
     mat = new float *[tailleVoulue];
     for (int i = 0; i < tailleVoulue; ++i) {
         mat[i] = new float[tailleVoulue];
         for (int j = 0; j < tailleVoulue; ++j) {
             mat[i][j] = 1.0;
-            somme = somme + mat[i][j];
+        }
+    }
+    return appliquerFacteur(mat,tailleVoulue);
+}
+
+float **Convolution::appliquerFacteur(float **matrice, int taille)
+{
+    float somme = 0.0;
+    for (int i = 0; i < taille; ++i) {
+        for (int j = 0; j < taille; ++j) {
+            somme = somme + matrice[i][j];
         }
     }
 
-    for (int i = 0; i < tailleVoulue; ++i) {
-        for (int j = 0; j < tailleVoulue; ++j) {
-            mat[i][j] = mat[i][j]/somme;
+    for (int i = 0; i < taille; ++i) {
+        for (int j = 0; j < taille; ++j) {
+            matrice[i][j] = matrice[i][j]/somme;
         }
     }
 
-    return mat;
+    return matrice;
 }

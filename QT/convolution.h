@@ -15,6 +15,7 @@ private:
     float **genererBinomial(float **matrice,  int tailleVoulue, int tailleActuelle);
     float **genererBinomial(int tailleVoulue);
     float **genererMoy(int tailleVoulue);
+    float **appliquerFacteur(float **matrice, int taille);
 };
 
 #endif // CONVOLUTION_H
