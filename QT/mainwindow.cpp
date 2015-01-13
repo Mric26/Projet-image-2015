@@ -9,7 +9,8 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    cheminImage()
+    cheminImage(),
+    hist()
 {
     ui->setupUi(this);
     scene = new QGraphicsScene();
@@ -122,8 +123,7 @@ void MainWindow::couper(){
 }
 
 void MainWindow::showHisto(){
-    Histogrammes h;
-    h.afficher(this);
+    hist = new DiagramColorWindow( this->getImage() );
 }
 
 void MainWindow::flouMoyLeger()
@@ -132,14 +132,12 @@ void MainWindow::flouMoyLeger()
     setImage(c.flouMoy(image,3),cheminImage);
 }
 
-void MainWindow::flouMoyMoyen()
-{
+void MainWindow::flouMoyMoyen(){
     Convolution c;
     setImage(c.flouMoy(image,5),cheminImage);
 }
 
-void MainWindow::flouMoyFort()
-{
+void MainWindow::flouMoyFort(){
     Convolution c;
     setImage(c.flouMoy(image,7),cheminImage);
 }
@@ -159,16 +157,21 @@ void MainWindow::flouGaussFort(){
     setImage(c.flouGaussien(image,7),cheminImage);
 }
 
-void MainWindow::passeHaut()
-{
+void MainWindow::passeHaut(){
     Convolution c;
     setImage(c.filtrePasseHaut(image),cheminImage);
 }
 
-void MainWindow::rehaussement()
-{
+void MainWindow::rehaussement(){
     Convolution c;
     setImage(c.filtreRehaussement(image),cheminImage);
+}
+DiagramColorWindow *MainWindow::getHist() const{
+    return hist;
+}
+
+void MainWindow::setHist(DiagramColorWindow *value){
+    hist = value;
 }
 
 void MainWindow::gris(){

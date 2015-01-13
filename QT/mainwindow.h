@@ -11,6 +11,7 @@
 #include <string>
 #include <QShortcut>
 #include "convolution.h"
+#include "diagramcolorwindow.h"
 
 namespace Ui {
 class MainWindow;
@@ -32,6 +33,9 @@ public:
 
     QGraphicsScene * getScene() ;
     void setScene(QGraphicsScene *value);
+
+    DiagramColorWindow *getHist() const;
+    void setHist(DiagramColorWindow *value);
 
 public slots:
     void ouv();
@@ -56,6 +60,7 @@ private:
     QString cheminImage;
     QGraphicsScene *scene;
     QGraphicsPixmapItem *imageaffichee;
+    DiagramColorWindow * hist;
 };
 
 #endif // MAINWINDOW_H

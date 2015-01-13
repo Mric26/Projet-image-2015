@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     mygraphicsview.cpp \
     convolution.cpp \
     grisconvers.cpp \
-    histogrammes.cpp
+    histogrammes.cpp \
+    diagramcolorwindow.cpp
 
 HEADERS  += mainwindow.h \
     open.h \
@@ -29,9 +30,11 @@ HEADERS  += mainwindow.h \
     mygraphicsview.h \
     convolution.h \
     grisconvers.h \
-    histogrammes.h
+    histogrammes.h \
+    diagramcolorwindow.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    diagramcolorwindow.ui
 
 RESOURCES += \
     resources.qrc

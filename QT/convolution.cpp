@@ -102,8 +102,7 @@ QImage *Convolution::filtrePasseHaut(QImage *image)
     return conv(image,matPasseHaut,3);
 }
 
-QImage *Convolution::filtreRehaussement(QImage *image)
-{
+QImage *Convolution::filtreRehaussement(QImage *image){
     return NULL;
 }
 

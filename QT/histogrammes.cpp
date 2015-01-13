@@ -1,14 +1,41 @@
 #include "histogrammes.h"
-#include <iostream>
 
 using namespace std;
 
-Histogrammes::Histogrammes() : QWidget() {
+Histogrammes::Histogrammes() :
+    QDialog(),
+    v(),
+    s()
+{
+    v = new QGraphicsView();
+    s = new QGraphicsScene(5,5,300,300);
+    v->setScene(s);
+    this->setVisible(true);
 }
 
-void Histogrammes::afficher(MainWindow * w){
-    cout << "TOTO" << endl;
-    setFixedSize(300, 150);
-    QPushButton * Annuler = new QPushButton("Annuler", this);
+Histogrammes::~Histogrammes(){
+    delete s;
+    delete v;
+}
+
+void Histogrammes::afficher(){
+    s->addLine(5,5,5,260);
+    s->addLine(5,5,260,5);
     this->show();
+}
+
+QGraphicsView *Histogrammes::getV(){
+    return v;
+}
+
+void Histogrammes::setV(QGraphicsView * value){
+    v = value;
+}
+
+QGraphicsScene *Histogrammes::getS(){
+    return s;
+}
+
+void Histogrammes::setS(QGraphicsScene * value){
+    s = value;
 }

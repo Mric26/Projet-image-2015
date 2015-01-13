@@ -1,14 +1,30 @@
 #ifndef HISTOGRAMMES_H
 #define HISTOGRAMMES_H
-#include <QWidget>
-#include <QPushButton>
-#include "mainwindow.h"
 
-class Histogrammes : QWidget
+#include <QDialog>
+#include <iostream>
+#include <QGraphicsView>
+#include <QGraphicsScene>
+#include <QtCore>
+#include <QtGui>
+
+class Histogrammes : QDialog
 {
 public:
     Histogrammes();
-    void afficher(MainWindow *w);
+    ~Histogrammes();
+    void afficher();
+
+    QGraphicsView * getV();
+    void setV(QGraphicsView *value);
+
+    QGraphicsScene * getS();
+    void setS(QGraphicsScene *value);
+
+private:
+    QGraphicsView * v;
+    QGraphicsScene * s;
+
 };
 
 #endif // HISTOGRAMMES_H
