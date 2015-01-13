@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>688</width>
-    <height>451</height>
+    <height>461</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -246,7 +246,7 @@
      <x>0</x>
      <y>0</y>
      <width>688</width>
-     <height>19</height>
+     <height>29</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFichier">
@@ -302,6 +302,7 @@
      <addaction name="actionRehaussement"/>
      <addaction name="menuFlou_2"/>
      <addaction name="menuGradients"/>
+     <addaction name="actionMedian"/>
     </widget>
     <addaction name="actionHistogramme"/>
     <addaction name="actionNiveau_de_gris"/>
@@ -427,6 +428,11 @@
   <action name="actionDetectionContours">
    <property name="text">
     <string>Détection de contours</string>
+   </property>
+  </action>
+  <action name="actionMedian">
+   <property name="text">
+    <string>médian</string>
    </property>
   </action>
  </widget>

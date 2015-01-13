@@ -186,6 +186,45 @@ QImage *Convolution::gradientY(QImage *image)
     return conv(image,sobelY,3);
 }
 
+QImage *Convolution::filtreMedian(QImage *image, int tailleVoisinage)
+{
+    int nv = (2*tailleVoisinage +1)*(2*tailleVoisinage +1);
+    QImage *resultat = new QImage(image->width(),image->height(),image->format());
+
+    for (int i = 0; i < image->width(); ++i) {
+        for (int j = 0; j < image->height(); ++j) {
+            //Récupération des valeurs du voisinage du pixel (i,j)
+            int valeurs[nv];
+            for (int m = 0; m < 2*tailleVoisinage+1; ++m) {
+                for (int n  = 0; n < 2*tailleVoisinage+1; ++n) {
+                    if (i-m-1 > -1 && i-m-1 < image->width() && j-n-1 > -1 && j-n-1 < image->height()) {
+                        valeurs[m*(2*tailleVoisinage+1)+n] = qGray(image->pixel(i-m-1,j-n-1));
+                    }else {
+                        valeurs[m*(2*tailleVoisinage+1)+n] = qGray(image->pixel(i,j));
+                    }
+
+                }
+            }
+            //Tri de ces valeurs pour trouver la médiane
+            int temp;
+            for (int k = nv-1; k >= 0; --k) {
+                for (int k2 = 0; k2 < k; ++k2) {
+                    if (valeurs[k2] > valeurs[k2+1]) {
+                        temp = valeurs[k2];
+                        valeurs[k2] = valeurs[k2+1];
+                        valeurs[k2+1] = temp;
+                    }
+                }
+            }
+
+            int mediane = valeurs[(nv+1)/2];
+            resultat->setPixel(i,j,qRgb(mediane,mediane,mediane));
+        }
+    }
+
+    return resultat;
+}
+
 float **Convolution::genererBinomial(float **matrice,  int tailleVoulue, int tailleActuelle){
     if (tailleVoulue == tailleActuelle) {
         return appliquerFacteur(matrice,tailleVoulue);

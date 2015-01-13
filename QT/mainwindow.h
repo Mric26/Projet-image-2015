@@ -73,6 +73,7 @@ public slots:
     void gradientX();
     void gradientY();
     void detectionContours();
+    void median();
 
 private:
     Ui::MainWindow *ui;
