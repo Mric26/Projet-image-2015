@@ -131,6 +131,16 @@ QImage *Convolution::detectionContours(QImage *image)
     return NULL;
 }
 
+QImage *Convolution::gradientX(QImage *image)
+{
+    return NULL;
+}
+
+QImage *Convolution::gradientY(QImage *image)
+{
+    return NULL;
+}
+
 float **Convolution::genererBinomial(float **matrice,  int tailleVoulue, int tailleActuelle){
     if (tailleVoulue == tailleActuelle) {
         return appliquerFacteur(matrice,tailleVoulue);
