@@ -51,6 +51,8 @@ QImage *Convolution::conv(QImage *image, float ** matrice, int tailleMatrice){
                  nouvelleImage->setPixel(i,j,qRgb(int(rouge + 0.5), int(vert + 0.5), int(bleu + 0.5)));
             }
     }
+//    delete image;
+//    delete matrice;
     return nouvelleImage;
 }
 
@@ -122,20 +124,46 @@ QImage *Convolution::filtreRehaussement(QImage *image){
            rehauss[i][j] = d[i][j]-passeBas[i][j];
         }
     }
-
+    delete d;
+    delete passeBas;
     return conv(image,rehauss,3);
 }
 
 QImage *Convolution::detectionContours(QImage *image)
 {
-    QImage *sobelX = gradientX(image);
-    QImage *sobelY = gradientY(image);
 
     QImage *res = new QImage(image->width(),image->height(),image->format());
+    QImage * sobelX = gradientX(image);
+    QImage * sobelY = gradientY(image);
 
     for (int i = 0; i < image->width(); ++i) {
         for (int j = 0; j < image->height(); ++j) {
-            res->setPixel(i,j,sobelX->pixel(i,j)+sobelY->pixel(i,j));
+            QRgb norm = sobelX->pixel(i,j)+sobelY->pixel(i,j);
+            float bleu = qBlue(norm);
+            float vert = qGreen(norm);
+            float rouge = qRed(norm);
+
+            if (bleu >255) {
+                 bleu = 255;
+             }
+            else if (bleu < 0) {
+                 bleu = 0;
+            }
+             if (vert >255) {
+                  vert = 255;
+              }
+             else if (vert < 0) {
+                  vert = 0;
+             }
+             if (rouge >255) {
+                  rouge = 255;
+              }
+             else if (rouge < 0) {
+                  rouge = 0;
+             }
+
+
+            res->setPixel(i,j,qRgb(int(bleu+0.5),int(vert+0.5),(rouge+0.5)));
         }
     }
 
@@ -151,15 +179,15 @@ QImage *Convolution::gradientX(QImage *image)
         sobelX[i] = new float[3];
     }
 
-    sobelX[0][0] = 1.0/4.0;
-    sobelX[0][1] = 0.0/4.0;
-    sobelX[0][2] = -1.0/4.0;
-    sobelX[1][0] = 2.0/4.0;
-    sobelX[1][1] = 0.0/4.0;
-    sobelX[1][2] = -2.0/4.0;
-    sobelX[2][0] = 1.0/4.0;
-    sobelX[2][1] = 0.0/4.0;
-    sobelX[2][2] = -1.0/4.0;
+    sobelX[0][0] = 1.0/0.5;
+    sobelX[0][1] = 0.0/0.5;
+    sobelX[0][2] = -1.0/0.5;
+    sobelX[1][0] = 2.0/0.5;
+    sobelX[1][1] = 0.0/0.5;
+    sobelX[1][2] = -2.0/0.5;
+    sobelX[2][0] = 1.0/0.5;
+    sobelX[2][1] = 0.0/0.5;
+    sobelX[2][2] = -1.0/0.5;
 
     return conv(image,sobelX,3);
 }
@@ -173,15 +201,15 @@ QImage *Convolution::gradientY(QImage *image)
         sobelY[i] = new float[3];
     }
 
-    sobelY[0][0] = 1.0/4.0;
-    sobelY[0][1] = 2.0/4.0;
-    sobelY[0][2] = 1.0/4.0;
-    sobelY[1][0] = 0.0/4.0;
-    sobelY[1][1] = 0.0/4.0;
-    sobelY[1][2] = 0.0/4.0;
-    sobelY[2][0] = -1.0/4.0;
-    sobelY[2][1] = -2.0/4.0;
-    sobelY[2][2] = -1.0/4.0;
+    sobelY[0][0] = 1.0/0.5 ;
+    sobelY[0][1] = 2.0/0.5 ;
+    sobelY[0][2] = 1.0/0.5 ;
+    sobelY[1][0] = 0.0/0.5 ;
+    sobelY[1][1] = 0.0/0.5 ;
+    sobelY[1][2] = 0.0/0.5 ;
+    sobelY[2][0] = -1.0/0.5 ;
+    sobelY[2][1] = -2.0/0.5 ;
+    sobelY[2][2] = -1.0/0.5 ;
 
     return conv(image,sobelY,3);
 }
@@ -218,9 +246,6 @@ QImage *Convolution::filtreMedian(QImage *image, int tailleVoisinage)
                     }
                 }
             }
-//            for (int i = 0; i < nv; ++i) {
-//                std::cout << "valeurs[" << i <<"] = " << valeurs[i] <<std::endl;
-//            }
             int mediane = valeurs[(nv+1)/2];
             resultat->setPixel(i,j,qRgb(mediane,mediane,mediane));
         }
@@ -277,7 +302,8 @@ float **Convolution::genererBinomial(float **matrice,  int tailleVoulue, int tai
                     }
                 }
         }
-
+        delete matrice;
+        delete matricePlusGrande;
         return genererBinomial(nouvMat,tailleVoulue,nouvTaille);
     }
 }
@@ -326,4 +352,50 @@ float **Convolution::appliquerFacteur(float **matrice, int taille)
     }
 
     return matrice;
+}
+
+float **Convolution::conv2(QImage *image, float **matrice, int tailleMatrice)
+{
+    int imWidth = image->width();
+    int imHeight = image->height();
+    int l = (tailleMatrice -1)/2;
+    int c = (tailleMatrice -1)/2;
+
+    float bleu = 0;
+    float rouge = 0;
+    float vert = 0;
+    QRgb couleurPix;
+
+    float **nouvelleImage;
+    nouvelleImage = new float *[image->width()];
+    for (int i = 0; i < imWidth; ++i) {
+        nouvelleImage[i] = new float[image->height()];
+        for (int j = 0; j < imHeight; ++j) {
+            nouvelleImage[i][j] = 0.0;
+        }
+    }
+
+    for (int i = 0; i < imWidth; ++i) {
+        for (int j = 0; j < imHeight; ++j) {
+                bleu = 0;
+                rouge = 0;
+                vert = 0;
+                for (int m = -l; m < l+1; ++m) {
+                    for (int n = -c; n < c+1; ++n) {
+                        if (i-m > -1 && j-n > -1 && i-m < imWidth && j-n < imHeight) {
+                            couleurPix = image->pixel(i-m,j-n);
+                        }else {
+                            couleurPix = image->pixel(i,j);
+                        }
+                         bleu = bleu + matrice[m+c][n+l] * qBlue(couleurPix);
+                         rouge = rouge + matrice[m+c][n+l] * qRed(couleurPix);
+                         vert = vert + matrice[m+c][n+l] * qGreen(couleurPix);
+                    }
+                }
+                 nouvelleImage[i][j] = qRgb(int(rouge + 0.5), int(vert + 0.5), int(bleu + 0.5));
+            }
+    }
+//    delete image;
+//    delete matrice;
+    return nouvelleImage;
 }
