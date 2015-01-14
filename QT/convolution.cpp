@@ -190,17 +190,19 @@ QImage *Convolution::filtreMedian(QImage *image, int tailleVoisinage)
 {
     int nv = (2*tailleVoisinage +1)*(2*tailleVoisinage +1);
     QImage *resultat = new QImage(image->width(),image->height(),image->format());
+    int l = (2*tailleVoisinage +1 -1)/2;
+    int c = (2*tailleVoisinage +1 -1)/2;
 
     for (int i = 0; i < image->width(); ++i) {
         for (int j = 0; j < image->height(); ++j) {
             //Récupération des valeurs du voisinage du pixel (i,j)
             int valeurs[nv];
-            for (int m = 0; m < 2*tailleVoisinage+1; ++m) {
-                for (int n  = 0; n < 2*tailleVoisinage+1; ++n) {
-                    if (i-m-1 > -1 && i-m-1 < image->width() && j-n-1 > -1 && j-n-1 < image->height()) {
-                        valeurs[m*(2*tailleVoisinage+1)+n] = qGray(image->pixel(i-m-1,j-n-1));
+            for (int m = -l; m < l+1; ++m) {
+                for (int n  = -c; n < c+1; ++n) {
+                    if (i-m > -1 && i-m< image->width() && j-n > -1 && j-n< image->height()) {
+                        valeurs[(m+1)*(2*tailleVoisinage+1)+(n+1)] = qGray(image->pixel(i-m,j-n));
                     }else {
-                        valeurs[m*(2*tailleVoisinage+1)+n] = qGray(image->pixel(i,j));
+                        valeurs[(m+1)*(2*tailleVoisinage+1)+(n+1)] = qGray(image->pixel(i,j));
                     }
 
                 }
@@ -216,7 +218,9 @@ QImage *Convolution::filtreMedian(QImage *image, int tailleVoisinage)
                     }
                 }
             }
-
+//            for (int i = 0; i < nv; ++i) {
+//                std::cout << "valeurs[" << i <<"] = " << valeurs[i] <<std::endl;
+//            }
             int mediane = valeurs[(nv+1)/2];
             resultat->setPixel(i,j,qRgb(mediane,mediane,mediane));
         }
