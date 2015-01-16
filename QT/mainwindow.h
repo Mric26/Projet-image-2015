@@ -47,6 +47,9 @@ public:
     bool getRgbORyuv() const;
     void setRgbORyuv(bool value);
 
+    QGraphicsPixmapItem *getImageaffichee() const;
+    void setImageaffichee(QGraphicsPixmapItem *value);
+
 public slots:
     // ouv / fermeture / enregistrement
     void ouv();
@@ -78,6 +81,8 @@ public slots:
     void detectionContours();
     //quitter
     void quit();
+    void createFusion();
+    void median();
 
 private:
     Ui::MainWindow *ui;

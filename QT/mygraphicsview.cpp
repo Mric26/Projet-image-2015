@@ -15,12 +15,10 @@ void MyGraphicsView::mousePressEvent(QMouseEvent *event){
                 setPos(QPoint(event->pos().x() - xCorrectif , event->pos().y() - yCorrectif ));
                 setReadRGB(true);
                 setDopipe(false); //on a fini d'écouter les actions de la souris
-                cout << "" << endl; //il faut vider le buffer de l'application sous peine de ne jamais avoir de rafraichissement
                 getWin()->refresh();
             }
             else{
                 getWin()->setEmptylabel(true);
-                cout << "" << endl; //il faut vider le buffer de l'application sous peine de ne jamais avoir de rafraichissement
                 getWin()->refresh();
             }
         }

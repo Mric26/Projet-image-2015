@@ -2,6 +2,8 @@
 #define CONVOLUTION_H
 #include <QImage>
 #include <QColor>
+#include <iostream>
+#include <math.h>
 
 class Convolution
 {
@@ -14,11 +16,13 @@ public:
     QImage *detectionContours(QImage *image);
     QImage *gradientX(QImage *image);
     QImage *gradientY(QImage *image);
+    QImage *filtreMedian(QImage *image,int tailleVoisinage);
 private:
     float **genererBinomial(float **matrice,  int tailleVoulue, int tailleActuelle);
     float **genererBinomial(int tailleVoulue);
     float **genererMoy(int tailleVoulue);
     float **appliquerFacteur(float **matrice, int taille);
+    float **conv2(QImage *image, float **matrice, int tailleMatrice);
 };
 
 #endif // CONVOLUTION_H

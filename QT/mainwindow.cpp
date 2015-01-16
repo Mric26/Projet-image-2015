@@ -4,6 +4,7 @@
 #include "save.h"
 #include "couper.h"
 #include "grisconvers.h"
+#include "fusion.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -39,9 +40,11 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect( ui->actionGradientX, SIGNAL(triggered()), this, SLOT(gradientX()) );
     QObject::connect( ui->actionGradientY, SIGNAL(triggered()), this, SLOT(gradientY()) );
     QObject::connect( ui->actionDetectionContours, SIGNAL(triggered()), this, SLOT(detectionContours()) );
-    new QShortcut(QKeySequence("Ctrl+F"), this, SLOT(flouGaussLeger()) );
+    QObject::connect( ui->actionMedian, SIGNAL(triggered()), this, SLOT(median()) );
+    new QShortcut(QKeySequence("Ctrl+F"), this, SLOT(median()) );
 
     ui->fusion->setIcon(QIcon(":res/fusion.png"));
+    QObject::connect( ui->fusion, SIGNAL(clicked()), this, SLOT(createFusion()) );
 
     ui->gris->setIcon(QIcon(":res/niv_gris.png"));
     QObject::connect( ui->gris, SIGNAL(clicked()), this, SLOT(gris()) );
@@ -81,7 +84,12 @@ QImage * MainWindow::getImage(){
 }
 
 void MainWindow::setImage(QImage *im, QString chem){
+
+    if (im->format() == QImage::Format_Indexed8) {
+        *im = im->convertToFormat(QImage::Format_RGB32);
+    }
     image = im;
+
     cheminImage = chem;
 
     QPixmap *imagePix = new QPixmap();
@@ -197,6 +205,12 @@ void MainWindow::detectionContours()
     Convolution c;
     setImage(c.detectionContours(image),cheminImage);
 }
+
+void MainWindow::median()
+{
+    Convolution c;
+    setImage(c.filtreMedian(image,1),cheminImage);
+}
 DiagramColorWindow *MainWindow::getHist() const{
     return hist;
 }
@@ -220,13 +234,6 @@ void MainWindow::setScene(QGraphicsScene *value){
 
 QString MainWindow::getCheminImage(){
     return cheminImage;
-}
-
-void MainWindow::pipeit(){
-    ui->graphicsView->setWin(this);
-    ui->graphicsView->setDopipe(true);
-    QPixmap pix(":res/curseurpipette.png");
-    QApplication::setOverrideCursor(QCursor(pix));
 }
 
 bool MainWindow::getRgbORyuv() const{
@@ -253,14 +260,35 @@ void MainWindow::changeRGBtoYUVfalse(){
     setRgbORyuv(false);
 }
 
+void MainWindow::createFusion(){
+    Fusion fus;
+    fus.fusionner(this);
+}
+QGraphicsPixmapItem *MainWindow::getImageaffichee() const
+{
+    return imageaffichee;
+}
+
+void MainWindow::setImageaffichee(QGraphicsPixmapItem *value)
+{
+    imageaffichee = value;
+}
+
+void MainWindow::pipeit(){
+    ui->graphicsView->setWin(this);
+    ui->graphicsView->setDopipe(true);
+    QPixmap pix(":res/curseurpipette.png");
+    QApplication::setOverrideCursor(QCursor(pix));
+}
+
 void MainWindow::refresh(){
     if(getEmptylabel()){
         ui->label->setText(" ");
         setEmptylabel(false);
     }else if(!ui->graphicsView->getDopipe()) //s'il ne faut plus regarder les composantes d'un pixel
     {
-        cout << "restauration du curseur" << endl;
-        QApplication::restoreOverrideCursor();
+        QApplication::setOverrideCursor(Qt::ArrowCursor);
+
         if(ui->graphicsView->getReadRGB()){
             if(getRgbORyuv()){ //espace RGB
                 QRgb* component = new QRgb(getImage()->pixel(ui->graphicsView->getPos()));
