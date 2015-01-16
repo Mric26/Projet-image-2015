@@ -20,7 +20,9 @@ SOURCES += main.cpp\
     mygraphicsview.cpp \
     convolution.cpp \
     grisconvers.cpp \
-    diagramcolorwindow.cpp
+    diagramcolorwindow.cpp \
+    etalement.cpp \
+    egalisation.cpp
 
 HEADERS  += mainwindow.h \
     open.h \
@@ -29,7 +31,9 @@ HEADERS  += mainwindow.h \
     mygraphicsview.h \
     convolution.h \
     grisconvers.h \
-    diagramcolorwindow.h
+    diagramcolorwindow.h \
+    etalement.h \
+    egalisation.h
 
 FORMS    += mainwindow.ui \
     diagramcolorwindow.ui

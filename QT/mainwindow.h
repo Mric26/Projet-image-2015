@@ -3,7 +3,6 @@
 
 #include <QMainWindow>
 #include <QPainter>
-#include <iostream>
 #include <QString>
 #include <QRgb>
 #include <QGraphicsScene>
@@ -13,6 +12,8 @@
 #include <QShortcut>
 
 #include "convolution.h"
+#include "etalement.h"
+#include "egalisation.h"
 #include "diagramcolorwindow.h"
 
 namespace Ui {
@@ -57,6 +58,8 @@ public slots:
     void gris();
     //histogramme
     void showHisto();
+    void etaler();
+    void egaler();
     //pipette
     void pipeit();
     void changeRGBtoYUVfalse();
@@ -73,6 +76,8 @@ public slots:
     void gradientX();
     void gradientY();
     void detectionContours();
+    //quitter
+    void quit();
 
 private:
     Ui::MainWindow *ui;

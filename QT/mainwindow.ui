@@ -308,6 +308,8 @@
     <addaction name="actionFusion"/>
     <addaction name="actionPipette"/>
     <addaction name="menuFiltres"/>
+    <addaction name="actionEtalement"/>
+    <addaction name="actionEgalisation"/>
    </widget>
    <widget class="QMenu" name="menuAbout">
     <property name="title">
@@ -427,6 +429,16 @@
   <action name="actionDetectionContours">
    <property name="text">
     <string>Détection de contours</string>
+   </property>
+  </action>
+  <action name="actionEtalement">
+   <property name="text">
+    <string>Etalement</string>
+   </property>
+  </action>
+  <action name="actionEgalisation">
+   <property name="text">
+    <string>Egalisation</string>
    </property>
   </action>
  </widget>

@@ -63,6 +63,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QObject::connect( ui->actionEnregistrer_sous, SIGNAL(triggered()), this, SLOT(saveAs()) );
     QObject::connect( ui->actionPasse_haut, SIGNAL(triggered()), this, SLOT(passeHaut()) );
+    QObject::connect( ui->actionFermer, SIGNAL(triggered()), this, SLOT(quit()) );
+    QObject::connect( ui->actionEtalement, SIGNAL(triggered()), this, SLOT(etaler()) );
+    QObject::connect( ui->actionEgalisation, SIGNAL(triggered()), this, SLOT(egaler()) );
 
 }
 
@@ -93,6 +96,10 @@ void MainWindow::setImage(QImage *im, QString chem){
     ui->graphicsView->show();
 }
 
+void MainWindow::quit(){
+     qApp->quit();
+}
+
 void MainWindow::ouv(){
      Open op;
      op.ouvrir(this);
@@ -118,7 +125,19 @@ void MainWindow::couper(){
 }
 
 void MainWindow::showHisto(){
-    hist = new DiagramColorWindow( this->getImage() );
+    if( cheminImage != NULL ){
+        hist = new DiagramColorWindow( this->getImage() );
+    }
+}
+
+void MainWindow::etaler(){
+    Etalement et;
+    this->setImage( et.etaler(image), cheminImage );
+}
+
+void MainWindow::egaler(){
+    Egalisation eg;
+    this->setImage( eg.egaler(image), cheminImage );
 }
 
 void MainWindow::flouMoyLeger(){
