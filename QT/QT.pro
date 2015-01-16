@@ -21,13 +21,10 @@ SOURCES += main.cpp\
     convolution.cpp \
     grisconvers.cpp \
     diagramcolorwindow.cpp \
-<<<<<<< HEAD
     etalement.cpp \
-    egalisation.cpp
-=======
+    egalisation.cpp \
     fusion.cpp \
     contraste.cpp
->>>>>>> b602f1c96177d8e6e891f9501432048f7c3f331f
 
 HEADERS  += mainwindow.h \
     open.h \
@@ -37,13 +34,10 @@ HEADERS  += mainwindow.h \
     convolution.h \
     grisconvers.h \
     diagramcolorwindow.h \
-<<<<<<< HEAD
     etalement.h \
-    egalisation.h
-=======
+    egalisation.h \
     fusion.h \
     contraste.h
->>>>>>> b602f1c96177d8e6e891f9501432048f7c3f331f
 
 FORMS    += mainwindow.ui \
     diagramcolorwindow.ui \

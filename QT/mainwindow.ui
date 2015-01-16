@@ -435,6 +435,8 @@
   <action name="actionMedian">
    <property name="text">
     <string>médian</string>
+   </property>
+  </action>
   <action name="actionEtalement">
    <property name="text">
     <string>Etalement</string>
