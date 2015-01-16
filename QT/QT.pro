@@ -24,7 +24,8 @@ SOURCES += main.cpp\
     etalement.cpp \
     egalisation.cpp \
     fusion.cpp \
-    contraste.cpp
+    contraste.cpp \
+    filtreperso.cpp
 
 HEADERS  += mainwindow.h \
     open.h \
@@ -37,11 +38,13 @@ HEADERS  += mainwindow.h \
     etalement.h \
     egalisation.h \
     fusion.h \
-    contraste.h
+    contraste.h \
+    filtreperso.h
 
 FORMS    += mainwindow.ui \
     diagramcolorwindow.ui \
-    contraste.ui
+    contraste.ui \
+    filtreperso.ui
 
 RESOURCES += \
     resources.qrc
