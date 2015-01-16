@@ -6,7 +6,6 @@
 #include <QGraphicsPixmapItem>
 #include <QFileDialog>
 #include <QPixmap>
-#include <iostream>
 
 class Fusion :QWidget
 {

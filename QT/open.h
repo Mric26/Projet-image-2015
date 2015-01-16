@@ -4,7 +4,6 @@
 #include <QString>
 #include <QImage>
 #include <QFileDialog>
-#include <iostream>
 
 #include "mainwindow.h"
 

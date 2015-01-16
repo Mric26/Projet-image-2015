@@ -21,18 +21,121 @@
        <enum>QLayout::SetNoConstraint</enum>
       </property>
       <property name="topMargin">
-       <number>75</number>
+       <number>40</number>
       </property>
       <property name="rightMargin">
        <number>0</number>
       </property>
       <property name="bottomMargin">
-       <number>75</number>
+       <number>40</number>
       </property>
       <property name="spacing">
        <number>0</number>
       </property>
-      <item row="11" column="0">
+      <item row="4" column="0">
+       <spacer name="verticalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="1" column="0">
+       <widget class="QPushButton" name="ouvrir">
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="autoDefault">
+         <bool>false</bool>
+        </property>
+        <property name="default">
+         <bool>false</bool>
+        </property>
+        <property name="flat">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="18" column="0">
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="7" column="0">
+       <spacer name="verticalSpacer_4">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="3" column="0">
+       <widget class="QPushButton" name="enregistrer">
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="autoDefault">
+         <bool>false</bool>
+        </property>
+        <property name="default">
+         <bool>false</bool>
+        </property>
+        <property name="flat">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="0">
+       <widget class="QPushButton" name="refaire">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="13" column="0">
+       <widget class="QPushButton" name="fusion">
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="autoDefault">
+         <bool>false</bool>
+        </property>
+        <property name="default">
+         <bool>false</bool>
+        </property>
+        <property name="flat">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="16" column="0">
        <widget class="QPushButton" name="histogramme">
         <property name="autoFillBackground">
          <bool>false</bool>
@@ -51,13 +154,80 @@
         </property>
        </widget>
       </item>
-      <item row="7" column="0">
+      <item row="10" column="0">
+       <widget class="QPushButton" name="pipette">
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="autoDefault">
+         <bool>false</bool>
+        </property>
+        <property name="default">
+         <bool>false</bool>
+        </property>
+        <property name="flat">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="9" column="0">
+       <widget class="QPushButton" name="rogner">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="12" column="0">
        <widget class="QPushButton" name="flou">
         <property name="autoFillBackground">
          <bool>false</bool>
         </property>
         <property name="text">
          <string/>
+        </property>
+        <property name="autoDefault">
+         <bool>false</bool>
+        </property>
+        <property name="default">
+         <bool>false</bool>
+        </property>
+        <property name="flat">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="11" column="0">
+       <widget class="QPushButton" name="gris">
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="autoDefault">
+         <bool>false</bool>
+        </property>
+        <property name="default">
+         <bool>false</bool>
+        </property>
+        <property name="flat">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="0">
+       <widget class="QPushButton" name="couper">
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="checkable">
+         <bool>false</bool>
         </property>
         <property name="autoDefault">
          <bool>false</bool>
@@ -83,133 +253,10 @@
         </property>
        </spacer>
       </item>
-      <item row="8" column="0">
-       <widget class="QPushButton" name="fusion">
-        <property name="autoFillBackground">
-         <bool>false</bool>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="autoDefault">
-         <bool>false</bool>
-        </property>
-        <property name="default">
-         <bool>false</bool>
-        </property>
-        <property name="flat">
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QPushButton" name="ouvrir">
-        <property name="autoFillBackground">
-         <bool>false</bool>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="autoDefault">
-         <bool>false</bool>
-        </property>
-        <property name="default">
-         <bool>false</bool>
-        </property>
-        <property name="flat">
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
       <item row="5" column="0">
-       <widget class="QPushButton" name="pipette">
-        <property name="autoFillBackground">
-         <bool>false</bool>
-        </property>
+       <widget class="QPushButton" name="annuler">
         <property name="text">
          <string/>
-        </property>
-        <property name="autoDefault">
-         <bool>false</bool>
-        </property>
-        <property name="default">
-         <bool>false</bool>
-        </property>
-        <property name="flat">
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0">
-       <widget class="QPushButton" name="enregistrer">
-        <property name="autoFillBackground">
-         <bool>false</bool>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="autoDefault">
-         <bool>false</bool>
-        </property>
-        <property name="default">
-         <bool>false</bool>
-        </property>
-        <property name="flat">
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="0">
-       <widget class="QPushButton" name="couper">
-        <property name="autoFillBackground">
-         <bool>false</bool>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="checkable">
-         <bool>false</bool>
-        </property>
-        <property name="autoDefault">
-         <bool>false</bool>
-        </property>
-        <property name="default">
-         <bool>false</bool>
-        </property>
-        <property name="flat">
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="13" column="0">
-       <spacer name="verticalSpacer">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="6" column="0">
-       <widget class="QPushButton" name="gris">
-        <property name="autoFillBackground">
-         <bool>false</bool>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="autoDefault">
-         <bool>false</bool>
-        </property>
-        <property name="default">
-         <bool>false</bool>
-        </property>
-        <property name="flat">
-         <bool>false</bool>
         </property>
        </widget>
       </item>
@@ -246,12 +293,12 @@
      <x>0</x>
      <y>0</y>
      <width>688</width>
-     <height>29</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFichier">
     <property name="title">
-     <string>fichier</string>
+     <string>Fichier</string>
     </property>
     <addaction name="actionOuvrir_2"/>
     <addaction name="actionEnregistrer"/>
@@ -261,19 +308,19 @@
    </widget>
    <widget class="QMenu" name="menu_dition">
     <property name="title">
-     <string>édition</string>
+     <string>Edition</string>
     </property>
     <widget class="QMenu" name="menuFiltres">
      <property name="title">
-      <string>filtres</string>
+      <string>Filtres</string>
      </property>
      <widget class="QMenu" name="menuFlou_2">
       <property name="title">
-       <string>flou</string>
+       <string>Flou</string>
       </property>
       <widget class="QMenu" name="menuGaussien">
        <property name="title">
-        <string>gaussien</string>
+        <string>Gaussien</string>
        </property>
        <addaction name="actionFlouGaussLeger"/>
        <addaction name="actionFlouGaussMoyen"/>
@@ -281,7 +328,7 @@
       </widget>
       <widget class="QMenu" name="menuMoyenneur">
        <property name="title">
-        <string>moyenneur</string>
+        <string>Moyenneur</string>
        </property>
        <addaction name="actionFlouMoyLeger"/>
        <addaction name="actionFlouMoyMoyen"/>
@@ -292,7 +339,7 @@
      </widget>
      <widget class="QMenu" name="menuGradients">
       <property name="title">
-       <string>gradients</string>
+       <string>Gradients</string>
       </property>
       <addaction name="actionGradientX"/>
       <addaction name="actionGradientY"/>
@@ -304,17 +351,22 @@
      <addaction name="menuGradients"/>
      <addaction name="actionMedian"/>
     </widget>
-    <addaction name="actionHistogramme"/>
+    <addaction name="actionAnnuler"/>
+    <addaction name="actionRefaire_2"/>
+    <addaction name="separator"/>
     <addaction name="actionNiveau_de_gris"/>
-    <addaction name="actionFusion"/>
     <addaction name="actionPipette"/>
     <addaction name="menuFiltres"/>
+    <addaction name="actionFusion"/>
+    <addaction name="separator"/>
+    <addaction name="actionHistogramme"/>
     <addaction name="actionEtalement"/>
     <addaction name="actionEgalisation"/>
+    <addaction name="separator"/>
    </widget>
    <widget class="QMenu" name="menuAbout">
     <property name="title">
-     <string>about</string>
+     <string>About</string>
     </property>
    </widget>
    <addaction name="menuFichier"/>
@@ -349,27 +401,27 @@
   </action>
   <action name="actionHistogramme">
    <property name="text">
-    <string>histogramme</string>
+    <string>Histogramme</string>
    </property>
   </action>
   <action name="actionNiveau_de_gris">
    <property name="text">
-    <string>niveau de gris</string>
+    <string>Niveau de gris</string>
    </property>
   </action>
   <action name="actionFusion">
    <property name="text">
-    <string>fusion</string>
+    <string>Fusion</string>
    </property>
   </action>
   <action name="actionPipette">
    <property name="text">
-    <string>pipette</string>
+    <string>Pipette</string>
    </property>
   </action>
   <action name="actionFlouGaussLeger">
    <property name="text">
-    <string>léger</string>
+    <string>Léger</string>
    </property>
   </action>
   <action name="actionFlouGaussMoyen">
@@ -379,12 +431,12 @@
   </action>
   <action name="actionFlouGaussFort">
    <property name="text">
-    <string>fort</string>
+    <string>Fort</string>
    </property>
   </action>
   <action name="actionPasse_haut">
    <property name="text">
-    <string>passe haut</string>
+    <string>Passe haut</string>
    </property>
   </action>
   <action name="actionLeger">
@@ -399,22 +451,22 @@
   </action>
   <action name="actionFlouMoyLeger">
    <property name="text">
-    <string>leger</string>
+    <string>Léger</string>
    </property>
   </action>
   <action name="actionFlouMoyMoyen">
    <property name="text">
-    <string>moyen</string>
+    <string>Moyen</string>
    </property>
   </action>
   <action name="actionFlouMoyFort">
    <property name="text">
-    <string>fort</string>
+    <string>Fort</string>
    </property>
   </action>
   <action name="actionRehaussement">
    <property name="text">
-    <string>réhaussement</string>
+    <string>Réhaussement</string>
    </property>
   </action>
   <action name="actionGradientX">
@@ -434,7 +486,7 @@
   </action>
   <action name="actionMedian">
    <property name="text">
-    <string>médian</string>
+    <string>Médian</string>
    </property>
   </action>
   <action name="actionEtalement">
@@ -445,6 +497,21 @@
   <action name="actionEgalisation">
    <property name="text">
     <string>Egalisation</string>
+   </property>
+  </action>
+  <action name="actionAnnuler">
+   <property name="text">
+    <string>Annuler</string>
+   </property>
+  </action>
+  <action name="actionRefaire">
+   <property name="text">
+    <string>Refaire</string>
+   </property>
+  </action>
+  <action name="actionRefaire_2">
+   <property name="text">
+    <string>Refaire</string>
    </property>
   </action>
  </widget>
