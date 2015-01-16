@@ -51,8 +51,6 @@ QImage *Convolution::conv(QImage *image, float ** matrice, int tailleMatrice){
                  nouvelleImage->setPixel(i,j,qRgb(int(rouge + 0.5), int(vert + 0.5), int(bleu + 0.5)));
             }
     }
-//    delete image;
-//    delete matrice;
     return nouvelleImage;
 }
 
@@ -170,8 +168,7 @@ QImage *Convolution::detectionContours(QImage *image)
     return res;
 }
 
-QImage *Convolution::gradientX(QImage *image)
-{
+QImage *Convolution::gradientX(QImage *image){
     float **sobelX;
     sobelX = new float *[3];
 
@@ -192,8 +189,7 @@ QImage *Convolution::gradientX(QImage *image)
     return conv(image,sobelX,3);
 }
 
-QImage *Convolution::gradientY(QImage *image)
-{
+QImage *Convolution::gradientY(QImage *image){
     float **sobelY;
     sobelY = new float *[3];
 
@@ -214,8 +210,7 @@ QImage *Convolution::gradientY(QImage *image)
     return conv(image,sobelY,3);
 }
 
-QImage *Convolution::filtreMedian(QImage *image, int tailleVoisinage)
-{
+QImage *Convolution::filtreMedian(QImage *image, int tailleVoisinage){  
     int nv = (2*tailleVoisinage +1)*(2*tailleVoisinage +1);
     QImage *resultat = new QImage(image->width(),image->height(),image->format());
     int l = (2*tailleVoisinage +1 -1)/2;
@@ -308,8 +303,7 @@ float **Convolution::genererBinomial(float **matrice,  int tailleVoulue, int tai
     }
 }
 
-float **Convolution::genererBinomial(int tailleVoulue)
-{
+float **Convolution::genererBinomial(int tailleVoulue){
     float **base;
     base = new float *[2];
     //Création d'une matrice de base
@@ -323,8 +317,7 @@ float **Convolution::genererBinomial(int tailleVoulue)
     return genererBinomial(base,tailleVoulue,2);
 }
 
-float **Convolution::genererMoy(int tailleVoulue)
-{
+float **Convolution::genererMoy(int tailleVoulue){
     float **mat;
     mat = new float *[tailleVoulue];
     for (int i = 0; i < tailleVoulue; ++i) {
@@ -336,8 +329,7 @@ float **Convolution::genererMoy(int tailleVoulue)
     return appliquerFacteur(mat,tailleVoulue);
 }
 
-float **Convolution::appliquerFacteur(float **matrice, int taille)
-{
+float **Convolution::appliquerFacteur(float **matrice, int taille){
     float somme = 0.0;
     for (int i = 0; i < taille; ++i) {
         for (int j = 0; j < taille; ++j) {
@@ -354,8 +346,7 @@ float **Convolution::appliquerFacteur(float **matrice, int taille)
     return matrice;
 }
 
-float **Convolution::conv2(QImage *image, float **matrice, int tailleMatrice)
-{
+float **Convolution::conv2(QImage *image, float **matrice, int tailleMatrice){
     int imWidth = image->width();
     int imHeight = image->height();
     int l = (tailleMatrice -1)/2;
@@ -395,7 +386,5 @@ float **Convolution::conv2(QImage *image, float **matrice, int tailleMatrice)
                  nouvelleImage[i][j] = qRgb(int(rouge + 0.5), int(vert + 0.5), int(bleu + 0.5));
             }
     }
-//    delete image;
-//    delete matrice;
     return nouvelleImage;
 }

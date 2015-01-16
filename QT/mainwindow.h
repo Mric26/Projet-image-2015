@@ -55,8 +55,12 @@ public slots:
     void ouv();
     void save();
     void saveAs();
+    //Annuler & refaire
+    void annuler();
+    void refaire();
     //decoupe
     void couper();
+    void rogner();
     //niveau de gris
     void gris();
     //histogramme
@@ -93,6 +97,9 @@ private:
     DiagramColorWindow * hist;
     bool emptylabel;
     bool rgbORyuv;
+    QImage *annul[2];
+    QImage* refai[2];
+
 };
 
 #endif // MAINWINDOW_H

@@ -20,7 +20,6 @@ public:
     explicit DiagramColorWindow(QImage * im);
     ~DiagramColorWindow();
 
-
     QImage *getImage() const;
     void setImage(QImage *value);
 

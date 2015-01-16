@@ -1,7 +1,6 @@
 #ifndef MYGRAPHICSVIEW_H
 #define MYGRAPHICSVIEW_H
 
-#include <iostream>
 #include <QGraphicsView>
 #include <QMouseEvent>
 #include <QRubberBand>

@@ -9,5 +9,9 @@
         <file>res/niv_gris.png</file>
         <file>res/pipette.jpg</file>
         <file>res/curseurpipette.png</file>
+        <file>res/Annuler.png</file>
+        <file>res/Refaire.png</file>
+        <file>res/Redimensionner.png</file>
+        <file>res/Rogner.png</file>
     </qresource>
 </RCC>

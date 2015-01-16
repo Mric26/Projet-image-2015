@@ -17,8 +17,8 @@ Contraste::Contraste(QWidget *parent) :
 Contraste::~Contraste(){
     delete ui;
 }
-int Contraste::getValue() const
-{
+
+int Contraste::getValue() const{
     return value;
 }
 

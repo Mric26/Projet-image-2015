@@ -4,6 +4,7 @@ using namespace std;
 
 MyGraphicsView::MyGraphicsView(QWidget *w):QGraphicsView(w){
     rb = NULL;
+    setDopipe(false);
 }
 
 void MyGraphicsView::mousePressEvent(QMouseEvent *event){
