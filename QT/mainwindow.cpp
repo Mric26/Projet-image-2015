@@ -6,10 +6,6 @@
 #include "grisconvers.h"
 #include "fusion.h"
 
-#include <iostream>
-
-using namespace std;
-
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
@@ -189,9 +185,6 @@ void MainWindow::refaire(){
 }
 
 void MainWindow::couper(){
-    for( int l=0; l<2; l++){
-       cout << "annul" << l << " : " << annul[l] << " refai" << l << " : " << refai[l] << endl;
-    }
 }
 
 void MainWindow::rogner(){
