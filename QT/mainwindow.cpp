@@ -10,7 +10,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
     cheminImage(),
-    hist()
+    hist(),
+    fPerso()
 {
     ui->setupUi(this);
     scene = new QGraphicsScene();
@@ -63,6 +64,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect( ui->actionGradientY, SIGNAL(triggered()), this, SLOT(gradientY()) );
     QObject::connect( ui->actionDetectionContours, SIGNAL(triggered()), this, SLOT(detectionContours()) );
     QObject::connect( ui->actionMedian, SIGNAL(triggered()), this, SLOT(median()) );
+    QObject::connect( ui->actionPersonnaliser, SIGNAL(triggered()), this, SLOT(filtrePerso()) );
     new QShortcut( QKeySequence("Ctrl+F"), this, SLOT(median()) );
 
     ui->fusion->setIcon(QIcon(":res/fusion.png"));
@@ -269,6 +271,19 @@ void MainWindow::detectionContours()
 {
     Convolution c;
     setImage(c.detectionContours(image),cheminImage);
+}
+
+void MainWindow::filtrePerso()
+{
+    fPerso = new FiltrePerso(this);
+    QObject::connect( fPerso, SIGNAL(envoyerMatrice(float**,int)), this, SLOT(appliquerFiltrePerso(float**,int)) );
+
+}
+
+void MainWindow::appliquerFiltrePerso(float **matrice, int tailleMatrice)
+{
+    Convolution c;
+    setImage(c.conv(image,matrice,tailleMatrice),cheminImage);
 }
 
 void MainWindow::median()
