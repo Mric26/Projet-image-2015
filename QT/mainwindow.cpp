@@ -3,6 +3,7 @@
 #include "open.h"
 #include "save.h"
 #include "couper.h"
+#include "rogner.h"
 #include "grisconvers.h"
 #include "fusion.h"
 
@@ -153,13 +154,17 @@ void MainWindow::ouv(){
 }
 
 void MainWindow::save(){
-     Save sv;
-     sv.sauv(this);
+    if( cheminImage != NULL ){
+        Save sv;
+        sv.sauv(this);
+    }
 }
 
 void MainWindow::saveAs(){
-     Save sv;
-     sv.sauvSous(this);
+    if( cheminImage != NULL ){
+        Save sv;
+        sv.sauvSous(this);
+    }
 }
 
 void MainWindow::annuler(){
@@ -168,11 +173,11 @@ void MainWindow::annuler(){
             refai[1] = refai[0];
         }
         refai[0] = image;
+        QImage * temp = annul[1];
         setImage( annul[0], cheminImage );
-        annul[0] = annul[1];
+        annul[0] = temp;
         annul[1] = NULL;
     }
-
 }
 
 void MainWindow::refaire(){
@@ -180,7 +185,6 @@ void MainWindow::refaire(){
         if( annul[0] != NULL ){
             annul[1] = annul[0];
         }
-        annul[0] = image;
         setImage( refai[0], cheminImage );
         refai[0] = refai[1];
         refai[1] = NULL;
@@ -188,12 +192,18 @@ void MainWindow::refaire(){
 }
 
 void MainWindow::couper(){
+    if( ui->graphicsView->getRb() != NULL ){
+        Couper cp;
+        cp.couper(this, ui->graphicsView->getPointD(), ui->graphicsView->getPointF());
+    }
+    delete ui->graphicsView->getRb();
+    ui->graphicsView->setRb(NULL);
 }
 
 void MainWindow::rogner(){
     if( ui->graphicsView->getRb() != NULL ){
-        Couper cp;
-        cp.couper(this, ui->graphicsView->getPointD(), ui->graphicsView->getPointF());
+        Rogner ro;
+        ro.rogner(this, ui->graphicsView->getPointD(), ui->graphicsView->getPointF());
     }
     delete ui->graphicsView->getRb();
     ui->graphicsView->setRb(NULL);
@@ -206,71 +216,94 @@ void MainWindow::showHisto(){
 }
 
 void MainWindow::etaler(){
-    Etalement et;
-    this->setImage( et.etaler(image), cheminImage );
+    if( cheminImage != NULL ){
+        Etalement et;
+        this->setImage( et.etaler(image), cheminImage );
+    }
 }
 
 void MainWindow::egaler(){
-    Egalisation eg;
-    this->setImage( eg.egaler(image), cheminImage );
+    if( cheminImage != NULL ){
+        Egalisation eg;
+        this->setImage( eg.egaler(image), cheminImage );
+    }
 }
 
 void MainWindow::flouMoyLeger(){
-    Convolution c;
-    setImage(c.flouMoy(image,3),cheminImage);
+    if( cheminImage != NULL ){
+        Convolution c;
+        setImage(c.flouMoy(image,3),cheminImage);
+    }
 }
 
 void MainWindow::flouMoyMoyen(){
-    Convolution c;
-    setImage(c.flouMoy(image,5),cheminImage);
+    if( cheminImage != NULL ){
+        Convolution c;
+        setImage(c.flouMoy(image,5),cheminImage);
+    }
 }
 
 void MainWindow::flouMoyFort(){
-    Convolution c;
-    setImage(c.flouMoy(image,7),cheminImage);
+    if( cheminImage != NULL ){
+        Convolution c;
+        setImage(c.flouMoy(image,7),cheminImage);
+    }
 }
 
 void MainWindow::flouGaussLeger(){
-    Convolution c;
-    setImage(c.flouGaussien(image,3),cheminImage);
+    if( cheminImage != NULL ){
+        Convolution c;
+        setImage(c.flouGaussien(image,3),cheminImage);
+    }
 }
 
 void MainWindow::flouGaussMoyen(){
-    Convolution c;
-    setImage(c.flouGaussien(image,5),cheminImage);
+    if( cheminImage != NULL ){
+        Convolution c;
+        setImage(c.flouGaussien(image,5),cheminImage);
+    }
 }
 
 void MainWindow::flouGaussFort(){
-    Convolution c;
-    setImage(c.flouGaussien(image,7),cheminImage);
+    if( cheminImage != NULL ){
+        Convolution c;
+        setImage(c.flouGaussien(image,7),cheminImage);
+    }
 }
 
 void MainWindow::passeHaut(){
-    Convolution c;
-    setImage(c.filtrePasseHaut(image),cheminImage);
+    if( cheminImage != NULL ){
+        Convolution c;
+        setImage(c.filtrePasseHaut(image),cheminImage);
+    }
 }
 
 void MainWindow::rehaussement(){
-    Convolution c;
-    setImage(c.filtreRehaussement(image),cheminImage);
+    if( cheminImage != NULL ){
+        Convolution c;
+        setImage(c.filtreRehaussement(image),cheminImage);
+    }
 }
 
-void MainWindow::gradientX()
-{
-    Convolution c;
-    setImage(c.gradientX(image),cheminImage);
+void MainWindow::gradientX(){
+    if( cheminImage != NULL ){
+        Convolution c;
+        setImage(c.gradientX(image),cheminImage);
+    }
 }
 
-void MainWindow::gradientY()
-{
-    Convolution c;
-    setImage(c.gradientY(image),cheminImage);
+void MainWindow::gradientY(){
+    if( cheminImage != NULL ){
+        Convolution c;
+        setImage(c.gradientY(image),cheminImage);
+    }
 }
 
-void MainWindow::detectionContours()
-{
-    Convolution c;
-    setImage(c.detectionContours(image),cheminImage);
+void MainWindow::detectionContours(){
+    if( cheminImage != NULL ){
+        Convolution c;
+        setImage(c.detectionContours(image),cheminImage);
+    }
 }
 
 void MainWindow::filtrePerso()
@@ -291,6 +324,7 @@ void MainWindow::median()
     Convolution c;
     setImage(c.filtreMedian(image,1),cheminImage);
 }
+
 DiagramColorWindow *MainWindow::getHist() const{
     return hist;
 }
@@ -300,8 +334,10 @@ void MainWindow::setHist(DiagramColorWindow *value){
 }
 
 void MainWindow::gris(){
-    GrisConvers gc;
-    this->setImage( gc.versGris(this), this->getCheminImage() );
+    if( cheminImage != NULL ){
+        GrisConvers gc;
+        this->setImage( gc.versGris(this), this->getCheminImage() );
+    }
 }
 
 QGraphicsScene* MainWindow::getScene(){
@@ -344,13 +380,12 @@ void MainWindow::createFusion(){
     Fusion fus;
     fus.fusionner(this);
 }
-QGraphicsPixmapItem *MainWindow::getImageaffichee() const
-{
+
+QGraphicsPixmapItem *MainWindow::getImageaffichee() const{
     return imageaffichee;
 }
 
-void MainWindow::setImageaffichee(QGraphicsPixmapItem *value)
-{
+void MainWindow::setImageaffichee(QGraphicsPixmapItem *value){
     imageaffichee = value;
 }
 

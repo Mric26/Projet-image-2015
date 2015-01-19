@@ -25,7 +25,8 @@ SOURCES += main.cpp\
     egalisation.cpp \
     fusion.cpp \
     contraste.cpp \
-    filtreperso.cpp
+    filtreperso.cpp \
+    rogner.cpp
 
 HEADERS  += mainwindow.h \
     open.h \
@@ -39,7 +40,8 @@ HEADERS  += mainwindow.h \
     egalisation.h \
     fusion.h \
     contraste.h \
-    filtreperso.h
+    filtreperso.h \
+    rogner.h
 
 FORMS    += mainwindow.ui \
     diagramcolorwindow.ui \

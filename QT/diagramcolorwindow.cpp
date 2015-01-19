@@ -106,6 +106,8 @@ int DiagramColorWindow::maxValue(){
 }
 
 DiagramColorWindow::~DiagramColorWindow(){
+    delete image;
+    delete scene;
     delete ui;
 }
 

@@ -7,17 +7,20 @@ void Couper::couper(MainWindow * w, QPoint d, QPoint f){
     QPoint *b = new QPoint( qMax(d.x(),f.x()), qMax(d.y(),f.y()) );
 
     //positionnement des points dans l'image
-      a->setX( qMax(a->x(), 0) );
-      a->setY( qMax(a->y(), 0) );
-      b->setX( qMin(b->x(), w->getImage()->width()) );
-      b->setY( qMin(b->y(), w->getImage()->height()) );
+    a->setX( qMax(a->x(), 0) );
+    a->setY( qMax(a->y(), 0) );
+    b->setX( qMin(b->x(), w->getImage()->width()) );
+    b->setY( qMin(b->y(), w->getImage()->height()) );
 
-    //calcul taille nouvelle image
-    int wi = b->x() - a->x();
-    int he = b->y() - a->y();
+    QImage * im = w->getImage();
 
-    QImage * im = new QImage();
-    *im =  w->getImage()->copy( a->x(), a->y(), wi, he );
+    //decoupe de la zone
+    for( int i = a->x(); i < b->x(); i++ ){
+        for( int j = a->y(); j < b->y(); j++ ){
+            im->setPixel(i, j, qRgb(255, 255, 255) );
+        }
+    }
+
     w->setImage( im, w->getCheminImage() );
 
 }

@@ -52,6 +52,3 @@ void Contraste::annuler(){
     setCanceled(true);
     close();
 }
-
-
-
