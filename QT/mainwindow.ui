@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>688</width>
-    <height>461</height>
+    <height>472</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -299,7 +299,7 @@
      <x>0</x>
      <y>0</y>
      <width>688</width>
-     <height>19</height>
+     <height>29</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFichier">
@@ -356,6 +356,7 @@
      <addaction name="menuFlou_2"/>
      <addaction name="menuGradients"/>
      <addaction name="actionMedian"/>
+     <addaction name="actionPersonnaliser"/>
     </widget>
     <addaction name="actionAnnuler"/>
     <addaction name="actionRefaire_2"/>
@@ -518,6 +519,11 @@
   <action name="actionRefaire_2">
    <property name="text">
     <string>Refaire</string>
+   </property>
+  </action>
+  <action name="actionPersonnaliser">
+   <property name="text">
+    <string>Personnaliser...</string>
    </property>
   </action>
  </widget>

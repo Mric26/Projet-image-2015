@@ -176,15 +176,15 @@ QImage *Convolution::gradientX(QImage *image){
         sobelX[i] = new float[3];
     }
 
-    sobelX[0][0] = 1.0/0.5;
-    sobelX[0][1] = 0.0/0.5;
-    sobelX[0][2] = -1.0/0.5;
-    sobelX[1][0] = 2.0/0.5;
-    sobelX[1][1] = 0.0/0.5;
-    sobelX[1][2] = -2.0/0.5;
-    sobelX[2][0] = 1.0/0.5;
-    sobelX[2][1] = 0.0/0.5;
-    sobelX[2][2] = -1.0/0.5;
+    sobelX[0][0] = 1.0/4.0;
+    sobelX[0][1] = 0.0/4.0;
+    sobelX[0][2] = -1.0/4.0;
+    sobelX[1][0] = 2.0/4.0;
+    sobelX[1][1] = 0.0/4.0;
+    sobelX[1][2] = -2.0/4.0;
+    sobelX[2][0] = 1.0/4.0;
+    sobelX[2][1] = 0.0/4.0;
+    sobelX[2][2] = -1.0/4.0;
 
     return conv(image,sobelX,3);
 }
@@ -197,15 +197,15 @@ QImage *Convolution::gradientY(QImage *image){
         sobelY[i] = new float[3];
     }
 
-    sobelY[0][0] = 1.0/0.5 ;
-    sobelY[0][1] = 2.0/0.5 ;
-    sobelY[0][2] = 1.0/0.5 ;
-    sobelY[1][0] = 0.0/0.5 ;
-    sobelY[1][1] = 0.0/0.5 ;
-    sobelY[1][2] = 0.0/0.5 ;
-    sobelY[2][0] = -1.0/0.5 ;
-    sobelY[2][1] = -2.0/0.5 ;
-    sobelY[2][2] = -1.0/0.5 ;
+    sobelY[0][0] = 1.0/4.0 ;
+    sobelY[0][1] = 2.0/4.0 ;
+    sobelY[0][2] = 1.0/4.0 ;
+    sobelY[1][0] = 0.0/4.0 ;
+    sobelY[1][1] = 0.0/4.0 ;
+    sobelY[1][2] = 0.0/4.0 ;
+    sobelY[2][0] = -1.0/4.0 ;
+    sobelY[2][1] = -2.0/4.0 ;
+    sobelY[2][2] = -1.0/4.0 ;
 
     return conv(image,sobelY,3);
 }

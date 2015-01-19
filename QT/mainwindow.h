@@ -15,6 +15,7 @@
 #include "etalement.h"
 #include "egalisation.h"
 #include "diagramcolorwindow.h"
+#include "filtreperso.h"
 
 namespace Ui {
 class MainWindow;
@@ -83,6 +84,8 @@ public slots:
     void gradientX();
     void gradientY();
     void detectionContours();
+    void filtrePerso();
+    void appliquerFiltrePerso(float **matrice, int tailleMatrice);
     //quitter
     void quit();
     void createFusion();
@@ -95,6 +98,7 @@ private:
     QGraphicsScene *scene;
     QGraphicsPixmapItem *imageaffichee;
     DiagramColorWindow * hist;
+    FiltrePerso * fPerso;
     bool emptylabel;
     bool rgbORyuv;
     QImage *annul[2];
