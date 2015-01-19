@@ -1,13 +1,15 @@
 #include "mygraphicsview.h"
 
-using namespace std;
 
 MyGraphicsView::MyGraphicsView(QWidget *w):QGraphicsView(w){
     rb = NULL;
     setDopipe(false);
+    setReadRGB(true);
+
 }
 
 void MyGraphicsView::mousePressEvent(QMouseEvent *event){
+
     if(getDopipe()) {
         if(event->button() == Qt::LeftButton){
             if( (event->pos().x() >= (this->width()*0.5 - getWin()->getImage()->width()*0.5)) && (event->pos().x() <= (this->width()*0.5 + getWin()->getImage()->width()*0.5)) && (event->pos().y() >= (this->height()*0.5 - getWin()->getImage()->height()*0.5)) && (event->pos().y() <= (this->height()*0.5 + getWin()->getImage()->height()*0.5))){
@@ -117,4 +119,3 @@ MainWindow *MyGraphicsView::getWin() const{
 void MyGraphicsView::setWin(MainWindow *value){
     win = value;
 }
-

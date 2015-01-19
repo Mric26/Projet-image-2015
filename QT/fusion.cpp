@@ -1,6 +1,5 @@
 #include "fusion.h"
 #include "contraste.h"
-#include <iostream>
 
 Fusion::Fusion(){
 }
@@ -8,17 +7,16 @@ Fusion::Fusion(){
 void Fusion::fusionner(MainWindow *w){
     if(w->getCheminImage() != NULL){ //une image est déjà ouverte, la fusionner avec une autre
 
-        Contraste *fenetre= new Contraste;
+
         float nivFusion;
 
-        //chargement de la deuxième image à convertir et convertion en qpixmap
+        //chargement de la deuxième image
         QString chemin = QFileDialog::getOpenFileName(w,"Ouvrir un fichier");
         QImage * im = new QImage();
         im->load(chemin);
-        QPixmap img2;
-        img2 = QPixmap::fromImage(*im);
 
         //récupération du niveau de transparence
+        Contraste *fenetre= new Contraste;
         fenetre->show();
         fenetre->activateWindow();
         fenetre->exec();
@@ -28,10 +26,6 @@ void Fusion::fusionner(MainWindow *w){
             nivFusion= fenetre->getValue();
             nivFusion= nivFusion/100.0;
         }
-
-        //convertion de l'image déjà chargée en Qpixmap
-        QPixmap img1;
-        img1 = QPixmap::fromImage(* w->getImage());
 
         //création d'une image pouvant contenir les deux images
         int maxWidth, maxHeigh;
@@ -45,13 +39,8 @@ void Fusion::fusionner(MainWindow *w){
         }else{
             maxHeigh = im->height();
         }
+
         QImage *final= new QImage(maxWidth,maxHeigh, QImage::Format_RGB32);
-        QPixmap pixFinal;
-
-        //affichage de la nouvelle image
-        chemin = chemin + "_fusion";
-
-        pixFinal = QPixmap::fromImage(* final);
         float r,g,b;
 
         for (int j = 0; j < w->getImage()->height(); ++j) { //insertion de la première image
@@ -65,7 +54,7 @@ void Fusion::fusionner(MainWindow *w){
 
         for (int j = 0; j < im->height(); ++j) { //insertion de la deuxième image
             for (int i = 0; i < im->width(); ++i) {
-                if((j> w->getImage()->height() || i> w->getImage()->width())){
+                if((j> w->getImage()->height()-1 || i> w->getImage()->width()-1)){
                     r= QColor(im->pixel(i,j)).red();
                     g= QColor(im->pixel(i,j)).green();
                     b= QColor(im->pixel(i,j)).blue();
@@ -86,11 +75,13 @@ void Fusion::fusionner(MainWindow *w){
                 }
             }
         }
+
+        //affichage de la nouvelle image
+        chemin = chemin + "_fusion";
         w->setImage(final, chemin);
 
 
     }else{ //pas d'image ouverte, en ouvrir simplement une
-        std::cout << "ouverture simple" << std::endl;
         w->ouv();
     }
 }

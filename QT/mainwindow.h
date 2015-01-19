@@ -90,6 +90,8 @@ public slots:
     void quit();
     void createFusion();
     void median();
+    //redimensionnement
+    void redimensionner();
 
 private:
     Ui::MainWindow *ui;

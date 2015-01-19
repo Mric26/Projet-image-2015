@@ -6,6 +6,7 @@
 #include "rogner.h"
 #include "grisconvers.h"
 #include "fusion.h"
+#include "redimensionnement.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -14,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
     hist(),
     fPerso()
 {
+    setEmptylabel(false);
     ui->setupUi(this);
     scene = new QGraphicsScene();
     image = new QImage();
@@ -40,8 +42,9 @@ MainWindow::MainWindow(QWidget *parent) :
     new QShortcut( QKeySequence("Ctrl+R"), this, SLOT(rogner()) );
 
     ui->pipette->setIcon(QIcon(":res/pipette.jpg"));
-    QObject::connect( ui->actionPipette, SIGNAL(triggered()), this, SLOT(pipeit()) );
     QObject::connect( ui->pipette, SIGNAL(clicked()), this, SLOT(pipeit()) );
+    QObject::connect( ui->actionEspace_RGB, SIGNAL(triggered()), this, SLOT(changeRGBtoYUVtrue()));
+    QObject::connect( ui->actionEspace_YUV, SIGNAL(triggered()), this, SLOT(changeRGBtoYUVfalse()));
     new QShortcut( QKeySequence("Ctrl+P"), this, SLOT(pipeit()) );
 
     ui->histogramme->setIcon(QIcon(":res/histogramme.jpg"));
@@ -81,6 +84,9 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect( ui->ouvrir, SIGNAL(clicked()), this, SLOT(ouv()) );
     QObject::connect( ui->actionOuvrir_2, SIGNAL(triggered()), this, SLOT(ouv()) );
     new QShortcut( QKeySequence("Ctrl+O"), this, SLOT(ouv()) );
+
+    QObject::connect( ui->actionRedimensionner, SIGNAL(triggered()), this, SLOT(redimensionner()) );
+    new QShortcut(QKeySequence("Ctrl+R"), this, SLOT(redimensionner()) );
 
     if (scene != NULL) {
         ui->graphicsView->setScene(scene);
@@ -390,18 +396,23 @@ void MainWindow::setImageaffichee(QGraphicsPixmapItem *value){
 }
 
 void MainWindow::pipeit(){
-    ui->graphicsView->setWin(this);
-    ui->graphicsView->setDopipe(true);
-    QPixmap pix(":res/curseurpipette.png");
-    QApplication::setOverrideCursor(QCursor(pix));
+    if(getCheminImage() != NULL){
+        ui->graphicsView->setWin(this);
+        ui->graphicsView->setDopipe(true);
+        QPixmap pix(":res/curseurpipette.png");
+        QApplication::setOverrideCursor(QCursor(pix));
+    }
 }
 
 void MainWindow::refresh(){
-    if(getEmptylabel()){
+    cout << "refresh" << endl;
+    if(getEmptylabel()){ //on a cliqué dans la graphicview mais en dehors de l'image: vider le label
+        cout << "vider label" << endl;
         ui->label->setText(" ");
         setEmptylabel(false);
     }else if(!ui->graphicsView->getDopipe()) //s'il ne faut plus regarder les composantes d'un pixel
     {
+        cout << "réinitialisation curseur" << endl;
         QApplication::setOverrideCursor(Qt::ArrowCursor);
 
         if(ui->graphicsView->getReadRGB()){
@@ -428,4 +439,14 @@ void MainWindow::refresh(){
             }
         }
     }
+}
+
+void MainWindow::redimensionner(){
+ if(getCheminImage() != NULL){ //image ouverte, on peut la redimensionner
+     Redimensionnement* fenetreRedim= new Redimensionnement;
+     fenetreRedim->redim(this);
+     fenetreRedim->show();
+     fenetreRedim->activateWindow();
+     fenetreRedim->exec();
+ }
 }

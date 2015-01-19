@@ -299,7 +299,7 @@
      <x>0</x>
      <y>0</y>
      <width>688</width>
-     <height>29</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFichier">
@@ -358,11 +358,18 @@
      <addaction name="actionMedian"/>
      <addaction name="actionPersonnaliser"/>
     </widget>
+    <widget class="QMenu" name="menuPipette">
+     <property name="title">
+      <string>Pipette</string>
+     </property>
+     <addaction name="actionEspace_RGB"/>
+     <addaction name="actionEspace_YUV"/>
+    </widget>
     <addaction name="actionAnnuler"/>
     <addaction name="actionRefaire_2"/>
     <addaction name="separator"/>
     <addaction name="actionNiveau_de_gris"/>
-    <addaction name="actionPipette"/>
+    <addaction name="menuPipette"/>
     <addaction name="menuFiltres"/>
     <addaction name="actionFusion"/>
     <addaction name="separator"/>
@@ -370,6 +377,7 @@
     <addaction name="actionEtalement"/>
     <addaction name="actionEgalisation"/>
     <addaction name="separator"/>
+    <addaction name="actionRedimensionner"/>
    </widget>
    <widget class="QMenu" name="menuAbout">
     <property name="title">
@@ -419,11 +427,6 @@
   <action name="actionFusion">
    <property name="text">
     <string>Fusion</string>
-   </property>
-  </action>
-  <action name="actionPipette">
-   <property name="text">
-    <string>Pipette</string>
    </property>
   </action>
   <action name="actionFlouGaussLeger">
@@ -524,6 +527,21 @@
   <action name="actionPersonnaliser">
    <property name="text">
     <string>Personnaliser...</string>
+   </property>
+  </action>
+  <action name="actionEspace_RGB">
+   <property name="text">
+    <string>Espace RGB</string>
+   </property>
+  </action>
+  <action name="actionEspace_YUV">
+   <property name="text">
+    <string>Espace YUV</string>
+   </property>
+  </action>
+  <action name="actionRedimensionner">
+   <property name="text">
+    <string>Redimensionner</string>
    </property>
   </action>
  </widget>
