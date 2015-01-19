@@ -1,8 +1,6 @@
-#include "couper.h"
+#include "coller.h"
 
-void Couper::couper(MainWindow * w, QPoint d, QPoint f){
-
-
+QGraphicsPixmapItem * Coller::coller(MainWindow * w, QPoint d, QPoint f){
 
     //calcul des bons points
     QPoint *a = new QPoint( qMin(d.x(),f.x()), qMin(d.y(),f.y()) );
@@ -23,8 +21,7 @@ void Couper::couper(MainWindow * w, QPoint d, QPoint f){
         }
     }
 
-    //QGraphicsPixmapItem coller = new QGraphicsPixmapItem( *im );
-
-    w->setImage( im, w->getCheminImage() );
+    QGraphicsPixmapItem * coller = new QGraphicsPixmapItem();
+    return coller;
 
 }
