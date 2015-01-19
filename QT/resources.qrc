@@ -13,5 +13,6 @@
         <file>res/Refaire.png</file>
         <file>res/Redimensionner.png</file>
         <file>res/Rogner.png</file>
+        <file>res/selection.jpg</file>
     </qresource>
 </RCC>

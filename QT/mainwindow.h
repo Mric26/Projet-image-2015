@@ -10,6 +10,8 @@
 #include <QColor>
 #include <string>
 #include <QShortcut>
+#include <QGraphicsItem>
+#include <QGraphicsPixmapItem>
 
 #include "convolution.h"
 #include "etalement.h"
@@ -51,6 +53,8 @@ public:
     QGraphicsPixmapItem *getImageaffichee() const;
     void setImageaffichee(QGraphicsPixmapItem *value);
 
+    void nettoyage();
+
 public slots:
     // ouv / fermeture / enregistrement
     void ouv();
@@ -62,6 +66,7 @@ public slots:
     //decoupe
     void couper();
     void rogner();
+    void coller();
     //niveau de gris
     void gris();
     //histogramme
@@ -72,6 +77,8 @@ public slots:
     void pipeit();
     void changeRGBtoYUVfalse();
     void changeRGBtoYUVtrue();
+    //Selection
+    void selection();
     //Filtres
     void flouGaussLeger();
     void flouGaussMoyen();
@@ -86,10 +93,13 @@ public slots:
     void detectionContours();
     void filtrePerso();
     void appliquerFiltrePerso(float **matrice, int tailleMatrice);
-    //quitter
-    void quit();
     void createFusion();
     void median();
+    //quitter
+    void quit();  
+    //autre
+    void pleinEcran();
+    void minimiser();
 
 private:
     Ui::MainWindow *ui;

@@ -4,6 +4,7 @@
 #include "save.h"
 #include "couper.h"
 #include "rogner.h"
+#include "coller.h"
 #include "grisconvers.h"
 #include "fusion.h"
 
@@ -96,6 +97,14 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect( ui->actionFermer, SIGNAL(triggered()), this, SLOT(quit()) );
     new QShortcut( QKeySequence("Ctrl+Q"), this, SLOT(quit()) );
 
+    new QShortcut( QKeySequence("Ctrl+V"), this, SLOT(coller()) );
+
+    new QShortcut( QKeySequence("F11"), this, SLOT(pleinEcran()) );
+    new QShortcut( QKeySequence("Ctrl+F11"), this, SLOT(minimiser()) );
+
+    ui->selection->setIcon(QIcon(":res/selection.jpg"));
+    QObject::connect( ui->selection, SIGNAL(clicked()), this, SLOT(selection()) );
+
 }
 
 MainWindow::~MainWindow(){
@@ -145,12 +154,25 @@ void MainWindow::quit(){
 }
 
 void MainWindow::ouv(){
+    nettoyage();
+    //ouverture
      Open op;
      op.ouvrir(this);
      for( int l=0; l<2; l++){
          annul[l] = NULL;
          refai[l] = NULL;
      }
+}
+
+void MainWindow::nettoyage(){
+    //nettoyage selection
+    ui->graphicsView->setSelect( false );
+    if( ui->graphicsView->getRb() != NULL ){
+        delete ui->graphicsView->getRb();
+        ui->graphicsView->setRb(NULL);
+    }
+    //nettoyage item
+    scene->clear();
 }
 
 void MainWindow::save(){
@@ -204,9 +226,34 @@ void MainWindow::rogner(){
     if( ui->graphicsView->getRb() != NULL ){
         Rogner ro;
         ro.rogner(this, ui->graphicsView->getPointD(), ui->graphicsView->getPointF());
+        delete ui->graphicsView->getRb();
+        ui->graphicsView->setRb(NULL);
+    }   
+}
+
+void MainWindow::coller(){
+    if( ui->graphicsView->getRb() != NULL ){
+        Coller co;
+        co.coller(this, ui->graphicsView->getPointD(), ui->graphicsView->getPointF() );
+        delete ui->graphicsView->getRb();
+        ui->graphicsView->setRb(NULL);
     }
-    delete ui->graphicsView->getRb();
-    ui->graphicsView->setRb(NULL);
+}
+
+void MainWindow::pleinEcran(){
+    this->showFullScreen();
+}
+
+void MainWindow::minimiser(){
+    this->showNormal();
+}
+
+void MainWindow::selection(){
+    ui->graphicsView->setSelect( !(ui->graphicsView->getSelect()) );
+    if ( !(ui->graphicsView->getSelect()) ){
+        delete ui->graphicsView->getRb();
+        ui->graphicsView->setRb(NULL);
+    }
 }
 
 void MainWindow::showHisto(){

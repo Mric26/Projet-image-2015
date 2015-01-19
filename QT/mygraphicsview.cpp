@@ -3,6 +3,7 @@
 using namespace std;
 
 MyGraphicsView::MyGraphicsView(QWidget *w):QGraphicsView(w){
+    select = false;
     rb = NULL;
     setDopipe(false);
 }
@@ -24,7 +25,7 @@ void MyGraphicsView::mousePressEvent(QMouseEvent *event){
             }
         }
      }
-    else{
+    else if( select ){
         //sinon on autorise la selection
         if( event->button() == Qt::LeftButton ){
             setPointD(event->pos());
@@ -42,6 +43,7 @@ void MyGraphicsView::mousePressEvent(QMouseEvent *event){
             if( rb != NULL){
                 delete rb;
                 rb = NULL;
+                select = false;
             }
         }
     }
@@ -54,8 +56,10 @@ void MyGraphicsView::mouseMoveEvent(QMouseEvent *event) {
 }
 
 void MyGraphicsView::mouseReleaseEvent(QMouseEvent *event){
-    setPointD( this->mapToScene( getPointD() ).toPoint() );
-    setPointF( this->mapToScene( event->pos() ).toPoint() );
+    if ( rb != NULL ){
+        setPointD( this->mapToScene( getPointD() ).toPoint() );
+        setPointF( this->mapToScene( event->pos() ).toPoint() );
+    }
 }
 
 QPoint MyGraphicsView::getPointD() const{
@@ -117,4 +121,13 @@ MainWindow *MyGraphicsView::getWin() const{
 void MyGraphicsView::setWin(MainWindow *value){
     win = value;
 }
+
+bool MyGraphicsView::getSelect() const{
+    return select;
+}
+
+void MyGraphicsView::setSelect(bool value){
+    select = value;
+}
+
 

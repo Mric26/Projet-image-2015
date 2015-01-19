@@ -2,8 +2,6 @@
 
 void Couper::couper(MainWindow * w, QPoint d, QPoint f){
 
-
-
     //calcul des bons points
     QPoint *a = new QPoint( qMin(d.x(),f.x()), qMin(d.y(),f.y()) );
     QPoint *b = new QPoint( qMax(d.x(),f.x()), qMax(d.y(),f.y()) );
@@ -14,7 +12,7 @@ void Couper::couper(MainWindow * w, QPoint d, QPoint f){
     b->setX( qMin(b->x(), w->getImage()->width()) );
     b->setY( qMin(b->y(), w->getImage()->height()) );
 
-    QImage * im = w->getImage();
+    QImage * im = new QImage( *(w->getImage()) );
 
     //decoupe de la zone
     for( int i = a->x(); i < b->x(); i++ ){
@@ -22,8 +20,6 @@ void Couper::couper(MainWindow * w, QPoint d, QPoint f){
             im->setPixel(i, j, qRgb(255, 255, 255) );
         }
     }
-
-    //QGraphicsPixmapItem coller = new QGraphicsPixmapItem( *im );
 
     w->setImage( im, w->getCheminImage() );
 

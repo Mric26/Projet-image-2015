@@ -39,6 +39,9 @@ public:
     MainWindow *getWin() const;
     void setWin(MainWindow *value);
 
+    bool getSelect() const;
+    void setSelect(bool value);
+
 private:
     QPoint pointD;
     QPoint pointF;
@@ -46,6 +49,7 @@ private:
     bool checked;
     bool dopipe;
     bool readRGB;
+    bool select;
     QPoint pos;
     MainWindow *win;
 };
