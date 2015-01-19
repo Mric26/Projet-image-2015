@@ -10,7 +10,6 @@
 class GrisConvers
 {
 public:
-    GrisConvers();
     QImage * versGris(MainWindow *w);
 };
 

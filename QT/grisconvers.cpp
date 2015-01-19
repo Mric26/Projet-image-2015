@@ -2,9 +2,6 @@
 
 using namespace std;
 
-GrisConvers::GrisConvers(){
-}
-
 QImage * GrisConvers::versGris( MainWindow * w ){
 
     QImage * i = w->getImage();

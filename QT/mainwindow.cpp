@@ -7,6 +7,7 @@
 #include "coller.h"
 #include "grisconvers.h"
 #include "fusion.h"
+#include "redimensionnement.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -15,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
     hist(),
     fPerso()
 {
+    setEmptylabel(false);
     ui->setupUi(this);
     scene = new QGraphicsScene();
     image = new QImage();
@@ -41,8 +43,9 @@ MainWindow::MainWindow(QWidget *parent) :
     new QShortcut( QKeySequence("Ctrl+R"), this, SLOT(rogner()) );
 
     ui->pipette->setIcon(QIcon(":res/pipette.jpg"));
-    QObject::connect( ui->actionPipette, SIGNAL(triggered()), this, SLOT(pipeit()) );
     QObject::connect( ui->pipette, SIGNAL(clicked()), this, SLOT(pipeit()) );
+    QObject::connect( ui->actionEspace_RGB, SIGNAL(triggered()), this, SLOT(changeRGBtoYUVtrue()));
+    QObject::connect( ui->actionEspace_YUV, SIGNAL(triggered()), this, SLOT(changeRGBtoYUVfalse()));
     new QShortcut( QKeySequence("Ctrl+P"), this, SLOT(pipeit()) );
 
     ui->histogramme->setIcon(QIcon(":res/histogramme.jpg"));
@@ -83,6 +86,9 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect( ui->actionOuvrir_2, SIGNAL(triggered()), this, SLOT(ouv()) );
     new QShortcut( QKeySequence("Ctrl+O"), this, SLOT(ouv()) );
 
+    QObject::connect( ui->actionRedimensionner, SIGNAL(triggered()), this, SLOT(redimensionner()) );
+    new QShortcut(QKeySequence("Ctrl+R"), this, SLOT(redimensionner()) );
+
     if (scene != NULL) {
         ui->graphicsView->setScene(scene);
     }
@@ -109,6 +115,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow(){
     delete ui;
+    delete image;
+    delete scene;
+    delete hist;
+    delete fPerso;
 }
 
 void MainWindow::paintEvent(QPaintEvent *){
@@ -147,6 +157,7 @@ void MainWindow::setImage(QImage *im, QString chem){
     imageaffichee = scene->addPixmap(*imagePix);
     scene->setSceneRect(0,0,image->width(),image->height());
     ui->graphicsView->show();
+
 }
 
 void MainWindow::quit(){
@@ -162,6 +173,7 @@ void MainWindow::ouv(){
          annul[l] = NULL;
          refai[l] = NULL;
      }
+
 }
 
 void MainWindow::nettoyage(){
@@ -355,44 +367,42 @@ void MainWindow::detectionContours(){
 
 void MainWindow::filtrePerso()
 {
-    fPerso = new FiltrePerso(this);
-    QObject::connect( fPerso, SIGNAL(envoyerMatrice(float**,int)), this, SLOT(appliquerFiltrePerso(float**,int)) );
+    if( cheminImage != NULL ){
+        fPerso = new FiltrePerso(this);
+        QObject::connect( fPerso, SIGNAL(envoyerMatrice(float**,int)), this, SLOT(appliquerFiltrePerso(float**,int)) );
+    }
 
 }
 
 void MainWindow::appliquerFiltrePerso(float **matrice, int tailleMatrice)
 {
-    Convolution c;
-    setImage(c.conv(image,matrice,tailleMatrice),cheminImage);
+    if( cheminImage != NULL ){
+        Convolution c;
+        setImage(c.conv(image,matrice,tailleMatrice),cheminImage);
+    }
 }
 
 void MainWindow::median()
 {
-    Convolution c;
-    setImage(c.filtreMedian(image,1),cheminImage);
+    if( cheminImage != NULL ){
+        Convolution c;
+        setImage(c.filtreMedian(image,1),cheminImage);
+    }
 }
 
-DiagramColorWindow *MainWindow::getHist() const{
-    return hist;
-}
+//DiagramColorWindow *MainWindow::getHist() const{
+//    return hist;
+//}
 
-void MainWindow::setHist(DiagramColorWindow *value){
-    hist = value;
-}
+//void MainWindow::setHist(DiagramColorWindow *value){
+//    hist = value;
+//}
 
 void MainWindow::gris(){
     if( cheminImage != NULL ){
         GrisConvers gc;
         this->setImage( gc.versGris(this), this->getCheminImage() );
     }
-}
-
-QGraphicsScene* MainWindow::getScene(){
-    return scene;
-}
-
-void MainWindow::setScene(QGraphicsScene *value){
-    scene = value;
 }
 
 QString MainWindow::getCheminImage(){
@@ -437,18 +447,23 @@ void MainWindow::setImageaffichee(QGraphicsPixmapItem *value){
 }
 
 void MainWindow::pipeit(){
-    ui->graphicsView->setWin(this);
-    ui->graphicsView->setDopipe(true);
-    QPixmap pix(":res/curseurpipette.png");
-    QApplication::setOverrideCursor(QCursor(pix));
+    if( cheminImage != NULL ){
+        ui->graphicsView->setWin(this);
+        ui->graphicsView->setDopipe(true);
+        QPixmap pix(":res/curseurpipette.png");
+        QApplication::setOverrideCursor(QCursor(pix));
+    }
 }
 
 void MainWindow::refresh(){
-    if(getEmptylabel()){
+    cout << "refresh" << endl;
+    if(getEmptylabel()){ //on a cliqué dans la graphicview mais en dehors de l'image: vider le label
+        cout << "vider label" << endl;
         ui->label->setText(" ");
         setEmptylabel(false);
     }else if(!ui->graphicsView->getDopipe()) //s'il ne faut plus regarder les composantes d'un pixel
     {
+        cout << "réinitialisation curseur" << endl;
         QApplication::setOverrideCursor(Qt::ArrowCursor);
 
         if(ui->graphicsView->getReadRGB()){
@@ -475,4 +490,14 @@ void MainWindow::refresh(){
             }
         }
     }
+}
+
+void MainWindow::redimensionner(){
+ if(getCheminImage() != NULL){ //image ouverte, on peut la redimensionner
+     Redimensionnement* fenetreRedim= new Redimensionnement;
+     fenetreRedim->redim(this);
+     fenetreRedim->show();
+     fenetreRedim->activateWindow();
+     fenetreRedim->exec();
+ }
 }

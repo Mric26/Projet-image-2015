@@ -27,7 +27,8 @@ SOURCES += main.cpp\
     contraste.cpp \
     filtreperso.cpp \
     rogner.cpp \
-    coller.cpp
+    coller.cpp \
+    redimensionnement.cpp
 
 HEADERS  += mainwindow.h \
     open.h \
@@ -43,12 +44,14 @@ HEADERS  += mainwindow.h \
     contraste.h \
     filtreperso.h \
     rogner.h \
-    coller.h
+    coller.h \
+    redimensionnement.h
 
 FORMS    += mainwindow.ui \
     diagramcolorwindow.ui \
     contraste.ui \
-    filtreperso.ui
+    filtreperso.ui \
+    redimensionnement.ui
 
 RESOURCES += \
     resources.qrc
