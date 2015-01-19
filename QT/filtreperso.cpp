@@ -179,7 +179,6 @@ void FiltrePerso::select7x7()
 
 void FiltrePerso::valider()
 {
-    std::cout << "noop" << std::endl;
     float ** matrice;
     int taille;
     if (ui->radioButton3x3->isChecked()) {
