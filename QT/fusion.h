@@ -10,7 +10,6 @@
 class Fusion :QWidget
 {
 public:
-    Fusion();
     void fusionner(MainWindow *w);
 };
 

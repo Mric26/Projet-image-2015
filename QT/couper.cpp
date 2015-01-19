@@ -2,8 +2,6 @@
 
 void Couper::couper(MainWindow * w, QPoint d, QPoint f){
 
-
-
     //calcul des bons points
     QPoint *a = new QPoint( qMin(d.x(),f.x()), qMin(d.y(),f.y()) );
     QPoint *b = new QPoint( qMax(d.x(),f.x()), qMax(d.y(),f.y()) );
@@ -22,8 +20,6 @@ void Couper::couper(MainWindow * w, QPoint d, QPoint f){
             im->setPixel(i, j, qRgb(255, 255, 255) );
         }
     }
-
-    //QGraphicsPixmapItem coller = new QGraphicsPixmapItem( *im );
 
     w->setImage( im, w->getCheminImage() );
 

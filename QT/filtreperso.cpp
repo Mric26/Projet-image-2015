@@ -7,7 +7,6 @@ FiltrePerso::FiltrePerso(QWidget *parent) :
 {
     this->setVisible(true);
 
-
     ui->setupUi(this);
      select3x3();
 
