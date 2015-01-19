@@ -12,6 +12,7 @@ class MyGraphicsView : public QGraphicsView
 {
 public:
     MyGraphicsView(QWidget * w);
+    ~MyGraphicsView();
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);

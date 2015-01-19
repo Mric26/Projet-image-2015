@@ -3,7 +3,6 @@
 #include <QImage>
 #include <QColor>
 #include <iostream>
-#include <math.h>
 
 class Convolution
 {
@@ -23,7 +22,6 @@ private:
     float **genererBinomial(int tailleVoulue);
     float **genererMoy(int tailleVoulue);
     float **appliquerFacteur(float **matrice, int taille);
-    float **conv2(QImage *image, float **matrice, int tailleMatrice);
 };
 
 #endif // CONVOLUTION_H

@@ -100,6 +100,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow(){
     delete ui;
+    delete image;
+    delete scene;
+    delete hist;
+    delete fPerso;
 }
 
 void MainWindow::paintEvent(QPaintEvent *){
@@ -138,6 +142,7 @@ void MainWindow::setImage(QImage *im, QString chem){
     imageaffichee = scene->addPixmap(*imagePix);
     scene->setSceneRect(0,0,image->width(),image->height());
     ui->graphicsView->show();
+
 }
 
 void MainWindow::quit(){
@@ -151,6 +156,7 @@ void MainWindow::ouv(){
          annul[l] = NULL;
          refai[l] = NULL;
      }
+
 }
 
 void MainWindow::save(){
@@ -308,44 +314,42 @@ void MainWindow::detectionContours(){
 
 void MainWindow::filtrePerso()
 {
-    fPerso = new FiltrePerso(this);
-    QObject::connect( fPerso, SIGNAL(envoyerMatrice(float**,int)), this, SLOT(appliquerFiltrePerso(float**,int)) );
+    if( cheminImage != NULL ){
+        fPerso = new FiltrePerso(this);
+        QObject::connect( fPerso, SIGNAL(envoyerMatrice(float**,int)), this, SLOT(appliquerFiltrePerso(float**,int)) );
+    }
 
 }
 
 void MainWindow::appliquerFiltrePerso(float **matrice, int tailleMatrice)
 {
-    Convolution c;
-    setImage(c.conv(image,matrice,tailleMatrice),cheminImage);
+    if( cheminImage != NULL ){
+        Convolution c;
+        setImage(c.conv(image,matrice,tailleMatrice),cheminImage);
+    }
 }
 
 void MainWindow::median()
 {
-    Convolution c;
-    setImage(c.filtreMedian(image,1),cheminImage);
+    if( cheminImage != NULL ){
+        Convolution c;
+        setImage(c.filtreMedian(image,1),cheminImage);
+    }
 }
 
-DiagramColorWindow *MainWindow::getHist() const{
-    return hist;
-}
+//DiagramColorWindow *MainWindow::getHist() const{
+//    return hist;
+//}
 
-void MainWindow::setHist(DiagramColorWindow *value){
-    hist = value;
-}
+//void MainWindow::setHist(DiagramColorWindow *value){
+//    hist = value;
+//}
 
 void MainWindow::gris(){
     if( cheminImage != NULL ){
         GrisConvers gc;
         this->setImage( gc.versGris(this), this->getCheminImage() );
     }
-}
-
-QGraphicsScene* MainWindow::getScene(){
-    return scene;
-}
-
-void MainWindow::setScene(QGraphicsScene *value){
-    scene = value;
 }
 
 QString MainWindow::getCheminImage(){
@@ -390,10 +394,12 @@ void MainWindow::setImageaffichee(QGraphicsPixmapItem *value){
 }
 
 void MainWindow::pipeit(){
-    ui->graphicsView->setWin(this);
-    ui->graphicsView->setDopipe(true);
-    QPixmap pix(":res/curseurpipette.png");
-    QApplication::setOverrideCursor(QCursor(pix));
+    if( cheminImage != NULL ){
+        ui->graphicsView->setWin(this);
+        ui->graphicsView->setDopipe(true);
+        QPixmap pix(":res/curseurpipette.png");
+        QApplication::setOverrideCursor(QCursor(pix));
+    }
 }
 
 void MainWindow::refresh(){

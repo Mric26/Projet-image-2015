@@ -118,3 +118,6 @@ void MyGraphicsView::setWin(MainWindow *value){
     win = value;
 }
 
+MyGraphicsView::~MyGraphicsView() {
+    delete rb;
+}

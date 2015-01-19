@@ -36,12 +36,6 @@ public:
 
     QString getCheminImage();
 
-    QGraphicsScene * getScene() ;
-    void setScene(QGraphicsScene *value);
-
-    DiagramColorWindow *getHist() const;
-    void setHist(DiagramColorWindow *value);
-
     bool getEmptylabel() const;
     void setEmptylabel(bool value);
 

@@ -2,9 +2,6 @@
 #include "contraste.h"
 #include <iostream>
 
-Fusion::Fusion(){
-}
-
 void Fusion::fusionner(MainWindow *w){
     if(w->getCheminImage() != NULL){ //une image est déjà ouverte, la fusionner avec une autre
 
