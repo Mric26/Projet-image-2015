@@ -28,7 +28,9 @@ SOURCES += main.cpp\
     filtreperso.cpp \
     rogner.cpp \
     coller.cpp \
-    redimensionnement.cpp
+    redimensionnement.cpp \
+    copier.cpp \
+    fusioncalques.cpp
 
 HEADERS  += mainwindow.h \
     open.h \
@@ -45,7 +47,9 @@ HEADERS  += mainwindow.h \
     filtreperso.h \
     rogner.h \
     coller.h \
-    redimensionnement.h
+    redimensionnement.h \
+    copier.h \
+    fusioncalques.h
 
 FORMS    += mainwindow.ui \
     diagramcolorwindow.ui \

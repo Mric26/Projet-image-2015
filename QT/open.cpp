@@ -1,6 +1,6 @@
 #include "open.h"
 
-void Open::ouvrir( MainWindow * w ) {
+int Open::ouvrir( MainWindow * w ) {
 
     //chemin
     QString chemin = QFileDialog::getOpenFileName(w,"Ouvrir un fichier");
@@ -10,6 +10,14 @@ void Open::ouvrir( MainWindow * w ) {
     bool charge = im->load(chemin);
 
     if (charge) {
+        w->nettoyage();
         w->setImage( im, chemin );
+        w->active();
+        return 1;
     }
+    else{
+        w->active();
+        return 0;
+    }
+
 }
