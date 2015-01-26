@@ -378,6 +378,7 @@
     <addaction name="actionEgalisation"/>
     <addaction name="separator"/>
     <addaction name="actionRedimensionner"/>
+    <addaction name="actionSegmentation"/>
    </widget>
    <widget class="QMenu" name="menuAbout">
     <property name="title">
@@ -542,6 +543,11 @@
   <action name="actionRedimensionner">
    <property name="text">
     <string>Redimensionner</string>
+   </property>
+  </action>
+  <action name="actionSegmentation">
+   <property name="text">
+    <string>Segmentation</string>
    </property>
   </action>
  </widget>

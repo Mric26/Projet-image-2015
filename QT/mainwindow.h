@@ -86,6 +86,8 @@ public slots:
     void median();
     //redimensionnement
     void redimensionner();
+    //segmentation
+    void segmenter();
 
 private:
     Ui::MainWindow *ui;

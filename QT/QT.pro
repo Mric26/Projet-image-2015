@@ -8,6 +8,20 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
+INCLUDEPATH = /usr/include/opencv2 \
+
+LIBS +=-lopencv_core \
+    -lopencv_imgproc \
+    -lopencv_highgui \
+    -lopencv_ml \
+    -lopencv_video \
+    -lopencv_features2d \
+    -lopencv_calib3d \
+    -lopencv_objdetect \
+    -lopencv_contrib \
+    -lopencv_legacy \
+    -lopencv_flann \
+
 TARGET = QT
 TEMPLATE = app
 
@@ -28,7 +42,8 @@ SOURCES += main.cpp\
     filtreperso.cpp \
     rogner.cpp \
     coller.cpp \
-    redimensionnement.cpp
+    redimensionnement.cpp \
+    segmentation.cpp
 
 HEADERS  += mainwindow.h \
     open.h \
@@ -45,13 +60,15 @@ HEADERS  += mainwindow.h \
     filtreperso.h \
     rogner.h \
     coller.h \
-    redimensionnement.h
+    redimensionnement.h \
+    segmentation.h
 
 FORMS    += mainwindow.ui \
     diagramcolorwindow.ui \
     contraste.ui \
     filtreperso.ui \
-    redimensionnement.ui
+    redimensionnement.ui \
+    segmentation.ui
 
 RESOURCES += \
     resources.qrc

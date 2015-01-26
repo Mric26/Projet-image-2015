@@ -5,8 +5,8 @@ MyGraphicsView::MyGraphicsView(QWidget *w):QGraphicsView(w){
     rb = NULL;
     setDopipe(false);
     setReadRGB(true);
-
 }
+
 
 void MyGraphicsView::mousePressEvent(QMouseEvent *event){
 

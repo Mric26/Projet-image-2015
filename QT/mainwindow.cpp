@@ -7,6 +7,7 @@
 #include "grisconvers.h"
 #include "fusion.h"
 #include "redimensionnement.h"
+#include "segmentation.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -72,7 +73,7 @@ MainWindow::MainWindow(QWidget *parent) :
     new QShortcut( QKeySequence("Ctrl+F"), this, SLOT(median()) );
 
     ui->fusion->setIcon(QIcon(":res/fusion.png"));
-    QObject::connect( ui->actionFusion, SIGNAL(triggered()), this, SLOT(createFusion()) );
+    QObject:graphicsView:connect( ui->actionFusion, SIGNAL(triggered()), this, SLOT(createFusion()) );
     QObject::connect( ui->fusion, SIGNAL(clicked()), this, SLOT(createFusion()) );
 
     ui->gris->setIcon(QIcon(":res/niv_gris.png"));
@@ -87,6 +88,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QObject::connect( ui->actionRedimensionner, SIGNAL(triggered()), this, SLOT(redimensionner()) );
     new QShortcut(QKeySequence("Ctrl+R"), this, SLOT(redimensionner()) );
+
+    QObject::connect( ui->actionSegmentation, SIGNAL(triggered()), this, SLOT(segmenter()) );
 
     if (scene != NULL) {
         ui->graphicsView->setScene(scene);
@@ -453,4 +456,16 @@ void MainWindow::redimensionner(){
      fenetreRedim->activateWindow();
      fenetreRedim->exec();
  }
+}
+
+void MainWindow::segmenter(){
+    if(getCheminImage() != NULL){
+        Segmentation *seg= new Segmentation;
+        seg->setWin(this);
+        seg->setImage(getImage());
+        seg->addIMG(getImage(), getCheminImage());
+        seg->show();
+        seg->activateWindow();
+        //seg->doSeg(this, ui->graphicsView->getPointD(), ui->graphicsView->getPointF());
+    }
 }
