@@ -10,12 +10,18 @@
 #include <QColor>
 #include <string>
 #include <QShortcut>
+#include <QGraphicsItem>
+#include <QGraphicsPixmapItem>
+#include <QList>
+#include <QGraphicsItem>
+#include <QVector>
 
 #include "convolution.h"
 #include "etalement.h"
 #include "egalisation.h"
 #include "diagramcolorwindow.h"
 #include "filtreperso.h"
+#include "fusioncalques.h"
 
 namespace Ui {
 class MainWindow;
@@ -45,6 +51,16 @@ public:
     QGraphicsPixmapItem *getImageaffichee() const;
     void setImageaffichee(QGraphicsPixmapItem *value);
 
+    void nettoyage();
+    void desactive();
+    void active();
+
+    QGraphicsScene *getScene() const;
+    void setScene(QGraphicsScene *value);
+
+    QImage * getcopie() const;
+    void setcopie(QImage * value);
+
 public slots:
     // ouv / fermeture / enregistrement
     void ouv();
@@ -56,6 +72,8 @@ public slots:
     //decoupe
     void couper();
     void rogner();
+    void copier();
+    void coller();
     //niveau de gris
     void gris();
     //histogramme
@@ -66,6 +84,8 @@ public slots:
     void pipeit();
     void changeRGBtoYUVfalse();
     void changeRGBtoYUVtrue();
+    //Selection
+    void selection();
     //Filtres
     void flouGaussLeger();
     void flouGaussMoyen();
@@ -80,14 +100,19 @@ public slots:
     void detectionContours();
     void filtrePerso();
     void appliquerFiltrePerso(float **matrice, int tailleMatrice);
-    //quitter
-    void quit();
     void createFusion();
     void median();
     //redimensionnement
     void redimensionner();
     //segmentation
     void segmenter();
+    //calques
+    void fusionnerCalques();
+    //quitter
+    void quit();
+    //autre
+    void pleinEcran();
+    void minimiser();
 
 private:
     Ui::MainWindow *ui;
@@ -99,8 +124,9 @@ private:
     FiltrePerso * fPerso;
     bool emptylabel;
     bool rgbORyuv;
-    QImage *annul[2];
-    QImage* refai[2];
+    QImage * annul[2];
+    QImage * refai[2];
+    QImage * copie;
 
 };
 

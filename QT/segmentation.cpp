@@ -18,6 +18,8 @@ Segmentation::Segmentation(QWidget *parent) :
 
     QObject::connect( ui->cancel, SIGNAL(clicked()), this, SLOT(cancel()) );
 
+    ui->graphicsView->setSelect(true);
+
     if (scene != NULL) {
         ui->graphicsView->setScene(scene);
     }
@@ -62,19 +64,6 @@ void Segmentation::ok(){
 
         Mat bgModel= *(new Mat());
         Mat fgModel= *(new Mat());
-
-//        for (int i = 0; i < mask.cols; ++i) {
-//            for (int j = 0; j < mask.rows; ++j) {
-//                if(mask.at<double>(i,j) == 255){
-//                    //mask.setTo(cv::GC_FGD);
-
-//                    mask.at<double>(i,j) = GC_FGD;
-//                }else{
-//                    //mask.setTo(cv::GC_PR_BGD);
-//                    mask.at<double>(i,j) = GC_PR_BGD;
-//                }
-//            }
-//        }
 
         grabCut(img,
                     mask,

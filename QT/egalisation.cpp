@@ -7,7 +7,7 @@ Egalisation::Egalisation(){
 
 QImage *Egalisation::egaler(QImage *im){
 
-    QImage * image = im;
+    QImage * image = new QImage(*im);
     int lignes = image->width();
     int colonnes = image->height();
 
@@ -46,11 +46,11 @@ QImage *Egalisation::egaler(QImage *im){
                 //calcul pourcentage de pixel plus petit que la valeur du pixel courant
                 double pourc = courbeCumul[(int)rouge - 1] / nbpixels;
                 val = 255 * pourc;
-                im->setPixel( i, j, qRgb( val, val, val) );
+                image->setPixel( i, j, qRgb( val, val, val) );
             }
         }
     }
 
-    return im;
+    return image;
 
 }

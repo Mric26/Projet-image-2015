@@ -5,10 +5,10 @@ using namespace std;
 QImage * GrisConvers::versGris( MainWindow * w ){
 
     QImage * i = w->getImage();
-    int rouge;
-    int vert;
-    int bleu;
-    uint gris;
+    float rouge;
+    float vert;
+    float bleu;
+    float gris;
     QImage * ret = new QImage( i->width(), i->height(), i->format());
     for(int j=0; j<i->width(); j++){
         for(int k=0; k<i->height(); k++){

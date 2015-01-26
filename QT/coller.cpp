@@ -1,27 +1,16 @@
 #include "coller.h"
+#include <iostream>
 
-QGraphicsPixmapItem * Coller::coller(MainWindow * w, QPoint d, QPoint f){
+void Coller::coller( MainWindow * w, QImage im ){
 
-    //calcul des bons points
-    QPoint *a = new QPoint( qMin(d.x(),f.x()), qMin(d.y(),f.y()) );
-    QPoint *b = new QPoint( qMax(d.x(),f.x()), qMax(d.y(),f.y()) );
+    //changement format
+    QPixmap * pixmap = new QPixmap( im.width(), im.height() );
+    pixmap->convertFromImage( im );
+    QGraphicsPixmapItem * coller;
 
-    //positionnement des points dans l'image
-    a->setX( qMax(a->x(), 0) );
-    a->setY( qMax(a->y(), 0) );
-    b->setX( qMin(b->x(), w->getImage()->width()) );
-    b->setY( qMin(b->y(), w->getImage()->height()) );
-
-    QImage * im = w->getImage();
-
-    //decoupe de la zone
-    for( int i = a->x(); i < b->x(); i++ ){
-        for( int j = a->y(); j < b->y(); j++ ){
-            im->setPixel(i, j, qRgb(255, 255, 255) );
-        }
-    }
-
-    QGraphicsPixmapItem * coller = new QGraphicsPixmapItem();
-    return coller;
+    coller = w->getScene()->addPixmap(*pixmap);
+    coller->setFlag(QGraphicsItem::ItemIsSelectable);
+    coller->setFlag(QGraphicsItem::ItemIsMovable);
+    coller->setFlag(QGraphicsItem::ItemIsFocusable);
 
 }

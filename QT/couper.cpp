@@ -12,7 +12,7 @@ void Couper::couper(MainWindow * w, QPoint d, QPoint f){
     b->setX( qMin(b->x(), w->getImage()->width()) );
     b->setY( qMin(b->y(), w->getImage()->height()) );
 
-    QImage * im = w->getImage();
+    QImage * im = new QImage( *(w->getImage()) );
 
     //decoupe de la zone
     for( int i = a->x(); i < b->x(); i++ ){

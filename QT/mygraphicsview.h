@@ -5,6 +5,8 @@
 #include <QMouseEvent>
 #include <QRubberBand>
 #include <iostream>
+#include <QGraphicsItem>
+#include <QRectF>
 
 #include "mainwindow.h"
 
@@ -40,6 +42,11 @@ public:
     MainWindow *getWin() const;
     void setWin(MainWindow *value);
 
+    bool getSelect() const;
+    void setSelect(bool value);
+
+    bool itemIsSelected(QGraphicsItem * q);
+
 private:
     QPoint pointD;
     QPoint pointF;
@@ -47,6 +54,7 @@ private:
     bool checked;
     bool dopipe;
     bool readRGB;
+    bool select;
     QPoint pos;
     MainWindow *win;
 };

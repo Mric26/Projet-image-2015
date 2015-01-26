@@ -2,8 +2,10 @@
 #include "ui_mainwindow.h"
 #include "open.h"
 #include "save.h"
+#include "copier.h"
 #include "couper.h"
 #include "rogner.h"
+#include "coller.h"
 #include "grisconvers.h"
 #include "fusion.h"
 #include "redimensionnement.h"
@@ -20,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     scene = new QGraphicsScene();
     image = new QImage();
+    copie = new QImage();
     imageaffichee = new QGraphicsPixmapItem();
     for( int l=0; l<2; l++){
         annul[l] = NULL;
@@ -105,6 +108,19 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect( ui->actionFermer, SIGNAL(triggered()), this, SLOT(quit()) );
     new QShortcut( QKeySequence("Ctrl+Q"), this, SLOT(quit()) );
 
+    new QShortcut( QKeySequence("Ctrl+C"), this, SLOT(copier()) );
+    new QShortcut( QKeySequence("Ctrl+V"), this, SLOT(coller()) );
+
+    new QShortcut( QKeySequence("F11"), this, SLOT(pleinEcran()) );
+    new QShortcut( QKeySequence("Ctrl+F11"), this, SLOT(minimiser()) );
+
+    ui->selection->setIcon(QIcon(":res/selection.jpg"));
+    QObject::connect( ui->selection, SIGNAL(clicked()), this, SLOT(selection()) );
+
+    QObject::connect( ui->actionFusionner, SIGNAL(triggered()), this, SLOT(fusionnerCalques()) );
+
+    desactive();
+
 }
 
 MainWindow::~MainWindow(){
@@ -159,13 +175,60 @@ void MainWindow::quit(){
 }
 
 void MainWindow::ouv(){
+    //ouverture
      Open op;
-     op.ouvrir(this);
-     for( int l=0; l<2; l++){
-         annul[l] = NULL;
-         refai[l] = NULL;
+     int o = op.ouvrir(this);
+     if( o == 1){
+         for( int l=0; l<2; l++){
+             annul[l] = NULL;
+             refai[l] = NULL;
+         }
      }
+}
 
+void MainWindow::nettoyage(){
+    //nettoyage selection
+    ui->graphicsView->setSelect( false );
+    if( ui->graphicsView->getRb() != NULL ){
+        delete ui->graphicsView->getRb();
+        ui->graphicsView->setRb(NULL);
+    }
+    //nettoyage item
+    scene->clear();
+    //remise curseur
+    ui->graphicsView->setCursor(Qt::ArrowCursor);
+}
+
+void MainWindow::desactive(){
+    if( cheminImage == NULL ){
+        ui->enregistrer->setEnabled(false);
+        ui->annuler->setEnabled(false);
+        ui->refaire->setEnabled(false);
+        ui->selection->setEnabled(false);
+        ui->couper->setEnabled(false);
+        ui->rogner->setEnabled(false);
+        ui->pipette->setEnabled(false);
+        ui->gris->setEnabled(false);
+        ui->fusion->setEnabled(false);
+        ui->flou->setEnabled(false);
+        ui->histogramme->setEnabled(false);
+    }
+}
+
+void MainWindow::active(){
+    if( cheminImage != NULL ){
+        ui->enregistrer->setEnabled(true);
+        ui->annuler->setEnabled(true);
+        ui->refaire->setEnabled(true);
+        ui->selection->setEnabled(true);
+        ui->couper->setEnabled(true);
+        ui->rogner->setEnabled(true);
+        ui->pipette->setEnabled(true);
+        ui->gris->setEnabled(true);
+        ui->fusion->setEnabled(true);
+        ui->flou->setEnabled(true);
+        ui->histogramme->setEnabled(true);
+    }
 }
 
 void MainWindow::save(){
@@ -213,15 +276,52 @@ void MainWindow::couper(){
     }
     delete ui->graphicsView->getRb();
     ui->graphicsView->setRb(NULL);
+    ui->graphicsView->setSelect( false );
 }
 
 void MainWindow::rogner(){
     if( ui->graphicsView->getRb() != NULL ){
         Rogner ro;
         ro.rogner(this, ui->graphicsView->getPointD(), ui->graphicsView->getPointF());
+        delete ui->graphicsView->getRb();
+        ui->graphicsView->setRb(NULL);
+        ui->graphicsView->setSelect( false );
     }
-    delete ui->graphicsView->getRb();
-    ui->graphicsView->setRb(NULL);
+}
+
+void MainWindow::copier(){
+    if( ui->graphicsView->getRb() != NULL ){
+        Copier cop;
+        copie = cop.copier( this, ui->graphicsView->getPointD(), ui->graphicsView->getPointF() );
+        delete ui->graphicsView->getRb();
+        ui->graphicsView->setRb(NULL);
+        ui->graphicsView->setSelect( false );
+    }
+
+}
+
+void MainWindow::coller(){
+    if( copie != NULL ){
+        Coller col;
+        col.coller(this, *copie);
+    }
+}
+
+void MainWindow::pleinEcran(){
+    this->showFullScreen();
+}
+
+void MainWindow::minimiser(){
+    this->showNormal();
+}
+
+void MainWindow::selection(){
+    ui->graphicsView->setDopipe( false );
+    ui->graphicsView->setSelect( true );
+    if ( !(ui->graphicsView->getSelect()) ){
+        delete ui->graphicsView->getRb();
+        ui->graphicsView->setRb(NULL);
+    }
 }
 
 void MainWindow::showHisto(){
@@ -321,8 +421,7 @@ void MainWindow::detectionContours(){
     }
 }
 
-void MainWindow::filtrePerso()
-{
+void MainWindow::filtrePerso(){
     if( cheminImage != NULL ){
         fPerso = new FiltrePerso(this);
         QObject::connect( fPerso, SIGNAL(envoyerMatrice(float**,int)), this, SLOT(appliquerFiltrePerso(float**,int)) );
@@ -345,14 +444,6 @@ void MainWindow::median()
         setImage(c.filtreMedian(image,1),cheminImage);
     }
 }
-
-//DiagramColorWindow *MainWindow::getHist() const{
-//    return hist;
-//}
-
-//void MainWindow::setHist(DiagramColorWindow *value){
-//    hist = value;
-//}
 
 void MainWindow::gris(){
     if( cheminImage != NULL ){
@@ -405,23 +496,18 @@ void MainWindow::setImageaffichee(QGraphicsPixmapItem *value){
 void MainWindow::pipeit(){
     if( cheminImage != NULL ){
         ui->graphicsView->setWin(this);
+        ui->graphicsView->setSelect( false );
         ui->graphicsView->setDopipe(true);
-        QPixmap pix(":res/curseurpipette.png");
-        QApplication::setOverrideCursor(QCursor(pix));
     }
 }
 
 void MainWindow::refresh(){
-    cout << "refresh" << endl;
     if(getEmptylabel()){ //on a cliqué dans la graphicview mais en dehors de l'image: vider le label
-        cout << "vider label" << endl;
         ui->label->setText(" ");
         setEmptylabel(false);
-    }else if(!ui->graphicsView->getDopipe()) //s'il ne faut plus regarder les composantes d'un pixel
-    {
-        cout << "réinitialisation curseur" << endl;
-        QApplication::setOverrideCursor(Qt::ArrowCursor);
-
+    }
+    // s'il ne faut plus regarder les composantes d'un pixel
+    else if(!ui->graphicsView->getDopipe())  {
         if(ui->graphicsView->getReadRGB()){
             if(getRgbORyuv()){ //espace RGB
                 QRgb* component = new QRgb(getImage()->pixel(ui->graphicsView->getPos()));
@@ -469,3 +555,67 @@ void MainWindow::segmenter(){
         //seg->doSeg(this, ui->graphicsView->getPointD(), ui->graphicsView->getPointF());
     }
 }
+
+void MainWindow::fusionnerCalques(){
+    FusionCalques fc;
+    //ajout des item a fusionner a la liste
+    QList<QGraphicsItem *> list = scene->selectedItems();
+    //fusion des items
+    QImage * res = NULL;
+    if( !list.isEmpty() ){
+        res = fc.fusionCalques(list, image);
+    }
+    //si nouvelle image
+    if( res != NULL ){
+        QList<QGraphicsItem *> list2;
+        QList<QPointF> list3;
+        //enleve les items
+        QGraphicsItem * it;
+        list = scene->items();
+        for( int i=0; i<list.size(); i++){
+            it = list[i];
+            if( !(it->isSelected()) && (it != imageaffichee) ){
+                list2.push_back(it);
+                list3.push_back(it->pos());
+            }
+            this->scene->removeItem(it);
+        }
+        //ajoute image
+        this->setImage( res, cheminImage );
+        //ajoute item
+        QGraphicsPixmapItem * it2;
+        QPointF pos;
+        for( int i=0; i<list2.size(); i++){
+            it = list2[i];
+            if( it->type() == 7 ){
+                //item
+                it2 = (QGraphicsPixmapItem *)it;
+                it2 = scene->addPixmap(it2->pixmap());
+                //position
+                pos = list3[i];
+                it2->setPos(pos);
+                //falgs
+                it2->setFlag(QGraphicsItem::ItemIsSelectable);
+                it2->setFlag(QGraphicsItem::ItemIsMovable);
+                it2->setFlag(QGraphicsItem::ItemIsFocusable);
+            }
+        }
+    }
+}
+
+QImage * MainWindow::getcopie() const{
+    return copie;
+}
+
+void MainWindow::setcopie(QImage * value){
+    copie = value;
+}
+
+QGraphicsScene *MainWindow::getScene() const{
+    return scene;
+}
+
+void MainWindow::setScene(QGraphicsScene *value){
+    scene = value;
+}
+

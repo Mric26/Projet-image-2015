@@ -43,7 +43,9 @@ SOURCES += main.cpp\
     rogner.cpp \
     coller.cpp \
     redimensionnement.cpp \
-    segmentation.cpp
+    segmentation.cpp \
+    copier.cpp \
+    fusioncalques.cpp
 
 HEADERS  += mainwindow.h \
     open.h \
@@ -61,7 +63,10 @@ HEADERS  += mainwindow.h \
     rogner.h \
     coller.h \
     redimensionnement.h \
-    segmentation.h
+    segmentation.h \
+    copier.h \
+    fusioncalques.h
+
 
 FORMS    += mainwindow.ui \
     diagramcolorwindow.ui \

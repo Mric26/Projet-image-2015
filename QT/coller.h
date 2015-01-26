@@ -2,12 +2,15 @@
 #define COLLER_H
 
 #include <QGraphicsPathItem>
-#include "mainwindow.h""
+#include <QImage>
+#include <QPixmap>
+
+#include "mainwindow.h"
 
 class Coller
 {
 public:
-    QGraphicsPixmapItem * coller(MainWindow * w, QPoint d, QPoint f);
+    void coller(MainWindow *w , QImage im);
 };
 
 #endif // COLLER_H
