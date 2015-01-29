@@ -5,7 +5,7 @@ Etalement::Etalement(){
 
 QImage * Etalement::etaler( QImage * im ){
 
-    QImage * image = im;
+    QImage * image = new QImage(*im);
 
     float vMinR = 255;
     float vMinV = 255;

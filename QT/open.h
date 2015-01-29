@@ -9,7 +9,7 @@
 
 class Open {
 public:
-    void ouvrir(MainWindow *w);
+    int ouvrir(MainWindow *w);
 };
 
 #endif // OPEN_H

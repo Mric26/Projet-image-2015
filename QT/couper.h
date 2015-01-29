@@ -1,7 +1,10 @@
 #ifndef COUPER_H
 #define COUPER_H
-#include "mainwindow.h"
+
 #include <QMouseEvent>
+#include <QImage>
+
+#include "mainwindow.h"
 #include "mygraphicsview.h"
 
 class Couper{

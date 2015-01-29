@@ -8,6 +8,20 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
+INCLUDEPATH = /usr/include/opencv2 \
+
+LIBS +=-lopencv_core \
+    -lopencv_imgproc \
+    -lopencv_highgui \
+    -lopencv_ml \
+    -lopencv_video \
+    -lopencv_features2d \
+    -lopencv_calib3d \
+    -lopencv_objdetect \
+    -lopencv_contrib \
+    -lopencv_legacy \
+    -lopencv_flann \
+
 TARGET = QT
 TEMPLATE = app
 
@@ -31,7 +45,10 @@ SOURCES += main.cpp\
     redimensionnement.cpp \
     fenseamcarving.cpp \
     chemin.cpp \
-    listechemins.cpp
+    listechemins.cpp \
+    segmentation.cpp \
+    copier.cpp \
+    fusioncalques.cpp
 
 HEADERS  += mainwindow.h \
     open.h \
@@ -51,14 +68,18 @@ HEADERS  += mainwindow.h \
     redimensionnement.h \
     fenseamcarving.h \
     chemin.h \
-    listechemins.h
+    listechemins.h \
+    segmentation.h \
+    copier.h \
+    fusioncalques.h
 
 FORMS    += mainwindow.ui \
     diagramcolorwindow.ui \
     contraste.ui \
     filtreperso.ui \
     redimensionnement.ui \
-    fenseamcarving.ui
+    fenseamcarving.ui \
+    segmentation.ui
 
 RESOURCES += \
     resources.qrc

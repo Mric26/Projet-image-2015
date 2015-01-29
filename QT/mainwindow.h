@@ -12,6 +12,9 @@
 #include <QShortcut>
 #include <QGraphicsItem>
 #include <QGraphicsPixmapItem>
+#include <QList>
+#include <QGraphicsItem>
+#include <QVector>
 
 #include "convolution.h"
 #include "etalement.h"
@@ -19,6 +22,7 @@
 #include "diagramcolorwindow.h"
 #include "filtreperso.h"
 #include "fenseamcarving.h"
+#include "fusioncalques.h"
 
 namespace Ui {
 class MainWindow;
@@ -49,6 +53,14 @@ public:
     void setImageaffichee(QGraphicsPixmapItem *value);
 
     void nettoyage();
+    void desactive();
+    void active();
+
+    QGraphicsScene *getScene() const;
+    void setScene(QGraphicsScene *value);
+
+    QImage * getcopie() const;
+    void setcopie(QImage * value);
 
 public slots:
     // ouv / fermeture / enregistrement
@@ -61,6 +73,7 @@ public slots:
     //decoupe
     void couper();
     void rogner();
+    void copier();
     void coller();
     //niveau de gris
     void gris();
@@ -91,8 +104,14 @@ public slots:
     void appliquerRedimIntell(QImage * im);
     void createFusion();
     void median();
+    //redimensionnement
+    void redimensionner();
+    //segmentation
+    void segmenter();
+    //calques
+    void fusionnerCalques();
     //quitter
-    void quit();  
+    void quit();
     //autre
     void pleinEcran();
     void minimiser();
@@ -111,8 +130,9 @@ private:
     FenSeamCarving *fSeamCarving;
     bool emptylabel;
     bool rgbORyuv;
-    QImage *annul[2];
-    QImage* refai[2];
+    QImage * annul[2];
+    QImage * refai[2];
+    QImage * copie;
 
 };
 
