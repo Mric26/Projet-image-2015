@@ -58,8 +58,8 @@ void Segmentation::ok(){
     if(ui->checkBox->isChecked()){ //utilisation de masques personnalisés (image servant de masque)
         QString chemin = QFileDialog::getOpenFileName(getWin(),"choisir l'image pour le masque");
 
-        Mat mask = imread(chemin.toStdString(),CV_8UC1); //masque d'avant plan
-        mask= mask & 1; //convertion en masque binaire
+        Mat mask;
+        mask.create(img.rows, img.cols, CV_8UC1);
 
         Mat bgModel;
         Mat fgModel;
@@ -67,16 +67,17 @@ void Segmentation::ok(){
         QImage * im = new QImage();
         im->load(chemin);
 
+
         for (int i = 0; i < mask.cols; ++i) {
             for (int j = 0; j < mask.rows; ++j) {
-                if( QColor(QRgb(im->pixel(i,j))).red() == 0 && QColor(QRgb(im->pixel(i,j))).green() == 0 &&QColor(QRgb(im->pixel(i,j))).blue() == 255){ //points d'avant plan (définis en bleu)
-                    mask.at<char>(i,j) = GC_FGD;
+                if( (QColor(QRgb(im->pixel(i,j))).blue() > QColor(QRgb(im->pixel(i,j))).red()) && (QColor(QRgb(im->pixel(i,j))).blue() > QColor(QRgb(im->pixel(i,j))).green()) ){ //points d'avant plan (définis en bleu)
+                    mask.at<char>(j,i) = GC_FGD;
                 }
-                if(QColor(QRgb(im->pixel(i,j))).red() == 255 && QColor(QRgb(im->pixel(i,j))).green() == 0 && QColor(QRgb(im->pixel(i,j))).blue() == 0){ //point présumé d'arrière plan (défini en rouge)
-                    mask.at<char>(i,j) = GC_BGD;
+                else if( (QColor(QRgb(im->pixel(i,j))).red() > QColor(QRgb(im->pixel(i,j))).blue()) && (QColor(QRgb(im->pixel(i,j))).red() > QColor(QRgb(im->pixel(i,j))).green()) ){ //point présumé d'arrière plan (défini en rouge)
+                    mask.at<char>(j,i) = GC_BGD;
                 }
                 else{
-
+                    mask.at<char>(j,i) = GC_PR_FGD;
                 }
             }
         }
@@ -89,9 +90,21 @@ void Segmentation::ok(){
                     1,
                     GC_INIT_WITH_MASK);
 
+
+        //traitement du masque en sortie de grabcut
+        for (int i = 0; i < mask.cols; ++i) {
+            for (int j = 0; j < mask.rows; ++j) {
+                if( (mask.at<char>(j,i) == 1) || (mask.at<char>(j,i) == 3) ){
+                    mask.at<char>(j,i) = 1;
+                }
+                else{
+                    mask.at<char>(j,i) = 0;
+                }
+            }
+        }
+
         //Visualisation des résultats
-        compare(mask,cv::GC_FGD,mask,cv::CMP_EQ); //le résultat est-il bien un avant-plan
-        Mat foreground(img.size(),CV_8UC3, cv::Scalar(0,0,0)); // génération de l'image de sortie
+        Mat foreground(img.size(),CV_8UC3, Scalar(0,0,0)); // génération de l'image de sortie
         img.copyTo(foreground,mask); //les éléments non nuls de 'mask' donnent les points de 'img' à copier dans 'foregroung'
         imshow("avant plan",foreground); //affichage
 
