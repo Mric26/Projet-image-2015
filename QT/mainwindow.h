@@ -104,8 +104,6 @@ public slots:
     void appliquerRedimIntell(QImage * im);
     void createFusion();
     void median();
-    //redimensionnement
-    void redimensionner();
     //segmentation
     void segmenter();
     //calques

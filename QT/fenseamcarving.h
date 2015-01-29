@@ -7,7 +7,6 @@
 #include <QPoint>
 #include "chemin.h"
 #include "listechemins.h"
-#include "apercuchemins.h"
 #include "grisconvers.h"
 
 namespace Ui {

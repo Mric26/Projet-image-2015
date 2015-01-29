@@ -200,7 +200,7 @@ void FenSeamCarving::detect(int nb) {
     }
 
     if (nb > image->width()) {
-        QImage * imageAgrandie = new QImage(nb,image->height(), image->format());
+        QImage * imageAgrandie = new QImage(image->width()+CheminsTrouves,image->height(), image->format());
         for (int i = 0; i < masque.height(); ++i) {
             int x = 0;
             for (int j = 0; j < masque.width(); ++j) {
