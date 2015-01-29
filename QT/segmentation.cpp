@@ -32,8 +32,6 @@ Segmentation::~Segmentation()
 }
 
 void Segmentation::addIMG(QImage *im, QString cheminIMG){
-//    QImage * im = new QImage();
-//    im->load(chIMG);
     cheminImage = cheminIMG;
 
     if (im->format() <= QImage::Format_Indexed8) {
@@ -59,11 +57,29 @@ void Segmentation::ok(){
 
     if(ui->checkBox->isChecked()){ //utilisation de masques personnalisés (image servant de masque)
         QString chemin = QFileDialog::getOpenFileName(getWin(),"choisir l'image pour le masque");
+
         Mat mask = imread(chemin.toStdString(),CV_8UC1); //masque d'avant plan
         mask= mask & 1; //convertion en masque binaire
 
-        Mat bgModel= *(new Mat());
-        Mat fgModel= *(new Mat());
+        Mat bgModel;
+        Mat fgModel;
+
+        QImage * im = new QImage();
+        im->load(chemin);
+
+        for (int i = 0; i < mask.cols; ++i) {
+            for (int j = 0; j < mask.rows; ++j) {
+                if( QColor(QRgb(im->pixel(i,j))).red() == 0 && QColor(QRgb(im->pixel(i,j))).green() == 0 &&QColor(QRgb(im->pixel(i,j))).blue() == 255){ //points d'avant plan (définis en bleu)
+                    mask.at<char>(i,j) = GC_FGD;
+                }
+                if(QColor(QRgb(im->pixel(i,j))).red() == 255 && QColor(QRgb(im->pixel(i,j))).green() == 0 && QColor(QRgb(im->pixel(i,j))).blue() == 0){ //point présumé d'arrière plan (défini en rouge)
+                    mask.at<char>(i,j) = GC_BGD;
+                }
+                else{
+
+                }
+            }
+        }
 
         grabCut(img,
                     mask,
@@ -73,18 +89,16 @@ void Segmentation::ok(){
                     1,
                     GC_INIT_WITH_MASK);
 
-        //Visualize results.
-        compare(mask,cv::GC_FGD,mask,cv::CMP_EQ);
-        Mat foreground(img.size(),CV_8UC3, cv::Scalar(0,0,0));
+        //Visualisation des résultats
+        compare(mask,cv::GC_FGD,mask,cv::CMP_EQ); //le résultat est-il bien un avant-plan
+        Mat foreground(img.size(),CV_8UC3, cv::Scalar(0,0,0)); // génération de l'image de sortie
         img.copyTo(foreground,mask); //les éléments non nuls de 'mask' donnent les points de 'img' à copier dans 'foregroung'
-        imshow("avant plan",foreground);
-        imshow("masque", mask);
+        imshow("avant plan",foreground); //affichage
 
         close();
     }else{ //utilisation uniquement du rectangle définit par l'utilisateur
-        Mat bgModel;// = *(new Mat());
-        Mat fgModel;// = *(new Mat());
-
+        Mat bgModel;
+        Mat fgModel;
 
         grabCut(img,
                 result,
@@ -94,14 +108,9 @@ void Segmentation::ok(){
                 1,
                 GC_INIT_WITH_RECT);
 
-        //le résultat est-il bien un avant-plan
         compare(result,GC_PR_FGD,result,CMP_EQ);
-
-        // génération de l'image de sortie
         Mat foreground(img.size(),CV_8UC3,Scalar(0,0,0));
-        img.copyTo(foreground,result); // bg pixels not copied
-
-        // affichage
+        img.copyTo(foreground,result);
         imshow("avant plan",foreground);
 
         close();
@@ -112,6 +121,7 @@ void Segmentation::ok(){
 void Segmentation::cancel(){
     close();
 }
+
 QImage *Segmentation::getImage() const
 {
     return image;
@@ -131,16 +141,3 @@ void Segmentation::setWin(MainWindow *value)
 {
     win = value;
 }
-
-
-//void Segmentation::mousePressEvent(QMouseEvent *event){
-//    if(event->button() == Qt::RightButton){ //ajouter un nuage de point au masque d'arrière plan
-//        for (int i = event->pos().x()-5; i < event->pos().x()+5; ++i) {
-//            for (int j = event->pos().y()-5; j < event->pos().y()+5; ++j) {
-//                image->setPixel(i,j,qRgb(255,255,255));
-//            }
-//        }
-//    }
-//    useMask = true;
-//    std::cout << "usemask? " << useMask << std::endl;
-//}
