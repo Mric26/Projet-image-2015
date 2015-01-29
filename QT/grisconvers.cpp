@@ -2,9 +2,8 @@
 
 using namespace std;
 
-QImage * GrisConvers::versGris( MainWindow * w ){
+QImage * GrisConvers::versGris( QImage * i ){
 
-    QImage * i = w->getImage();
     float rouge;
     float vert;
     float bleu;

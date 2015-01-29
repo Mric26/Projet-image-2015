@@ -3,6 +3,7 @@
 #include <QImage>
 #include <QColor>
 #include <iostream>
+#include "grisconvers.h"
 
 class Convolution
 {
@@ -12,9 +13,9 @@ public:
     QImage *flouMoy(QImage *image, int tailleMatriceMoy);
     QImage *filtrePasseHaut(QImage *image);
     QImage *filtreRehaussement(QImage *image);
-    QImage *detectionContours(QImage *image);
-    QImage *gradientX(QImage *image);
-    QImage *gradientY(QImage *image);
+    QImage *detectionContours(QImage *image, float alpha);
+    QImage *gradientX(QImage *image, float alpha);
+    QImage *gradientY(QImage *image, float alpha);
     QImage *filtreMedian(QImage *image,int tailleVoisinage);
 
 private:

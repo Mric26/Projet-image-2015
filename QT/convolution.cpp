@@ -127,12 +127,12 @@ QImage *Convolution::filtreRehaussement(QImage *image){
     return conv(image,rehauss,3);
 }
 
-QImage *Convolution::detectionContours(QImage *image)
+QImage *Convolution::detectionContours(QImage *image, float alpha)
 {
 
     QImage *res = new QImage(image->width(),image->height(),image->format());
-    QImage * sobelX = gradientX(image);
-    QImage * sobelY = gradientY(image);
+    QImage * sobelX = gradientX(image,alpha);
+    QImage * sobelY = gradientY(image,alpha);
 
     for (int i = 0; i < image->width(); ++i) {
         for (int j = 0; j < image->height(); ++j) {
@@ -168,7 +168,8 @@ QImage *Convolution::detectionContours(QImage *image)
     return res;
 }
 
-QImage *Convolution::gradientX(QImage *image){
+QImage *Convolution::gradientX(QImage *image, float alpha){
+    GrisConvers g;
     float **sobelX;
     sobelX = new float *[3];
 
@@ -176,20 +177,21 @@ QImage *Convolution::gradientX(QImage *image){
         sobelX[i] = new float[3];
     }
 
-    sobelX[0][0] = 1.0/4.0;
-    sobelX[0][1] = 0.0/4.0;
-    sobelX[0][2] = -1.0/4.0;
-    sobelX[1][0] = 2.0/4.0;
-    sobelX[1][1] = 0.0/4.0;
-    sobelX[1][2] = -2.0/4.0;
-    sobelX[2][0] = 1.0/4.0;
-    sobelX[2][1] = 0.0/4.0;
-    sobelX[2][2] = -1.0/4.0;
+    sobelX[0][0] = 1.0/alpha;
+    sobelX[0][1] = 0.0/alpha;
+    sobelX[0][2] = -1.0/alpha;
+    sobelX[1][0] = 2.0/alpha;
+    sobelX[1][1] = 0.0/alpha;
+    sobelX[1][2] = -2.0/alpha;
+    sobelX[2][0] = 1.0/alpha;
+    sobelX[2][1] = 0.0/alpha;
+    sobelX[2][2] = -1.0/alpha;
 
-    return conv(image,sobelX,3);
+    return g.versGris(conv(image,sobelX,3));
 }
 
-QImage *Convolution::gradientY(QImage *image){
+QImage *Convolution::gradientY(QImage *image, float alpha){
+    GrisConvers g;
     float **sobelY;
     sobelY = new float *[3];
 
@@ -197,17 +199,17 @@ QImage *Convolution::gradientY(QImage *image){
         sobelY[i] = new float[3];
     }
 
-    sobelY[0][0] = 1.0/4.0 ;
-    sobelY[0][1] = 2.0/4.0 ;
-    sobelY[0][2] = 1.0/4.0 ;
-    sobelY[1][0] = 0.0/4.0 ;
-    sobelY[1][1] = 0.0/4.0 ;
-    sobelY[1][2] = 0.0/4.0 ;
-    sobelY[2][0] = -1.0/4.0 ;
-    sobelY[2][1] = -2.0/4.0 ;
-    sobelY[2][2] = -1.0/4.0 ;
+    sobelY[0][0] = 1.0/alpha ;
+    sobelY[0][1] = 2.0/alpha ;
+    sobelY[0][2] = 1.0/alpha ;
+    sobelY[1][0] = 0.0/alpha ;
+    sobelY[1][1] = 0.0/alpha ;
+    sobelY[1][2] = 0.0/alpha ;
+    sobelY[2][0] = -1.0/alpha ;
+    sobelY[2][1] = -2.0/alpha ;
+    sobelY[2][2] = -1.0/alpha ;
 
-    return conv(image,sobelY,3);
+    return g.versGris(conv(image,sobelY,3));
 }
 
 QImage *Convolution::filtreMedian(QImage *image, int tailleVoisinage){  

@@ -18,6 +18,7 @@
 #include "egalisation.h"
 #include "diagramcolorwindow.h"
 #include "filtreperso.h"
+#include "fenseamcarving.h"
 
 namespace Ui {
 class MainWindow;
@@ -87,6 +88,7 @@ public slots:
     void detectionContours();
     void filtrePerso();
     void appliquerFiltrePerso(float **matrice, int tailleMatrice);
+    void appliquerRedimIntell(QImage * im);
     void createFusion();
     void median();
     //quitter
@@ -96,6 +98,7 @@ public slots:
     void minimiser();
     //redimensionnement
     void redimensionner();
+    void redimensionnementIntelligent();
 
 private:
     Ui::MainWindow *ui;
@@ -105,6 +108,7 @@ private:
     QGraphicsPixmapItem *imageaffichee;
     DiagramColorWindow * hist;
     FiltrePerso * fPerso;
+    FenSeamCarving *fSeamCarving;
     bool emptylabel;
     bool rgbORyuv;
     QImage *annul[2];

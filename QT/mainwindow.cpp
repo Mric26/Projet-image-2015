@@ -14,7 +14,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow),
     cheminImage(),
     hist(),
-    fPerso()
+    fPerso(),
+    fSeamCarving()
 {
     setEmptylabel(false);
     ui->setupUi(this);
@@ -88,6 +89,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QObject::connect( ui->actionRedimensionner, SIGNAL(triggered()), this, SLOT(redimensionner()) );
     new QShortcut(QKeySequence("Ctrl+R"), this, SLOT(redimensionner()) );
+
+    QObject::connect( ui->actionRedimensionnement_intelligent, SIGNAL(triggered()), this, SLOT(redimensionnementIntelligent()) );
 
     if (scene != NULL) {
         ui->graphicsView->setScene(scene);
@@ -347,21 +350,21 @@ void MainWindow::rehaussement(){
 void MainWindow::gradientX(){
     if( cheminImage != NULL ){
         Convolution c;
-        setImage(c.gradientX(image),cheminImage);
+        setImage(c.gradientX(image,4.0),cheminImage);
     }
 }
 
 void MainWindow::gradientY(){
     if( cheminImage != NULL ){
         Convolution c;
-        setImage(c.gradientY(image),cheminImage);
+        setImage(c.gradientY(image,4.0),cheminImage);
     }
 }
 
 void MainWindow::detectionContours(){
     if( cheminImage != NULL ){
         Convolution c;
-        setImage(c.detectionContours(image),cheminImage);
+        setImage(c.detectionContours(image,2.0),cheminImage);
     }
 }
 
@@ -379,6 +382,13 @@ void MainWindow::appliquerFiltrePerso(float **matrice, int tailleMatrice)
     if( cheminImage != NULL ){
         Convolution c;
         setImage(c.conv(image,matrice,tailleMatrice),cheminImage);
+    }
+}
+
+void MainWindow::appliquerRedimIntell(QImage *im)
+{
+    if( cheminImage != NULL ){
+        setImage(im,cheminImage);
     }
 }
 
@@ -401,7 +411,7 @@ void MainWindow::median()
 void MainWindow::gris(){
     if( cheminImage != NULL ){
         GrisConvers gc;
-        this->setImage( gc.versGris(this), this->getCheminImage() );
+        this->setImage( gc.versGris(image), this->getCheminImage() );
     }
 }
 
@@ -500,4 +510,12 @@ void MainWindow::redimensionner(){
      fenetreRedim->activateWindow();
      fenetreRedim->exec();
  }
+}
+
+void MainWindow::redimensionnementIntelligent()
+{
+    fSeamCarving = new FenSeamCarving(image);
+    QObject::connect( fSeamCarving, SIGNAL(envoyerImage(QImage*)), this, SLOT(appliquerRedimIntell(QImage*)) );
+
+
 }

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>688</width>
-    <height>472</height>
+    <height>539</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -306,7 +306,7 @@
      <x>0</x>
      <y>0</y>
      <width>688</width>
-     <height>20</height>
+     <height>29</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFichier">
@@ -385,6 +385,7 @@
     <addaction name="actionEgalisation"/>
     <addaction name="separator"/>
     <addaction name="actionRedimensionner"/>
+    <addaction name="actionRedimensionnement_intelligent"/>
    </widget>
    <widget class="QMenu" name="menuAbout">
     <property name="title">
@@ -549,6 +550,11 @@
   <action name="actionRedimensionner">
    <property name="text">
     <string>Redimensionner</string>
+   </property>
+  </action>
+  <action name="actionRedimensionnement_intelligent">
+   <property name="text">
+    <string>Redimensionnement intelligent</string>
    </property>
   </action>
  </widget>

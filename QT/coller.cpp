@@ -25,7 +25,7 @@ void Coller::coller(MainWindow * w, QPoint d, QPoint f){
     pixmap->convertFromImage( *im );
     QGraphicsPixmapItem * coller = new QGraphicsPixmapItem( *pixmap );
 
-    w->getScene()->addItem(coller);
+//    w->getScene()->addItem(coller);
     coller->setFlag(QGraphicsItem::ItemIsSelectable);
     coller->setFlag(QGraphicsItem::ItemIsMovable);
     coller->setFlag(QGraphicsItem::ItemIsFocusable);

@@ -1,7 +1,7 @@
 #ifndef GRISCONVERS_H
 #define GRISCONVERS_H
 
-#include "mainwindow.h"
+
 
 #include <QImage>
 #include <QRgb>
@@ -10,7 +10,7 @@
 class GrisConvers
 {
 public:
-    QImage * versGris(MainWindow *w);
+    QImage * versGris(QImage *i);
 };
 
 #endif // GRISCONVERS_H

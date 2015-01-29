@@ -28,7 +28,10 @@ SOURCES += main.cpp\
     filtreperso.cpp \
     rogner.cpp \
     coller.cpp \
-    redimensionnement.cpp
+    redimensionnement.cpp \
+    fenseamcarving.cpp \
+    chemin.cpp \
+    listechemins.cpp
 
 HEADERS  += mainwindow.h \
     open.h \
@@ -45,13 +48,17 @@ HEADERS  += mainwindow.h \
     filtreperso.h \
     rogner.h \
     coller.h \
-    redimensionnement.h
+    redimensionnement.h \
+    fenseamcarving.h \
+    chemin.h \
+    listechemins.h
 
 FORMS    += mainwindow.ui \
     diagramcolorwindow.ui \
     contraste.ui \
     filtreperso.ui \
-    redimensionnement.ui
+    redimensionnement.ui \
+    fenseamcarving.ui
 
 RESOURCES += \
     resources.qrc
